@@ -2,10 +2,11 @@
 
 import 'package:ecommerce/src/View/Forms/login_page.dart';
 import 'package:ecommerce/src/View/Forms/main_page.dart';
-import 'package:ecommerce/src/constant/color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../exceptions/signup_email_password_failure.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -62,10 +63,16 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  void login(String email, password) async {
+  Future<bool> login(String email, password) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
-    } catch (firebaseAuthException) {}
+      return true;
+    } 
+   on FirebaseAuthException catch  (e) {
+
+      print (LogInWithEmailAndPasswordFailure.code(e.code).message);
+      return false;
+}
   }
 
   Future<void> logout() async => await auth.signOut();

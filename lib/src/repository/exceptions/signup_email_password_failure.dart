@@ -1,29 +1,29 @@
 class LogInWithEmailAndPasswordFailure {
-  final String message;
-  const LogInWithEmailAndPasswordFailure(
-      [this.message = "An uknown errorr occurred"]);
+   String message;
+   LogInWithEmailAndPasswordFailure(this.message);
 
   factory LogInWithEmailAndPasswordFailure.code(String code) {
     switch (code) {
-      case 'weak-password':
-        return const LogInWithEmailAndPasswordFailure(
-            'Please enter a stronger password.');
+      case 'wrong-password':
+        return  LogInWithEmailAndPasswordFailure(
+            'You have entered an invalid email or password');
       case 'invalid-email':
-        return const LogInWithEmailAndPasswordFailure(
-            'Email is not valid or badly formatted. ');
-
+        return  LogInWithEmailAndPasswordFailure(
+            'You have entered an invalid email or password');
       case 'email-already-in-case':
-        return const LogInWithEmailAndPasswordFailure(
+        return  LogInWithEmailAndPasswordFailure(
             'Please enter a stronger password.');
       case 'operation-not-allowed':
-        return const LogInWithEmailAndPasswordFailure(
+        return  LogInWithEmailAndPasswordFailure(
             'Email is not valid or badly formatted. ');
       case 'user-disabled':
-        return const LogInWithEmailAndPasswordFailure(
-            'Email is not valid or badly formatted. ');
-
+        return LogInWithEmailAndPasswordFailure(
+            'User Disabled');
+      case 'user-not-found':
+        return LogInWithEmailAndPasswordFailure(
+           'User Not Found');
       default:
-        return const LogInWithEmailAndPasswordFailure();
+        return LogInWithEmailAndPasswordFailure('You have entered an invalid email or password');
     }
   }
 }

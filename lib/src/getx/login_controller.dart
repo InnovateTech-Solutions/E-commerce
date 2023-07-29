@@ -1,7 +1,5 @@
 import 'package:ecommerce/src/constant/color.dart';
 import 'package:ecommerce/src/repository/authentication/authentication_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -32,19 +30,22 @@ class LoginController extends GetxController {
   }
 
   Future onLogin() async {
-    if (formkey.currentState!.validate()) {
-      signIn();
-      Get.snackbar("Success", "Login successful",
+    if (formkey.currentState!.validate() ) {
+      Future<bool> code = AuthenticationRepository().login(email.text.trim(), password.text.trim());
+      if(await code){
+        Get.snackbar("Success", "Login Successful",
           snackPosition: SnackPosition.BOTTOM,
           colorText: ColorConstants.mainScaffoldBackgroundColor,
           backgroundColor: ColorConstants.snakbarColorsuccessful);
-      return;
-    } else {
-      Get.snackbar("Error", "Login unsuccessful",
+      }
+      else{
+        Get.snackbar("ERROR", "EMAIL OR PASSWORD IS INVALID",
           snackPosition: SnackPosition.BOTTOM,
           colorText: ColorConstants.mainScaffoldBackgroundColor,
           backgroundColor: ColorConstants.snakbarColorError);
-    }
+      }
+      return;
+    } 
   }
 
   void successMassage() {
