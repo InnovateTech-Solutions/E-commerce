@@ -1,5 +1,5 @@
 import 'package:ecommerce/src/constant/color.dart' as color_constants;
-import 'package:ecommerce/src/widget/login_widget.dart';
+import 'package:ecommerce/src/widget/pages_wide/login_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor:
             color_constants.ColorConstants.mainScaffoldBackgroundColor,
-        body: const Center(
+        body: const SingleChildScrollView(
           child: Column(
             children: [
               LoginWidget(),

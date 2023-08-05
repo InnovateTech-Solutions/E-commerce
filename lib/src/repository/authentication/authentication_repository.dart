@@ -2,7 +2,7 @@
 
 import 'package:ecommerce/src/View/Forms/login_page.dart';
 import 'package:ecommerce/src/View/Forms/main_page.dart';
-import 'package:ecommerce/src/constant/color.dart';
+import 'package:ecommerce/src/repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,7 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
-  final auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
   GoogleSignIn googleSign = GoogleSignIn();
 
@@ -19,9 +19,9 @@ class AuthenticationRepository extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    firebaseUser = Rx<User?>(auth.currentUser);
+    firebaseUser = Rx<User?>(_auth.currentUser);
     googleSignInAccount = Rx<GoogleSignInAccount?>(googleSign.currentUser);
-    firebaseUser.bindStream(auth.userChanges());
+    firebaseUser.bindStream(_auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
     googleSignInAccount.bindStream(googleSign.onCurrentUserChanged);
     ever(googleSignInAccount, _setScreenGoogle);
@@ -49,7 +49,7 @@ class AuthenticationRepository extends GetxController {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
-        await auth
+        await _auth
             .signInWithCredential(credential)
             .catchError((onError) => print(onError));
       }
@@ -62,11 +62,23 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  void login(String email, password) async {
+  Future<void> sendEmailVerification() async {
     try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
-    } catch (firebaseAuthException) {}
+      await _auth.currentUser?.sendEmailVerification();
+    } catch (firebaseAuthException) {
+      print(firebaseAuthException);
+    }
   }
 
-  Future<void> logout() async => await auth.signOut();
+  Future<bool> login(String email, password) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      print(LogInWithEmailAndPasswordFailure.code(e.code).message);
+      return false;
+    }
+  }
+
+  Future<void> logout() async => await _auth.signOut();
 }
