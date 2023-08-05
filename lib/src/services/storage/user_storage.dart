@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Storage extends GetxController {
+class UserService extends GetxController {
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
@@ -27,5 +29,26 @@ class Storage extends GetxController {
     });
 
     return result;
+  }
+
+   Future<void> passwordReset(context, email) async {
+    try{
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+       showDialog(context: context, builder: (context){
+        return  const AlertDialog(
+          content: Text('Password reset link sent! Check your email'),
+            );
+          }
+          );
+    } on FirebaseAuthException catch (e){
+
+      showDialog(context: context, builder: (context){
+        return AlertDialog(
+          content: Text(e.message.toString()),
+        );
+      }
+      );
+    }
+
   }
 }

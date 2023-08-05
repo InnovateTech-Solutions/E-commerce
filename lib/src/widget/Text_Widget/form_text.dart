@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../View/Forms/forgot_password_screen.dart';
+
 loginMainText() {
   return Center(
     child: Text("LOGIN",
@@ -14,7 +16,7 @@ loginMainText() {
   );
 }
 
-textfiledLabel(String title) {
+textFieldLabel(String title) {
   return Text(title,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
@@ -23,9 +25,14 @@ textfiledLabel(String title) {
               color: ColorConstants.mainTextColor)));
 }
 
-forgetPaawordText() {
+forgetPasswordText(context) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ForgotPwScreen() ),
+                           );
+    },
     child: Text(
       "Forgot Password?",
       textAlign: TextAlign.end,

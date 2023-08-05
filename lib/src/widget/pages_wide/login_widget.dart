@@ -10,12 +10,26 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../getx/login_Controller.dart';
 
-class LoginWidget extends StatelessWidget {
+class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
 
   @override
+  State<LoginWidget> createState() => _LoginWidgetState();
+}
+
+class _LoginWidgetState extends State<LoginWidget> {
+   final controller = Get.put(LoginController());
+
+
+   @override
+  void dispose() {
+     super.dispose();
+     controller.dispose();
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginController());
 
     return Form(
       key: controller.formkey,
@@ -36,7 +50,7 @@ class LoginWidget extends StatelessWidget {
             SizedBox(
               height: AppConst.medium.h,
             ),
-            textfiledLabel(AppConst.email),
+            textFieldLabel(AppConst.email),
             FormWidget(
                 login: Login(
                     controller: controller.email,
@@ -50,7 +64,7 @@ class LoginWidget extends StatelessWidget {
             SizedBox(
               height: AppConst.medium.h,
             ),
-            textfiledLabel(AppConst.password),
+            textFieldLabel(AppConst.password),
             FormWidget(
                 login: Login(
                     controller: controller.password,
@@ -62,7 +76,7 @@ class LoginWidget extends StatelessWidget {
                     type: TextInputType.visiblePassword,
                     onChange: null,
                     inputFormat: null)),
-            forgetPaawordText(),
+            forgetPasswordText(context),
             SizedBox(
               height: AppConst.medium.h,
             ),
