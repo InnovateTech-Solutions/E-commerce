@@ -42,6 +42,8 @@ dependencies:
   google_sign_in: ^6.1.4
   google_fonts: ^5.1.0
   firebase_storage: ^11.2.5
+  cloud_firestore: ^4.8.4
+  flutter_multi_formatter: ^2.11.7
 
 dev_dependencies:
   flutter_test:

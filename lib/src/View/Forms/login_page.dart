@@ -1,15 +1,10 @@
 import 'package:ecommerce/src/constant/color.dart' as color_constants;
-import 'package:ecommerce/src/widget/pages_wide/login_widget.dart';
+import 'package:ecommerce/src/widget/pages_widget/Forms_widgets/login_widget.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

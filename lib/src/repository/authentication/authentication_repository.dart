@@ -1,7 +1,8 @@
-// ignore_for_file: invalid_return_type_for_catch_error
+// ignore_for_file: invalid_return_type_for_catch_error, avoid_print
 
-import 'package:ecommerce/src/View/Forms/login_page.dart';
 import 'package:ecommerce/src/View/Forms/main_page.dart';
+import 'package:ecommerce/src/View/start_pages/intro_page.dart';
+import 'package:ecommerce/src/constant/color.dart';
 import 'package:ecommerce/src/repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -28,15 +29,39 @@ class AuthenticationRepository extends GetxController {
   }
 
   _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(const LoginPage())
-        : Get.offAll(const IntroPage());
+    user == null ? Get.offAll(const IntroPage()) : Get.offAll(const Testpage());
   }
 
   _setScreenGoogle(GoogleSignInAccount? googleSignInAccount) {
     googleSignInAccount == null
-        ? Get.offAll(const LoginPage())
-        : Get.offAll(const IntroPage());
+        ? Get.offAll(const IntroPage())
+        : Get.offAll(const Testpage());
+  }
+
+  Future<void> createUserWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      firebaseUser.value != null
+          ? Get.offAll(() => const IntroPage())
+          : Get.to(() => const Testpage());
+    } on FirebaseException catch (e) {
+      final ex = SignUpWithEmailAndPasswordfailure.code(e.code);
+      Get.snackbar("FILED", ex.message.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: ColorConstants.mainScaffoldBackgroundColor,
+          backgroundColor: ColorConstants.snakbarColorError);
+
+      throw ex;
+    } catch (_) {
+      const ex = SignUpWithEmailAndPasswordfailure();
+      Get.snackbar("EXCEPTION", ex.message.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: ColorConstants.mainScaffoldBackgroundColor,
+          backgroundColor: ColorConstants.snakbarColorError);
+      throw ex;
+    }
   }
 
   void signInWithGoogle() async {
@@ -49,6 +74,7 @@ class AuthenticationRepository extends GetxController {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
+        // ignore: duplicate_ignore
         await _auth
             .signInWithCredential(credential)
             .catchError((onError) => print(onError));

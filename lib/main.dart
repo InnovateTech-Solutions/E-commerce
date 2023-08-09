@@ -1,5 +1,5 @@
 import 'package:ecommerce/firebase_options.dart';
-import 'package:ecommerce/src/View/Forms/login_page.dart';
+import 'package:ecommerce/src/View/start_pages/intro_page.dart';
 import 'package:ecommerce/src/constant/color.dart';
 import 'package:ecommerce/src/repository/authentication/authentication_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
               primaryColor: ColorConstants.mainScaffoldBackgroundColor),
-          home: const LoginPage(),
+          home: const IntroPage(),
         );
       },
     );

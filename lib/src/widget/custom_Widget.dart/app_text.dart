@@ -28,7 +28,6 @@ class AppText extends StatelessWidget {
         fontWeight: fontWeight,
         letterSpacing: 1.0.h,
         color: color,
-        
       ),
     );
   }

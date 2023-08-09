@@ -5,9 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../View/Forms/forgot_password_screen.dart';
 
-loginMainText() {
+mainText(String title) {
   return Center(
-    child: Text("LOGIN",
+    child: Text(title,
         style: GoogleFonts.poppins(
             textStyle: TextStyle(
                 fontSize: 24.sp,
@@ -28,10 +28,10 @@ textFieldLabel(String title) {
 forgetPasswordText(context) {
   return GestureDetector(
     onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ForgotPwScreen() ),
-                           );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ForgotPwScreen()),
+      );
     },
     child: Text(
       "Forgot Password?",

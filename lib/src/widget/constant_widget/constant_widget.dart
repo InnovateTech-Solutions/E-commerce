@@ -27,16 +27,28 @@ dontHaveAccountRow() {
                   fontWeight: FontWeight.normal,
                   color: ColorConstants.mainTextColor)),
         ),
-        Text(
-          "Create one",
-          textAlign: TextAlign.center,
-          style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.normal,
-                  color: ColorConstants.mainTextColor)),
+        GestureDetector(
+          child: Text(
+            "Create one",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                    decoration: TextDecoration.underline,
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.normal,
+                    color: ColorConstants.mainTextColor)),
+          ),
         )
       ],
     ),
+  );
+}
+
+Container divder(double width, double left, double right) {
+  return Container(
+    height: 3.h,
+    width: width,
+    color: ColorConstants.secondaryScaffoldBacground,
+    margin: EdgeInsets.only(right: right, left: left),
   );
 }

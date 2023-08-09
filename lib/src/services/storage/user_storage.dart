@@ -1,10 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserService extends GetxController {
@@ -24,31 +22,10 @@ class UserService extends GetxController {
   Future<firebase_storage.ListResult> listFiles() async {
     firebase_storage.ListResult result = await storage.ref('').listAll();
 
-    result.items.forEach((firebase_storage.Reference reference) {
+    for (var reference in result.items) {
       print(" Found file $reference");
-    });
-
-    return result;
-  }
-
-   Future<void> passwordReset(context, email) async {
-    try{
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-       showDialog(context: context, builder: (context){
-        return  const AlertDialog(
-          content: Text('Password reset link sent! Check your email'),
-            );
-          }
-          );
-    } on FirebaseAuthException catch (e){
-
-      showDialog(context: context, builder: (context){
-        return AlertDialog(
-          content: Text(e.message.toString()),
-        );
-      }
-      );
     }
 
+    return result;
   }
 }
