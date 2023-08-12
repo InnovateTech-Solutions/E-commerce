@@ -11,4 +11,5 @@ class AppConst {
   static String password = "Password";
   static String username = "User Name";
   static String phoneNumber = "Phone Number";
+  static String verificationOTP = "VERIFICATION CODE";
 }

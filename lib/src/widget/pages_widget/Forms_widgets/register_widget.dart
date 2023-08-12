@@ -89,11 +89,20 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 height: AppConst.smallSize.h,
               ),
               ButtonWidget(
-                  onTap: () => controller.createUser(UserModel(
-                      email: controller.email.text.trim(),
-                      name: controller.userName.text.trim(),
-                      password: controller.password.text.trim(),
-                      phone: controller.phoneNumber.text.trim())),
+                  onTap: () {
+                    if ((controller.fromkey.currentState!.validate())) {
+                      controller.createUser(
+                        UserModel(
+                            email: controller.email.text.trim(),
+                            name: controller.userName.text.trim(),
+                            password: controller.password.text.trim(),
+                            phone: controller.phoneNumber.text.trim()),
+                      );
+
+                      controller.registerUser(controller.email.text,
+                          controller.password.text.trim());
+                    }
+                  },
                   tilte: AppConst.signUp)
             ],
           ),

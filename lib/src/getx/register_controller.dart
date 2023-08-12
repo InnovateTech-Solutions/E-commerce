@@ -62,7 +62,6 @@ class RegisterController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           colorText: ColorConstants.mainScaffoldBackgroundColor,
           backgroundColor: ColorConstants.snakbarColorsuccessful);
-
       return;
     } else {
       Get.snackbar("ERROR", "Email or Password is invild",
