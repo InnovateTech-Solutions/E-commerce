@@ -70,4 +70,8 @@ class RegisterController extends GetxController {
           backgroundColor: ColorConstants.snakbarColorError);
     }
   }
+
+  void phoneAuthentication(String phoneNO) {
+    AuthenticationRepository.instance.phoneAuthentication(phoneNO);
+  }
 }

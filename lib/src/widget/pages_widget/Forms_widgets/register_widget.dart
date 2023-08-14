@@ -1,7 +1,7 @@
+import 'package:ecommerce/src/View/Forms/otp_page.dart';
 import 'package:ecommerce/src/constant/app_const.dart';
 import 'package:ecommerce/src/getx/register_controller.dart';
 import 'package:ecommerce/src/model/login_model.dart';
-import 'package:ecommerce/src/model/user_model.dart';
 import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
 import 'package:ecommerce/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:ecommerce/src/widget/custom_Widget.dart/form_widget.dart';
@@ -82,7 +82,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       icon: const Icon(Icons.phone),
                       invisible: false,
                       validator: (email) => controller.vaildPhoneNumber(email),
-                      type: TextInputType.phone,
+                      type: TextInputType.number,
                       onChange: null,
                       inputFormat: null)),
               SizedBox(
@@ -91,7 +91,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               ButtonWidget(
                   onTap: () {
                     if ((controller.fromkey.currentState!.validate())) {
-                      controller.createUser(
+                      /*controller.createUser(
                         UserModel(
                             email: controller.email.text.trim(),
                             name: controller.userName.text.trim(),
@@ -100,7 +100,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       );
 
                       controller.registerUser(controller.email.text,
-                          controller.password.text.trim());
+                          controller.password.text.trim());*/
+
+                      RegisterController.instance.phoneAuthentication(
+                          controller.phoneNumber.text.trim());
+                      Get.to(const OTPScreen());
                     }
                   },
                   tilte: AppConst.signUp)

@@ -16,7 +16,7 @@ class AuthenticationRepository extends GetxController {
   GoogleSignIn googleSign = GoogleSignIn();
 
   late Rx<GoogleSignInAccount?> googleSignInAccount;
-
+  var verificationID = ''.obs;
   @override
   void onReady() {
     super.onReady();
@@ -104,6 +104,35 @@ class AuthenticationRepository extends GetxController {
       print(LogInWithEmailAndPasswordFailure.code(e.code).message);
       return false;
     }
+  }
+
+  Future<void> phoneAuthentication(String phoneNo) async {
+    await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNo,
+        verificationCompleted: (credential) async {
+          await _auth.signInWithCredential(credential);
+        },
+        verificationFailed: (e) {
+          if (e.code == 'invalid-phone-number') {
+            Get.snackbar('Error', 'The provided phone number is not valid');
+          } else {
+            Get.snackbar('Error', 'The provided phone number is not valid');
+          }
+        },
+        codeSent: ((verificationId, forceResendingToken) {
+          verificationID.value = verificationId;
+        }),
+        codeAutoRetrievalTimeout: ((verificationId) {
+          verificationID.value = verificationId;
+        }));
+  }
+
+  Future<bool> verifyOTP(String otp) async {
+    var credentails = await _auth.signInWithCredential(
+        PhoneAuthProvider.credential(
+            verificationId: verificationID.value, smsCode: otp));
+
+    return credentails.user != null ? true : false;
   }
 
   Future<void> logout() async => await _auth.signOut();
