@@ -9,7 +9,7 @@ class OTPScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-      body: Center(
+      body: const Center(
         child: OTPWidget(),
       ),
     );
