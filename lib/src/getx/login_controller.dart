@@ -8,6 +8,7 @@ class LoginController extends GetxController {
   final formkey = GlobalKey<FormState>();
   final email = TextEditingController();
   final password = TextEditingController();
+  final username = TextEditingController();
 
   validateEmail(String? email) {
     if (GetUtils.isEmail(email!)) {

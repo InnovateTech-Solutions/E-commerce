@@ -1,4 +1,4 @@
-import 'package:ecommerce/src/widget/pages_wide/login_widget.dart';
+import 'package:ecommerce/src/widget/pages_wide/Forms_widgets/login_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant/color.dart';

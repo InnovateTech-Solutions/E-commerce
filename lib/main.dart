@@ -1,6 +1,7 @@
 import 'package:ecommerce/firebase_options.dart';
 import 'package:ecommerce/src/View/Forms/login_page.dart';
 import 'package:ecommerce/src/constant/color.dart';
+import 'package:ecommerce/src/constant/local_strings.dart';
 import 'package:ecommerce/src/repository/authentication/authentication_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return GetMaterialApp(
+          translations: LocalStrings(),
+          locale: Locale('en', 'US'),
           title: 'E-commerce',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

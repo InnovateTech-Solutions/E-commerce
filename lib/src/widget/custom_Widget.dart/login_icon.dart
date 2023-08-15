@@ -1,12 +1,17 @@
+import 'package:ecommerce/src/constant/color.dart';
 import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constant/app_const.dart';
-import '../Text_Widget/form_text.dart';
+import '../../repository/authentication/authentication_repository.dart';
 
 class LoginIcon extends StatelessWidget {
-  const LoginIcon({super.key});
+  LoginIcon({super.key});
+  final controller = Get.put(AuthenticationRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,12 @@ class LoginIcon extends StatelessWidget {
         Row(
           children: [
             divder(150.w, 0.w, 20.w),
-            thirdText("OR"),
+            Text("OR",
+                style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.normal,
+                        color: ColorConstants.mainTextColor))),
             divder(150.w, 20.w, 0.w)
           ],
         ),
@@ -27,12 +37,23 @@ class LoginIcon extends StatelessWidget {
             SizedBox(
               width: 120.w,
             ),
-            loginIcons("assets/Google.svg", "destinationRoute"),
-            SizedBox(width: AppConst.largerSize),
-            loginIcons("assets/Apple.svg", "destinationRoute")
+            loginIcons("assets/Google.svg", controller.signInWithGoogle),
+            SizedBox(width: AppConst.largeSize.w),
+            SvgPicture.asset("assets/Apple.svg"),
           ],
         )
       ],
+    );
+  }
+
+  InkWell loginIcons(String title, Function()? onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: SvgPicture.asset(
+        title,
+        width: 50.w,
+        height: 30.h,
+      ),
     );
   }
 }

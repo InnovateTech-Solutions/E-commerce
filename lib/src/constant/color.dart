@@ -9,4 +9,5 @@ class ColorConstants {
   static Color mainTextColor = const Color(0xff020953);
   static Color subTextColor = const Color(0xffC91416);
   static Color buttonColor = const Color(0xffEC6453);
+  static Color geyTextColor = const Color(0xffD9D5D0);
 }

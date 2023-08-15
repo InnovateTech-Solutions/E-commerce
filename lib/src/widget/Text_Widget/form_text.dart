@@ -1,21 +1,24 @@
 import 'package:ecommerce/src/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-FirstText(String title) {
+import '../../View/Forms/forhet_password_screen.dart';
+
+mainText(String title) {
   return Center(
-    child: Text(title,
+    child: Text(title.tr,
         style: GoogleFonts.poppins(
             textStyle: TextStyle(
-                fontSize: 24.sp,
+                fontSize: 28.sp,
                 fontWeight: FontWeight.w400,
                 color: ColorConstants.mainTextColor))),
   );
 }
 
-secText(String title) {
-  return Text(title,
+textFieldLabel(String title) {
+  return Text(title.tr,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
               fontSize: 20.sp,
@@ -23,18 +26,36 @@ secText(String title) {
               color: ColorConstants.mainTextColor)));
 }
 
-thirdText(String title) {
-  return Text(title,
+blueText(String title) {
+  return Text(title.tr,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
-              fontSize: 10.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.normal,
               color: ColorConstants.mainTextColor)));
 }
 
-forgetPaawordText() {
+greyText(String title) {
+  return Text(title.tr,
+      style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.normal,
+              color: ColorConstants.geyTextColor)));
+}
+
+TextButton textButton(Function()? onTap, String title) {
+  return TextButton(onPressed: onTap, child: greyText(title));
+}
+
+forgetPasswordText(context) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ForgotPwScreen()),
+      );
+    },
     child: Text(
       "Forgot Password?",
       textAlign: TextAlign.end,

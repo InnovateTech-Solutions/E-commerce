@@ -10,15 +10,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../getx/login_Controller.dart';
+import '../../../getx/login_Controller.dart';
 
-class LoginWidget extends StatelessWidget {
+class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(LoginController());
+  State<LoginWidget> createState() => _LoginWidgetState();
+}
 
+class _LoginWidgetState extends State<LoginWidget> {
+  final controller = Get.put(LoginController());
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Form(
@@ -35,12 +46,12 @@ class LoginWidget extends StatelessWidget {
                   width: 114.w,
                   height: 57.h,
                 ),
-                divder(30.w, 30.w, 30.w),
-                FirstText("Login"),
+                constDivider(),
+                mainText(AppConst.login),
                 SizedBox(
                   height: AppConst.medium.h,
                 ),
-                secText(AppConst.email),
+                textFieldLabel(AppConst.email),
                 FormWidget(
                     login: Login(
                         controller: controller.email,
@@ -54,7 +65,7 @@ class LoginWidget extends StatelessWidget {
                 SizedBox(
                   height: AppConst.medium.h,
                 ),
-                secText(AppConst.password),
+                textFieldLabel(AppConst.password),
                 FormWidget(
                     login: Login(
                         controller: controller.password,
@@ -66,12 +77,13 @@ class LoginWidget extends StatelessWidget {
                         type: TextInputType.visiblePassword,
                         onChange: null,
                         inputFormat: null)),
-                forgetPaawordText(),
+                forgetPasswordText(context),
                 SizedBox(
                   height: AppConst.medium.h,
                 ),
-                ButtonWidget(onTap: () => controller.onLogin(), tilte: "Login"),
-                dontHaveAccountRow()
+                ButtonWidget(
+                    onTap: () => controller.onLogin(), tilte: AppConst.login),
+                dontHaveAccountRow(),
               ],
             ),
           ),
