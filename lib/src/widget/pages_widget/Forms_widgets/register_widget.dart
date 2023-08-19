@@ -1,4 +1,3 @@
-import 'package:ecommerce/src/View/Forms/otp_page.dart';
 import 'package:ecommerce/src/constant/app_const.dart';
 import 'package:ecommerce/src/getx/register_controller.dart';
 import 'package:ecommerce/src/model/login_model.dart';
