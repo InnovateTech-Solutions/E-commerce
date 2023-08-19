@@ -15,7 +15,7 @@ class Testpage extends StatelessWidget {
         children: [
           Center(
             child: ElevatedButton(
-                onPressed: () => Get.to(UpdateProfile()),
+                onPressed: () => Get.to(const UpdateProfile()),
                 child: const Text('log out')),
           ),
           ElevatedButton(

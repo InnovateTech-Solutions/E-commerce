@@ -1,4 +1,3 @@
-import 'package:ecommerce/src/View/Forms/otp_page.dart';
 import 'package:ecommerce/src/constant/app_const.dart';
 import 'package:ecommerce/src/getx/register_controller.dart';
 import 'package:ecommerce/src/model/login_model.dart';
@@ -91,12 +90,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               ),
               ButtonWidget(
                   onTap: () {
-                      controller.onSignup(  UserModel(
-                            email: controller.email.text.trim(),
-                            name: controller.userName.text.trim(),
-                            password: controller.password.text.trim(),
-                            phone: controller.phoneNumber.text.trim())
-                      );
+                    controller.onSignup(UserModel(
+                        email: controller.email.text.trim(),
+                        name: controller.userName.text.trim(),
+                        password: controller.password.text.trim(),
+                        phone: controller.phoneNumber.text.trim()));
                   },
                   tilte: AppConst.signUp)
             ],
