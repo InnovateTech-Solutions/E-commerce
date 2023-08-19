@@ -40,30 +40,21 @@ class AuthenticationRepository extends GetxController {
         : Get.offAll(const Testpage());
   }
 
-  Future<void> createUserWithEmailAndPassword(
+  Future<bool> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser.value != null
-          ? Get.offAll(() => const IntroPage())
-          : Get.to(() => const Testpage());
+          return true;
     } on FirebaseException catch (e) {
-      final ex = SignUpWithEmailAndPasswordfailure.code(e.code);
-      Get.snackbar("FILED", ex.message.toString(),
+      
+      print(e.message);
+          Get.snackbar("ERROR ", "${e.message}",
           snackPosition: SnackPosition.BOTTOM,
           colorText: ColorConstants.mainScaffoldBackgroundColor,
           backgroundColor: ColorConstants.snakbarColorError);
-
-      throw ex;
-    } catch (_) {
-      const ex = SignUpWithEmailAndPasswordfailure();
-      Get.snackbar("EXCEPTION", ex.message.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: ColorConstants.mainScaffoldBackgroundColor,
-          backgroundColor: ColorConstants.snakbarColorError);
-      throw ex;
-    }
+      return false;
+    } 
   }
 
   void signInWithGoogle() async {
