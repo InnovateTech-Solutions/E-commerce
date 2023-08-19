@@ -13,6 +13,7 @@ class AuthenticationRepository extends GetxController {
 
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
+
   GoogleSignIn googleSign = GoogleSignIn();
 
   late Rx<GoogleSignInAccount?> googleSignInAccount;
@@ -21,6 +22,7 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     super.onReady();
     firebaseUser = Rx<User?>(_auth.currentUser);
+
     googleSignInAccount = Rx<GoogleSignInAccount?>(googleSign.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
