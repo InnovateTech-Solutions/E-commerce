@@ -1,27 +1,25 @@
-import 'package:ecommerce/src/View/setting/edit_page.dart';
-import 'package:ecommerce/src/View/setting/setting_page.dart';
-import 'package:ecommerce/src/constant/app_const.dart';
 import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
 import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
+import 'package:ecommerce/src/widget/pages_wide/sitting/deleteaccount_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../constant/app_const.dart';
 import '../../../model/profile_model.dart';
-import '../../../repository/authentication/authentication_repository.dart';
 import '../../../repository/user_repository/user_repository.dart';
 
-class ProfileWidget extends StatelessWidget {
+class SettingWidget extends StatelessWidget {
   final controller = Get.put(UserRepository());
 
-  ProfileWidget({super.key});
+  SettingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<Profile> profile = [
+    List<Profile> setting = [
       Profile(
-          title: 'My Appointments',
+          title: 'Customer Support',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
             matchTextDirection: true,
@@ -30,7 +28,25 @@ class ProfileWidget extends StatelessWidget {
           ),
           onTap: () {}),
       Profile(
-          title: 'Payment Method',
+          title: 'Language',
+          icon: SvgPicture.asset(
+            'assets/arrow.svg',
+            matchTextDirection: true,
+            width: 15.w,
+            height: 15.h,
+          ),
+          onTap: () => buildDialog(context)),
+      Profile(
+          title: 'Delete my account',
+          icon: SvgPicture.asset(
+            'assets/arrow.svg',
+            matchTextDirection: true,
+            width: 15.w,
+            height: 15.h,
+          ),
+          onTap: () => Get.to(DeleteUserAccountWidget())),
+      Profile(
+          title: 'About',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
             matchTextDirection: true,
@@ -38,66 +54,44 @@ class ProfileWidget extends StatelessWidget {
             height: 15.h,
           ),
           onTap: () {}),
-      Profile(
-          title: 'Setting',
-          icon: SvgPicture.asset(
-            'assets/arrow.svg',
-            matchTextDirection: true,
-            width: 15.w,
-            height: 15.h,
-          ),
-          onTap: () => Get.to(const SettingPage())),
-      Profile(
-        title: 'Logout',
-        icon: SvgPicture.asset(
-          'assets/arrow.svg',
-          matchTextDirection: true,
-          width: 15.w,
-          height: 15.h,
-        ),
-        onTap: () => AuthenticationRepository().logout(),
-      ),
     ];
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Column(
               children: [
-                SvgPicture.asset(
-                  "assets/Profilepic.svg",
-                  width: 100.w,
-                  height: 100.h,
-                ),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: mainText("Setting")),
+                divder(150, 0, 0),
                 SizedBox(
-                  height: AppConst.smallSize,
+                  height: AppConst.largeSize,
                 ),
-                blueText("username"),
-                SizedBox(
-                  height: AppConst.smallSize,
+                Row(
+                  children: [
+                    SizedBox(
+                      width: AppConst.smallSize,
+                    ),
+                    textFieldLabel("Notifications"),
+                    const Spacer(),
+                    switchButton(true),
+                  ],
                 ),
-                divder(115.w, 0, 0),
-                Center(
-                    child: textButton(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditProfilePage()));
-                }, "View Profile")),
               ],
             ),
           ),
           Expanded(
-              flex: 5,
+              flex: 6,
               child: SizedBox(
                 height: double.infinity,
                 width: double.infinity,
                 child: ListView.separated(
-                  itemCount: profile.length,
+                  itemCount: setting.length,
                   itemBuilder: ((context, index) {
-                    return profileWidget(profile[index]);
+                    return profileWidget(setting[index]);
                   }),
                   separatorBuilder: (BuildContext context, int index) {
                     return SizedBox(

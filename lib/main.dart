@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           translations: LocalStrings(),
-          locale: Locale('en', 'US'),
+          locale: const Locale('en', 'US'),
           title: 'E-commerce',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

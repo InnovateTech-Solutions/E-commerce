@@ -3,7 +3,7 @@ import 'package:ecommerce/src/widget/pages_wide/sitting/edit_widget.dart';
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatelessWidget {
-  EditProfilePage({super.key});
+  const EditProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ class AppConst {
   //size const
   static double smallSize = 15;
   static double medium = 35;
-  static double largeSize = 45;
+  static double largeSize = 50;
   // String const
   static String login = "LOGIN";
   static String signUp = "SIGN UP";

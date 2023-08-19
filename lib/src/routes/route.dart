@@ -4,28 +4,36 @@ import 'package:ecommerce/src/View/setting/edit_page.dart';
 import 'package:ecommerce/src/View/setting/profile_page.dart';
 import 'package:get/get.dart';
 
+class Routes {
+  static String LoginPage = '/LoginPage';
+  static String RegisterPage = '/RegisterPage';
+  static String ProfilePage = '/ProfilePage';
+  static String screen4 = '/screen4';
+  static String screen5 = '/screen5';
+}
+
 appRoutes() => [
       GetPage(
-        name: '/LoginPage',
+        name: Routes.LoginPage,
         page: () => const LoginPage(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),
       GetPage(
-        name: '/RegisterPage',
+        name: Routes.RegisterPage,
         page: () => const RegisterPage(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),
       GetPage(
-        name: '/Profilepage',
+        name: Routes.ProfilePage,
         page: () => const ProfilePage(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),
       GetPage(
         name: '/EditProfilePage',
-        page: () => EditProfilePage(),
+        page: () => const EditProfilePage(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),

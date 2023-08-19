@@ -12,10 +12,10 @@ import '../../../repository/authentication/authentication_repository.dart';
 import '../../custom_Widget.dart/button_widget.dart';
 import '../../custom_Widget.dart/form_widget.dart';
 
-class DeleteUserAccount extends StatelessWidget {
-  DeleteUserAccount({super.key});
+class DeleteUserAccountWidget extends StatelessWidget {
+  DeleteUserAccountWidget({super.key});
   final logincontroller = Get.put(LoginController());
-  final Autuhcontroller = Get.put(AuthenticationRepository());
+  final autuhcontroller = Get.put(AuthenticationRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class DeleteUserAccount extends StatelessWidget {
             ),
             ButtonWidget(
               onTap: () {
-                Autuhcontroller.deleteUserAccount(
+                autuhcontroller.deleteUserAccount(
                     logincontroller.email.text, logincontroller.password.text);
               },
               tilte: 'Delete account',

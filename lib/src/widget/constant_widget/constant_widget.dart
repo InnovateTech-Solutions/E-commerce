@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../model/profile_model.dart';
 import '../Text_Widget/form_text.dart';
 
 constDivider() {
@@ -54,6 +55,30 @@ Container divder(double width, double left, double right) {
     width: width,
     color: ColorConstants.secondaryScaffoldBacground,
     margin: EdgeInsets.only(right: right, left: left),
+  );
+}
+
+switchButton(bool light) {
+  return Switch(
+    value: light,
+    activeColor: Colors.red,
+    onChanged: (bool value) {},
+  );
+}
+
+profileWidget(Profile profile) {
+  return InkWell(
+    onTap: profile.onTap,
+    child: Row(
+      children: [
+        SizedBox(
+          width: 10.w,
+        ),
+        textFieldLabel(profile.title),
+        const Spacer(),
+        profile.icon,
+      ],
+    ),
   );
 }
 

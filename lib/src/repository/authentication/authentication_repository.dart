@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/src/View/Forms/login_page.dart';
-import 'package:ecommerce/src/View/setting/sitting_page.dart';
+import 'package:ecommerce/src/View/setting/profile_page.dart';
 import 'package:ecommerce/src/getx/register_controller.dart';
 import 'package:ecommerce/src/model/user_model.dart';
 import 'package:ecommerce/src/repository/exceptions/signup_email_password_failure.dart';
@@ -34,13 +34,13 @@ class AuthenticationRepository extends GetxController {
   _setInitialScreen(User? user) {
     user == null
         ? Get.offAll(const LoginPage())
-        : Get.offAll(const SittingPage());
+        : Get.offAll(const ProfilePage());
   }
 
   _setScreenGoogle(GoogleSignInAccount? googleSignInAccount) {
     googleSignInAccount == null
         ? Get.offAll(const LoginPage())
-        : Get.offAll(const SittingPage());
+        : Get.offAll(const ProfilePage());
   }
 
   void signInWithGoogle() async {

@@ -16,7 +16,7 @@ class LocalStrings extends Translations {
           'confirm password': 'confirm password',
           'signup': 'signup',
           'already have an account?': 'already have an account?',
-          'Notification': 'Notification',
+          'Notifications': 'Notifications',
           'Customer Support': 'Customer Support',
           'Delete my Account': 'Delete my Account',
           'About': 'About',
@@ -37,15 +37,15 @@ class LocalStrings extends Translations {
           'signup': 'اشتراك',
           'My Appointments': 'المواعيد الخاصة بي',
           'Payment Method': 'طريقة الدفع',
-          'Sitting': 'الاعدادات',
+          'Setting': 'الاعدادات',
           'Language': 'لغة',
           'Logout': 'تسجيل خروج',
-          'Notification': 'إشعار',
+          'Notifications': 'إشعار',
           'Customer Support': 'دعم العملاء',
           'Delete my account': 'حذف حسابي',
           'About': 'معلومات عنا',
           'Delete account': 'حذف الحساب',
-          'View rofile': 'الصفحة الشخصية'
+          'View Profile': 'الصفحة الشخصية'
         }
       };
 }

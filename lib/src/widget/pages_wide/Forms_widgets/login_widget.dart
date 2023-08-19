@@ -1,5 +1,6 @@
 import 'package:ecommerce/src/constant/app_const.dart';
 import 'package:ecommerce/src/model/login_model.dart';
+import 'package:ecommerce/src/repository/user_repository/user_repository.dart';
 import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
 import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
 import 'package:ecommerce/src/widget/custom_Widget.dart/button_widget.dart';
@@ -21,6 +22,10 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   final controller = Get.put(LoginController());
+  final controllerr = Get.put(UserRepository());
+  void clear() {
+    controller.password.clear();
+  }
 
   @override
   void dispose() {
@@ -82,7 +87,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                   height: AppConst.medium.h,
                 ),
                 ButtonWidget(
-                    onTap: () => controller.onLogin(), tilte: AppConst.login),
+                    onTap: () {
+                      controller.onLogin();
+                      clear();
+                      print(
+                          controllerr.getUserDetails('modtech7677@gmail.com'));
+                    },
+                    tilte: AppConst.login),
                 dontHaveAccountRow(),
               ],
             ),
