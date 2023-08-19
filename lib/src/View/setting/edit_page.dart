@@ -1,5 +1,5 @@
 import 'package:ecommerce/src/constant/color.dart';
-import 'package:ecommerce/src/widget/pages_wide/sitting/edit_widget.dart';
+import 'package:ecommerce/src/widget/pages_wide/setting/edit_widget.dart';
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatelessWidget {

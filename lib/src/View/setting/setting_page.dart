@@ -1,4 +1,4 @@
-import 'package:ecommerce/src/widget/pages_wide/sitting/setting_widget.dart';
+import 'package:ecommerce/src/widget/pages_wide/setting/setting_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant/color.dart';

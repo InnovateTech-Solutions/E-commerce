@@ -1,6 +1,6 @@
 import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
 import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
-import 'package:ecommerce/src/widget/pages_wide/sitting/deleteaccount_widget.dart';
+import 'package:ecommerce/src/widget/pages_wide/setting/deleteaccount_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
