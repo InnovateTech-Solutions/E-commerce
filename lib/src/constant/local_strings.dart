@@ -31,7 +31,7 @@ class LocalStrings extends Translations {
           'don’t have account?': 'ليس لديك حساب؟',
           'Create one': 'قم بإنشاء واحد',
           'Username': 'اسم المستخدم',
-          'Phone number': 'رقم التليفون',
+          'Phone number': 'رقم الهاتف',
           'Date of birth': 'تاريخ الميلاد',
           'confirm password': 'تأكيد كلمة المرور',
           'signup': 'اشتراك',

@@ -1,5 +1,3 @@
-// ignore_for_file: invalid_return_type_for_catch_error
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/src/View/Forms/login_page.dart';
 import 'package:ecommerce/src/View/setting/profile_page.dart';
@@ -105,8 +103,6 @@ class AuthenticationRepository extends GetxController {
           EmailAuthProvider.credential(email: email, password: password);
 
       await user.reauthenticateWithCredential(credential);
-
-      // Delete the user document with the given email
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('User')
           .where("Email", isEqualTo: email)

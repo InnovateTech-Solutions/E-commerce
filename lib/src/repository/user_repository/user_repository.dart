@@ -42,6 +42,10 @@ class UserRepository extends GetxController {
     await _db.collection("User").doc(user.id).update(user.tojason());
   }
 
+  void addImage(String imageUrl) {
+    FirebaseFirestore.instance.collection("User").add({'imageUrl': imageUrl});
+  }
+
   void pickUpImage() async {
     XFile? file = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -54,10 +58,11 @@ class UserRepository extends GetxController {
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirImage = referenceRoot.child("images");
 
-    Reference referenceImageToUpload = referenceDirImage.child("lllll");
+    Reference referenceImageToUpload = referenceDirImage.child(file.path);
     try {
       await referenceImageToUpload.putFile(File(file!.path));
       imageUrl = await referenceImageToUpload.getDownloadURL();
+      addImage(imageUrl);
     } catch (error) {}
   }
 }
