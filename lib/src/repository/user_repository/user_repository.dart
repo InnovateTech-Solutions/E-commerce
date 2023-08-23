@@ -17,6 +17,7 @@ class UserRepository extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             colorText: ColorConstants.mainScaffoldBackgroundColor,
             backgroundColor: ColorConstants.snakbarColorsuccessful))
+        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stackTrace) {
       Get.snackbar(error.toString(), "Something went wrong , try agin",
           snackPosition: SnackPosition.BOTTOM,
