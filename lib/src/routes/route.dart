@@ -1,5 +1,3 @@
-import 'package:ecommerce/src/View/Forms/login_page.dart';
-import 'package:ecommerce/src/View/Forms/register_page.dart';
 import 'package:ecommerce/src/View/setting/edit_page.dart';
 import 'package:ecommerce/src/View/setting/profile_page.dart';
 import 'package:get/get.dart';
