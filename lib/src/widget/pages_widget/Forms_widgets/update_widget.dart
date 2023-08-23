@@ -100,7 +100,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                     icon: const Icon(Icons.lock),
                                     invisible: true,
                                     validator: (password) =>
-                                        validator.vaildateUserName(password),
+                                        validator.vaildatePassword(password),
                                     type: TextInputType.text,
                                     onChange: null,
                                     inputFormat: [])),
