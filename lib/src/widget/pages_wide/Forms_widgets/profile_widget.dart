@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../model/profile_model.dart';
+import '../../../model/button_model.dart';
 import '../../../repository/authentication/authentication_repository.dart';
 import '../../../repository/user_repository/user_repository.dart';
 
@@ -19,8 +19,8 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Profile> profile = [
-      Profile(
+    List<Button> profile = [
+      Button(
           title: 'My Appointments',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
@@ -29,7 +29,7 @@ class ProfileWidget extends StatelessWidget {
             height: 15.h,
           ),
           onTap: () {}),
-      Profile(
+      Button(
           title: 'Payment Method',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
@@ -38,7 +38,7 @@ class ProfileWidget extends StatelessWidget {
             height: 15.h,
           ),
           onTap: () {}),
-      Profile(
+      Button(
           title: 'Setting',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
@@ -47,7 +47,7 @@ class ProfileWidget extends StatelessWidget {
             height: 15.h,
           ),
           onTap: () => Get.to(const SettingPage())),
-      Profile(
+      Button(
         title: 'Logout',
         icon: SvgPicture.asset(
           'assets/arrow.svg',

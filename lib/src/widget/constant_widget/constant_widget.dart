@@ -1,3 +1,4 @@
+import 'package:ecommerce/src/constant/app_const.dart';
 import 'package:ecommerce/src/constant/color.dart';
 import 'package:ecommerce/src/constant/lang_list.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../model/profile_model.dart';
+import '../../model/button_model.dart';
 import '../Text_Widget/form_text.dart';
 
 constDivider() {
@@ -66,7 +67,7 @@ switchButton(bool light) {
   );
 }
 
-profileWidget(Profile profile) {
+profileWidget(Button profile) {
   return InkWell(
     onTap: profile.onTap,
     child: Row(
@@ -77,6 +78,21 @@ profileWidget(Profile profile) {
         textFieldLabel(profile.title),
         const Spacer(),
         profile.icon,
+      ],
+    ),
+  );
+}
+
+drawerWidget(Button drawer) {
+  return InkWell(
+    onTap: drawer.onTap,
+    child: Row(
+      children: [
+        drawer.icon,
+        SizedBox(
+          width: AppConst.medium,
+        ),
+        textFieldLabel(drawer.title)
       ],
     ),
   );

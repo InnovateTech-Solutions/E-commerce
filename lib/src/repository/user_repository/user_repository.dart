@@ -63,6 +63,7 @@ class UserRepository extends GetxController {
       await referenceImageToUpload.putFile(File(file!.path));
       imageUrl = await referenceImageToUpload.getDownloadURL();
       addImage(imageUrl);
+      print(imageUrl);
     } catch (error) {}
   }
 }

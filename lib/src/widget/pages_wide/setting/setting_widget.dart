@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../constant/app_const.dart';
-import '../../../model/profile_model.dart';
+import '../../../model/button_model.dart';
 import '../../../repository/user_repository/user_repository.dart';
 
 class SettingWidget extends StatelessWidget {
@@ -17,8 +17,8 @@ class SettingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Profile> setting = [
-      Profile(
+    List<Button> setting = [
+      Button(
           title: 'Customer Support',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
@@ -27,7 +27,7 @@ class SettingWidget extends StatelessWidget {
             height: 15.h,
           ),
           onTap: () {}),
-      Profile(
+      Button(
           title: 'Language',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
@@ -36,7 +36,7 @@ class SettingWidget extends StatelessWidget {
             height: 15.h,
           ),
           onTap: () => buildDialog(context)),
-      Profile(
+      Button(
           title: 'Delete my account',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
@@ -45,7 +45,7 @@ class SettingWidget extends StatelessWidget {
             height: 15.h,
           ),
           onTap: () => Get.to(DeleteUserAccountWidget())),
-      Profile(
+      Button(
           title: 'About',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
