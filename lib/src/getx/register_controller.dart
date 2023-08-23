@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/src/View/Forms/main_page.dart';
 import 'package:ecommerce/src/constant/color.dart';
 import 'package:ecommerce/src/model/user_model.dart';
@@ -8,7 +9,6 @@ import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
   static RegisterController get instance => Get.find();
-
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
@@ -54,24 +54,42 @@ class RegisterController extends GetxController {
     return 'Phone Number is not vaild';
   }
 
-  Future onSignup() async {
-    if (fromkey.currentState!.validate()) {
-      registerUser(email.text, password.text);
-      createUser(user);
-      Get.snackbar("Success", "Login Successful",
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: ColorConstants.mainScaffoldBackgroundColor,
-          backgroundColor: ColorConstants.snakbarColorsuccessful);
-      return;
-    } else {
-      Get.snackbar("ERROR", "Email or Password is invild",
+  Future<bool> isUsernameTaken(String username) async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      QuerySnapshot querySnapshot = await firestore
+          .collection('User')
+          .where('UserName', isEqualTo: username)
+          .get();
+      return querySnapshot.docs.isNotEmpty;
+    } catch (error) {
+      Get.snackbar("Error", "Error checking username: $error",
           snackPosition: SnackPosition.BOTTOM,
           colorText: ColorConstants.mainScaffoldBackgroundColor,
           backgroundColor: ColorConstants.snakbarColorError);
+      return false;
     }
   }
 
-  void phoneAuthentication(String phoneNO) {
-    AuthenticationRepository.instance.phoneAuthentication(phoneNO);
+  Future<void> onSignup(UserModel user) async {
+    if (fromkey.currentState!.validate()) {
+      bool usernameCheck = await isUsernameTaken(user.name);
+      if (!usernameCheck) {
+        Future<bool> code = AuthenticationRepository()
+            .createUserWithEmailAndPassword(user.email, user.password);
+        if (await code) {
+          createUser(user);
+          Get.snackbar("Success", " Account  Created Successfullly",
+              snackPosition: SnackPosition.BOTTOM,
+              colorText: ColorConstants.mainScaffoldBackgroundColor,
+              backgroundColor: ColorConstants.snakbarColorsuccessful);
+        }
+      } else {
+        Get.snackbar("ERROR", "Username  is taken",
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: ColorConstants.mainScaffoldBackgroundColor,
+            backgroundColor: ColorConstants.snakbarColorError);
+      }
+    }
   }
 }

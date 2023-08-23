@@ -7,12 +7,10 @@ class OTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-        body: const Center(
-          child: OTPWidget(),
-        ),
+    return Scaffold(
+      backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+      body: const Center(
+        child: OTPWidget(),
       ),
     );
   }
