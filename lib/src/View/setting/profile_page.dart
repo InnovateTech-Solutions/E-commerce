@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
           child: DrawerWidget(),
         ),
         backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-        body: SafeArea(
+        body: const SafeArea(
           child: SizedBox(
             width: double.infinity,
             child: ProfileWidget(),

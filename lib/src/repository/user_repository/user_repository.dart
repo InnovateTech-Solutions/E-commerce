@@ -42,10 +42,10 @@ class UserRepository extends GetxController {
     await _db.collection("User").doc(user.id).update(user.tojason());
   }
 
-  void addImage(String imageUrl) {
+  /* void addImage(String imageUrl) {
     FirebaseFirestore.instance.collection("User").add({'imageUrl': imageUrl});
   }
-
+*/
   void pickUpImage() async {
     XFile? file = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -54,6 +54,7 @@ class UserRepository extends GetxController {
       imageQuality: 75,
     );
     print('${file!.path}');
+    // ignore: unnecessary_null_comparison
     if (file == null) return;
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirImage = referenceRoot.child("images");
@@ -62,7 +63,8 @@ class UserRepository extends GetxController {
     try {
       await referenceImageToUpload.putFile(File(file!.path));
       imageUrl = await referenceImageToUpload.getDownloadURL();
-      addImage(imageUrl);
+      FirebaseFirestore.instance.collection("User").add({'imageUrl': imageUrl});
+
       print(imageUrl);
     } catch (error) {}
   }
