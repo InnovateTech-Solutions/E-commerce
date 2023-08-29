@@ -31,7 +31,7 @@ class EditWidget extends StatelessWidget {
           FormWidget(
               login: Login(
                   controller: controller.email,
-                  hintText: AppConst.username,
+                  hintText: usercontroller.userModel.email,
                   icon: const Icon(Icons.email),
                   invisible: false,
                   validator: (email) => controller.validateEmail(email),
@@ -63,7 +63,7 @@ class EditWidget extends StatelessWidget {
 
   GestureDetector imagepicker() {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         usercontroller.pickUpImage();
       },
       child: Container(
@@ -72,8 +72,8 @@ class EditWidget extends StatelessWidget {
         alignment: Alignment.center,
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: SvgPicture.asset(
-          "assets/Profilepic.svg",
+        child: Image.network(
+          usercontroller.getUserImageUrl(),
           width: 100.w,
           height: 100.h,
         ),

@@ -58,7 +58,9 @@ class AuthenticationRepository extends GetxController {
               email: googleSignInAccount.email,
               name: googleSignInAccount.displayName.toString(),
               password: "",
-              phone: ""));
+              phone: "",
+              imageUrl: ""
+              ));
         }
         await _auth
             .signInWithCredential(credential)

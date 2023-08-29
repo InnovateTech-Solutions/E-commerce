@@ -10,15 +10,19 @@ import 'package:image_picker/image_picker.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
-
   final _db = FirebaseFirestore.instance;
-  String imageUrl = '';
+  late UserModel userModel;
+
+  void setUserModel(UserModel userModel){
+    this.userModel = userModel;
+    print("setUserModel "+ this.userModel.toString());
+  }
 
   createUser(UserModel user) {
-    _db
-        .collection("User")
-        .add(user.tojason())
-        .whenComplete(() => Get.snackbar(
+    setUserModel(user);
+    
+    _db.collection("User").add(user.tojason())
+    .whenComplete(() => Get.snackbar(
             "Success", "Your account has been created",
             snackPosition: SnackPosition.BOTTOM,
             colorText: ColorConstants.mainScaffoldBackgroundColor,
@@ -35,15 +39,33 @@ class UserRepository extends GetxController {
     final snapshot =
         await _db.collection("User").where("Email", isEqualTo: email).get();
     final userdata = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    userModel = userdata;
+    print(userModel.imageUrl);
     return userdata;
+  }
+
+  String getUserImageUrl(){
+    if (userModel != null && userModel.imageUrl != null ){
+      return userModel.imageUrl;
+  }
+  else{
+    return "";
+  }
   }
 
   Future<void> updateUserRecord(UserModel user) async {
     await _db.collection("User").doc(user.id).update(user.tojason());
   }
 
-  void addImage(String imageUrl) {
-    FirebaseFirestore.instance.collection("User").add({'imageUrl': imageUrl});
+  void addImage() {
+    print(_db.collection("User").
+    where('Email', isEqualTo: userModel.email).get().then((querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+       var userDoc = querySnapshot.docs.first;
+        userDoc.reference.update({'imageUrl': userModel.imageUrl});
+    }
+  }));
+    
   }
 
   void pickUpImage() async {
@@ -61,9 +83,11 @@ class UserRepository extends GetxController {
     Reference referenceImageToUpload = referenceDirImage.child(file.path);
     try {
       await referenceImageToUpload.putFile(File(file!.path));
-      imageUrl = await referenceImageToUpload.getDownloadURL();
-      addImage(imageUrl);
-      print(imageUrl);
+      print("first image "+await referenceImageToUpload.getDownloadURL());
+      print(userModel.email);
+      userModel.imageUrl = await referenceImageToUpload.getDownloadURL();
+      print("second image "+userModel.imageUrl);
+      addImage();
     } catch (error) {}
   }
 }

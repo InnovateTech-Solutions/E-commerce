@@ -1,11 +1,14 @@
+import 'package:ecommerce/src/View/Forms/register_page.dart';
 import 'package:ecommerce/src/constant/app_const.dart';
 import 'package:ecommerce/src/constant/color.dart';
 import 'package:ecommerce/src/constant/lang_list.dart';
+import 'package:ecommerce/src/widget/pages_wide/Forms_widgets/register_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../View/setting/edit_page.dart';
 import '../../model/button_model.dart';
 import '../Text_Widget/form_text.dart';
 
@@ -18,7 +21,28 @@ constDivider() {
   );
 }
 
-dontHaveAccountRow() {
+createAccountText(context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const RegisterPage()),
+      );
+    },
+    child: Text(
+      "Create One?",
+      textAlign: TextAlign.end,
+      style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+              decoration: TextDecoration.underline,
+              fontSize: 10,
+              fontWeight: FontWeight.normal,
+              color: ColorConstants.mainTextColor)),
+    ),
+  );
+}
+
+dontHaveAccountRow(context) {
   return Padding(
     padding: EdgeInsets.only(top: 8.h),
     child: Row(
@@ -33,18 +57,7 @@ dontHaveAccountRow() {
                   fontWeight: FontWeight.normal,
                   color: ColorConstants.mainTextColor)),
         ),
-        GestureDetector(
-          child: Text(
-            "Create one".tr,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.normal,
-                    color: ColorConstants.mainTextColor)),
-          ),
-        )
+        createAccountText(context)
       ],
     ),
   );

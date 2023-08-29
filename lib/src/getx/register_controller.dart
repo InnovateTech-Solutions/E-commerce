@@ -14,11 +14,12 @@ class RegisterController extends GetxController {
   final TextEditingController userName = TextEditingController();
   final fromkey = GlobalKey<FormState>();
   late UserModel user;
-  final userRepository = Get.put(UserRepository);
+  final userRepository = Get.put(UserRepository());
 
   void registerUser(String email, String password) {}
 
   Future<void> createUser(UserModel user) async {
+    userRepository.setUserModel(user);
     await UserRepository().createUser(user);
     Get.to(const Testpage());
   }

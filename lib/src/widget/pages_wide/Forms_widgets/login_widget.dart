@@ -91,10 +91,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                       controller.onLogin();
                       clear();
                       print(
-                          controllerr.getUserDetails('modtech7677@gmail.com'));
+                          controllerr.getUserDetails(controller.email.text));
                     },
                     tilte: AppConst.login),
-                dontHaveAccountRow(),
+                dontHaveAccountRow(context),
               ],
             ),
           ),
