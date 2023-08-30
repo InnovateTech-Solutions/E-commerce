@@ -2,6 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/firebase_options.dart';
+import 'package:profile_part/src/View/start_pages/intro_page.dart';
+import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
