@@ -1,1 +1,1 @@
-# Welcame to InnovateTech Solutions
+# Welcome to InnovateTech Solutions
