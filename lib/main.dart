@@ -1,7 +1,3 @@
-import 'package:ecommerce/firebase_options.dart';
-import 'package:ecommerce/src/View/start_pages/intro_page.dart';
-import 'package:ecommerce/src/constant/color.dart';
-import 'package:ecommerce/src/repository/authentication/authentication_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
