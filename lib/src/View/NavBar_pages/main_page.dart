@@ -12,7 +12,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  static final List<Widget> _widgetsOptions = [const DashBoard()];
+  static final List<Widget> _widgetsOptions = [
+    const DashBoard(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +24,7 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: ColorConstants.mainScaffoldBackgroundColor,
           boxShadow: [
             BoxShadow(
               blurRadius: 20,
@@ -45,7 +47,7 @@ class _MainPageState extends State<MainPage> {
               color: Colors.black,
               tabs: const [
                 GButton(
-                  icon: Icons.home,
+                  icon: Icons.home_outlined,
                 ),
                 GButton(
                   icon: Icons.category_outlined,
@@ -54,10 +56,10 @@ class _MainPageState extends State<MainPage> {
                   icon: Icons.location_on_outlined,
                 ),
                 GButton(
-                  icon: Icons.access_time_filled_outlined,
+                  icon: Icons.access_time_outlined,
                 ),
                 GButton(
-                  icon: Icons.person_4,
+                  icon: Icons.account_circle_outlined,
                 ),
               ],
               selectedIndex: _selectedIndex,
