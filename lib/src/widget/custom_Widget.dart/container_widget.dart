@@ -1,8 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CarouselWidget extends StatelessWidget {
-  const CarouselWidget({required this.imgName, required this.onTap, Key? key})
+class DashboradContainer extends StatelessWidget {
+  const DashboradContainer(
+      {required this.imgName, required this.onTap, Key? key})
       : super(key: key);
   final String imgName;
   final VoidCallback onTap;

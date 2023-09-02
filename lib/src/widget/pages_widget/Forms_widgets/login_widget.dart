@@ -8,7 +8,7 @@ import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/constant_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
-import 'package:profile_part/src/widget/custom_Widget.dart/login_icon.dart';
+import 'package:profile_part/src/widget/partial_widget/login_icon.dart';
 import '../../../getx/login_Controller.dart';
 
 class LoginWidget extends StatefulWidget {

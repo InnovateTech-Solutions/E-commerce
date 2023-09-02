@@ -13,3 +13,12 @@ headText(String title) {
                 color: ColorConstants.mainTextColor))),
   );
 }
+
+serviceTitle(String title) {
+  return Text(title,
+      style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w400,
+              color: ColorConstants.mainTextColor)));
+}
