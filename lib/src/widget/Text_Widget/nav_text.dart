@@ -16,6 +16,7 @@ headText(String title) {
 
 serviceTitle(String title) {
   return Text(title,
+      textAlign: TextAlign.end,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
               fontSize: 14.sp,

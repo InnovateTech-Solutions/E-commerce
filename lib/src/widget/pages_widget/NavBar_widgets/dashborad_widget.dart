@@ -6,6 +6,7 @@ import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
+import 'package:profile_part/src/widget/partial_widget/seemore_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/slider_widget.dart';
 
 class DashBoradWidget extends StatefulWidget {
@@ -42,8 +43,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                 children: [
                   const SliderWidget(),
                   Container(
-                    height: 400.h,
-                    width: double.infinity,
+                    height: 500.h,
+                    width: double.infinity.w,
                     decoration: BoxDecoration(
                         color: ColorConstants.mainScaffoldBackgroundColor,
                         borderRadius: BorderRadius.only(
@@ -55,18 +56,19 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                           height: AppConst.smallSize,
                         ),
                         SizedBox(
-                          height: 300.h,
+                          height: 340.h,
                           child: GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: data.length,
                               gridDelegate:
                                   const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 250,
+                                maxCrossAxisExtent: 200,
                                 crossAxisSpacing: 2,
                               ),
                               itemBuilder: ((context, index) {
                                 return Container(
-                                  width: 200.w,
-                                  height: 128.h,
+                                  width: 150.w,
+                                  height: 100.h,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(14.r))),
@@ -85,40 +87,14 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w400,
                                                     color: ColorConstants
-                                                        .mainTextColor))),
+                                                        .mainScaffoldBackgroundColor))),
                                       )
                                     ],
                                   ),
                                 );
                               })),
                         ),
-                        /*   Container(
-                          width: 200.w,
-                          height: 128.h,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(14.r))),
-                          child: Stack(
-                            children: [
-                              DashboradContainer(
-                                imgName:
-                                    'https://www.bostonmagazine.com/wp-content/uploads/sites/2/2019/01/aer-nail-bar.jpg',
-                                onTap: () {},
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 100.h, left: 20.w),
-                                child: Text('nail saloon',
-                                    style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color:
-                                                ColorConstants.mainTextColor))),
-                              )
-                            ],
-                          ),
-                        )
-                     */
+                        seeMore()
                       ],
                     ),
                   ),
