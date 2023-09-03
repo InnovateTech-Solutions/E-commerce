@@ -37,7 +37,7 @@ class UserRepository extends GetxController {
 
   Future<UserModel> getUserDetails(String email) async {
     final snapshot =
-        await _db.collection("User").where("Email", isEqualTo: email).get();
+     await _db.collection("User").where("Email", isEqualTo: email).get();
     final userdata = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     userModel = userdata;
     print(userModel.imageUrl);
@@ -58,13 +58,14 @@ class UserRepository extends GetxController {
   }
 
   void addImage() {
-    print(_db.collection("User").
+
+  _db.collection("User").
     where('Email', isEqualTo: userModel.email).get().then((querySnapshot) {
       if (querySnapshot.docs.isNotEmpty) {
        var userDoc = querySnapshot.docs.first;
         userDoc.reference.update({'imageUrl': userModel.imageUrl});
     }
-  }));
+  });
     
   }
 

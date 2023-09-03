@@ -1,3 +1,4 @@
+import 'package:ecommerce/src/View/setting/Reset_Password_Screens/reset_pw_screen.dart';
 import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
 import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
 import 'package:ecommerce/src/widget/pages_wide/setting/deleteaccount_widget.dart';
@@ -5,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import '../../../constant/app_const.dart';
 import '../../../model/button_model.dart';
 import '../../../repository/user_repository/user_repository.dart';
@@ -45,6 +45,16 @@ class SettingWidget extends StatelessWidget {
             height: 15.h,
           ),
           onTap: () => Get.to(DeleteUserAccountWidget())),
+
+      Button(
+          title: 'Change Password',
+          icon: SvgPicture.asset(
+            'assets/arrow.svg',
+            matchTextDirection: true,
+            width: 15.w,
+            height: 15.h,
+          ),
+          onTap: () => Get.to(const ResetPasswordScreen())),
       Button(
           title: 'About',
           icon: SvgPicture.asset(

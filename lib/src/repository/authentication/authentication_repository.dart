@@ -114,7 +114,7 @@ class AuthenticationRepository extends GetxController {
         await querySnapshot.docs.first.reference.delete();
         await user.delete();
         print('User account deleted successfully.');
-        Get.offAll(LoginPage());
+        Get.offAll(const LoginPage());
         Get.snackbar("User account Deleted", "Success");
       } else {
         Get.snackbar("Error", "User with the provided email not found.");
