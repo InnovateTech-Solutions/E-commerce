@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/dashborad_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 
@@ -14,6 +15,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetsOptions = [
     const DashBoard(),
+    const CategoriesPage()
   ];
   @override
   Widget build(BuildContext context) {

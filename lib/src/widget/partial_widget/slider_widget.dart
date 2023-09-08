@@ -13,7 +13,6 @@ class SliderWidget extends StatefulWidget {
 
 class _SliderWidgetState extends State<SliderWidget> {
   int _currentIndex = 0;
-  late Future<List<Map<String, dynamic>>> dataFuture;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +28,7 @@ class _SliderWidgetState extends State<SliderWidget> {
         onTap: () {},
       ),
     ];
+
     return Column(
       children: [
         CarouselSlider(
