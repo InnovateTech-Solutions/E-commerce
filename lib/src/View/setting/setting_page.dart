@@ -2,6 +2,7 @@ import 'package:ecommerce/src/widget/pages_wide/setting/setting_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant/color.dart';
+import '../../widget/custom_Widget.dart/drawer_widget.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -9,13 +10,15 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
           elevation: 0,
           iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
         ),
-        drawer: const Drawer(),
+        drawer: Drawer(
+          child: DrawerWidget(),
+        ),
+        backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
         body: SafeArea(
           child: SizedBox(
             width: double.infinity,

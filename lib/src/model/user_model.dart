@@ -6,13 +6,15 @@ class UserModel {
   late String password;
   late String email;
   late String phone;
+  late String? imageUrl;
 
   UserModel(
       {this.id,
       required this.email,
       required this.name,
       required this.password,
-      required this.phone});
+      required this.phone,
+      required this.imageUrl});
 
   tojason() {
     return {
@@ -27,10 +29,12 @@ class UserModel {
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     final data = documentSnapshot.data()!;
     return UserModel(
-        id: documentSnapshot.id,
-        email: data["Email"],
-        name: data["UserName"],
-        password: data["Password"],
-        phone: data["PhoneNumber"]);
+      id: documentSnapshot.id,
+      email: data["Email"],
+      name: data["UserName"],
+      password: data["Password"],
+      phone: data["PhoneNumber"],
+      imageUrl: data["imageUrl"],
+    );
   }
 }

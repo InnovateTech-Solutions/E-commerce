@@ -27,6 +27,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   @override
   Widget build(BuildContext context) {
     final controllerr = Get.put(ProfileController());
+    final userController = Get.put(UserRepository());
     List<Button> profile = [
       Button(
           title: 'My Appointments',
@@ -81,11 +82,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     flex: 3,
                     child: Column(
                       children: [
-                        SvgPicture.asset(
-                          "assets/Profilepic.svg",
-                          width: 100.w,
-                          height: 100.h,
-                        ),
+                        userController.getUserImageUrl(),
                         SizedBox(
                           height: AppConst.smallSize,
                         ),

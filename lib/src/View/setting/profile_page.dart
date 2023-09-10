@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
           elevation: 0,
           iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
         ),
-        drawer: const Drawer(
+        drawer: Drawer(
           child: DrawerWidget(),
         ),
         backgroundColor: ColorConstants.mainScaffoldBackgroundColor,

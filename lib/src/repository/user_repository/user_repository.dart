@@ -4,17 +4,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/src/constant/color.dart';
 import 'package:ecommerce/src/model/user_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
-
   final _db = FirebaseFirestore.instance;
-  String imageUrl = '';
+  late UserModel userModel;
+
+  void setUserModel(UserModel userModel) {
+    this.userModel = userModel;
+    print("setUserModel " + this.userModel.toString());
+  }
 
   createUser(UserModel user) {
+    setUserModel(user);
+
     _db
         .collection("User")
         .add(user.tojason())
@@ -35,17 +43,44 @@ class UserRepository extends GetxController {
     final snapshot =
         await _db.collection("User").where("Email", isEqualTo: email).get();
     final userdata = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    userModel = userdata;
+    print(userModel.imageUrl);
     return userdata;
+  }
+
+  Widget getUserImageUrl() {
+    if (userModel != null && userModel.imageUrl != null) {
+      return Image.network(
+        userModel.imageUrl!,
+        width: 100.w,
+        height: 100.h,
+      );
+    } else {
+      return SvgPicture.asset(
+        "assets/Profilepic.svg",
+        width: 100.w,
+        height: 100.h,
+      );
+    }
   }
 
   Future<void> updateUserRecord(UserModel user) async {
     await _db.collection("User").doc(user.id).update(user.tojason());
   }
 
-  /* void addImage(String imageUrl) {
-    FirebaseFirestore.instance.collection("User").add({'imageUrl': imageUrl});
+  void addImage() {
+    print(_db
+        .collection("User")
+        .where('Email', isEqualTo: userModel.email)
+        .get()
+        .then((querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        var userDoc = querySnapshot.docs.first;
+        userDoc.reference.update({'imageUrl': userModel.imageUrl});
+      }
+    }));
   }
-*/
+
   void pickUpImage() async {
     XFile? file = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -54,7 +89,6 @@ class UserRepository extends GetxController {
       imageQuality: 75,
     );
     print('${file!.path}');
-    // ignore: unnecessary_null_comparison
     if (file == null) return;
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirImage = referenceRoot.child("images");
@@ -62,10 +96,11 @@ class UserRepository extends GetxController {
     Reference referenceImageToUpload = referenceDirImage.child(file.path);
     try {
       await referenceImageToUpload.putFile(File(file!.path));
-      imageUrl = await referenceImageToUpload.getDownloadURL();
-      FirebaseFirestore.instance.collection("User").add({'imageUrl': imageUrl});
+      print("first image " + await referenceImageToUpload.getDownloadURL());
+      print(userModel.email);
+      userModel.imageUrl = await referenceImageToUpload.getDownloadURL();
 
-      print(imageUrl);
+      addImage();
     } catch (error) {}
   }
 }

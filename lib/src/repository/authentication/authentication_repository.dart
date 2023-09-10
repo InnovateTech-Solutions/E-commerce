@@ -55,11 +55,11 @@ class AuthenticationRepository extends GetxController {
             await _auth.fetchSignInMethodsForEmail(googleSignInAccount.email);
         if (signInMethods.isEmpty) {
           controller.createUser(UserModel(
-            email: googleSignInAccount.email,
-            name: googleSignInAccount.displayName.toString(),
-            password: "",
-            phone: "",
-          ));
+              email: googleSignInAccount.email,
+              name: googleSignInAccount.displayName.toString(),
+              password: "",
+              phone: "",
+              imageUrl: ""));
         }
         await _auth
             .signInWithCredential(credential)
@@ -113,7 +113,7 @@ class AuthenticationRepository extends GetxController {
         await querySnapshot.docs.first.reference.delete();
         await user.delete();
         print('User account deleted successfully.');
-        Get.offAll(const LoginPage());
+        Get.offAll(LoginPage());
         Get.snackbar("User account Deleted", "Success");
       } else {
         Get.snackbar("Error", "User with the provided email not found.");

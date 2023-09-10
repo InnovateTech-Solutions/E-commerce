@@ -1,3 +1,4 @@
+import 'package:ecommerce/src/View/setting/profile_page.dart';
 import 'package:ecommerce/src/constant/app_const.dart';
 import 'package:ecommerce/src/getx/register_controller.dart';
 import 'package:ecommerce/src/model/login_model.dart';
@@ -91,11 +92,20 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 height: AppConst.smallSize.h,
               ),
               ButtonWidget(
-                  onTap: () => controller.createUser(UserModel(
-                      email: controller.email.text.trim(),
-                      name: controller.userName.text.trim(),
-                      password: controller.password.text.trim(),
-                      phone: controller.phoneNumber.text.trim())),
+                  onTap: () {
+                    controller.createUser(UserModel(
+                        email: controller.email.text.trim(),
+                        name: controller.userName.text.trim(),
+                        password: controller.password.text.trim(),
+                        phone: controller.phoneNumber.text.trim(),
+                        imageUrl: ""));
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfilePage()),
+                    );
+                  },
                   tilte: AppConst.signUp),
               LoginIcon(),
             ],

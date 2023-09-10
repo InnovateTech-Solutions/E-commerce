@@ -8,7 +8,6 @@ import 'package:ecommerce/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:ecommerce/src/widget/custom_Widget.dart/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../repository/user_repository/user_repository.dart';
@@ -115,12 +114,12 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                   if ((controller.fromkey.currentState!
                                       .validate())) {
                                     final userData = UserModel(
-                                      id: id.text.trim(),
-                                      email: email.text.trim(),
-                                      name: userName.text.trim(),
-                                      password: password.text.trim(),
-                                      phone: phoneNumber.text.trim(),
-                                    );
+                                        id: id.text.trim(),
+                                        email: email.text.trim(),
+                                        name: userName.text.trim(),
+                                        password: password.text.trim(),
+                                        phone: phoneNumber.text.trim(),
+                                        imageUrl: "");
                                     await controller.updateRecord(userData);
                                   }
                                 },
@@ -141,9 +140,9 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
         }));
   }
 
-  imagepicker() {
+  GestureDetector imagepicker() {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         usercontroller.pickUpImage();
       },
       child: Container(
@@ -152,11 +151,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
         alignment: Alignment.center,
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: SvgPicture.asset(
-          "assets/ProfilePicUploade.svg",
-          width: 100.w,
-          height: 100.h,
-        ),
+        child: usercontroller.getUserImageUrl(),
       ),
     );
   }
