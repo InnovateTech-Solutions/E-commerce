@@ -1,13 +1,13 @@
-import 'package:ecommerce/src/View/Forms/login_page.dart';
-import 'package:ecommerce/src/View/Forms/register_page.dart';
-import 'package:ecommerce/src/constant/app_const.dart';
-import 'package:ecommerce/src/constant/color.dart';
-import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
-import 'package:ecommerce/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../View/Forms/login_page.dart';
+import '../../../View/Forms/register_page.dart';
+import '../../../constant/app_const.dart';
+import '../../../constant/color.dart';
+import '../../constant_widget/constant_widget.dart';
+import '../../custom_Widget.dart/button_widget.dart';
 
 class IntroWidget extends StatelessWidget {
   const IntroWidget({Key? key}) : super(key: key);

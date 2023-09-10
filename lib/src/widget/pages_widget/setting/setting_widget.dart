@@ -1,14 +1,15 @@
-import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
-import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
-import 'package:ecommerce/src/widget/pages_wide/setting/deleteaccount_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../View/setting/Reset_Password_Screens/reset_pw_screen.dart';
 import '../../../constant/app_const.dart';
 import '../../../model/button_model.dart';
 import '../../../repository/user_repository/user_repository.dart';
+import '../../Text_Widget/form_text.dart';
+import '../../constant_widget/constant_widget.dart';
+import 'deleteaccount_widget.dart';
 
 class SettingWidget extends StatelessWidget {
   final controller = Get.put(UserRepository());
@@ -46,23 +47,26 @@ class SettingWidget extends StatelessWidget {
           ),
           onTap: () => Get.to(DeleteUserAccountWidget())),
       Button(
-          title: 'About',
+          title: 'Change Password',
           icon: SvgPicture.asset(
             'assets/arrow.svg',
             matchTextDirection: true,
             width: 15.w,
             height: 15.h,
           ),
-          onTap: () {}),
+          onTap: () => Get.to(const ResetPasswordScreen())),
     ];
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Column(
               children: [
+                SizedBox(
+                  height: AppConst.medium.h,
+                ),
                 Align(
                     alignment: Alignment.centerLeft,
                     child: mainText("Setting")),
@@ -84,20 +88,23 @@ class SettingWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-              flex: 6,
-              child: SizedBox(
-                height: double.infinity,
-                width: double.infinity,
-                child: ListView.separated(
-                  itemCount: setting.length,
-                  itemBuilder: ((context, index) {
-                    return profileWidget(setting[index]);
-                  }),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: AppConst.medium,
-                    );
-                  },
+              flex: 7,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: ListView.separated(
+                    itemCount: setting.length,
+                    itemBuilder: ((context, index) {
+                      return profileWidget(setting[index]);
+                    }),
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                        height: AppConst.medium,
+                      );
+                    },
+                  ),
                 ),
               ))
         ],

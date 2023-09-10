@@ -1,15 +1,15 @@
-import 'package:ecommerce/src/constant/color.dart' as color_constants;
-import 'package:ecommerce/src/getx/forget_controller.dart';
-import 'package:ecommerce/src/model/login_model.dart';
-import 'package:ecommerce/src/widget/custom_Widget.dart/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../constant/app_const.dart';
+import '../../constant/color.dart';
+import '../../getx/forget_controller.dart';
 import '../../getx/login_Controller.dart';
+import '../../model/login_model.dart';
 import '../../widget/Text_Widget/form_text.dart';
 import '../../widget/constant_widget/constant_widget.dart';
+import '../../widget/custom_Widget.dart/app_text.dart';
 import '../../widget/custom_Widget.dart/button_widget.dart';
 import '../../widget/custom_Widget.dart/form_widget.dart';
 
@@ -34,8 +34,7 @@ class _ForgotPwScreenState extends State<ForgotPwScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor:
-            color_constants.ColorConstants.mainScaffoldBackgroundColor,
+        backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
         body: SizedBox(
           height: 550.h,
           width: 400.w,
@@ -58,6 +57,7 @@ class _ForgotPwScreenState extends State<ForgotPwScreen> {
               textFieldLabel(AppConst.email),
               FormWidget(
                   login: Login(
+                      enable: true,
                       controller: controller.email,
                       hintText: AppConst.email,
                       icon: const Icon(Icons.email),

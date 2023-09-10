@@ -1,11 +1,10 @@
-import 'package:ecommerce/src/constant/app_const.dart';
-import 'package:ecommerce/src/constant/color.dart';
-import 'package:ecommerce/src/constant/lang_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '../../constant/app_const.dart';
+import '../../constant/color.dart';
+import '../../constant/lang_list.dart';
 import '../../model/button_model.dart';
 import '../Text_Widget/form_text.dart';
 
@@ -25,7 +24,7 @@ dontHaveAccountRow() {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "don’t have account?".tr,
+          "don’t have account?",
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
               textStyle: TextStyle(
@@ -35,7 +34,7 @@ dontHaveAccountRow() {
         ),
         GestureDetector(
           child: Text(
-            "Create one".tr,
+            "Create one",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(
@@ -47,23 +46,6 @@ dontHaveAccountRow() {
         )
       ],
     ),
-  );
-}
-
-Container divder(double width, double left, double right) {
-  return Container(
-    height: 3.h,
-    width: width,
-    color: ColorConstants.secondaryScaffoldBacground,
-    margin: EdgeInsets.only(right: right, left: left),
-  );
-}
-
-switchButton(bool light) {
-  return Switch(
-    value: light,
-    activeColor: Colors.red,
-    onChanged: (bool value) {},
   );
 }
 
@@ -83,7 +65,7 @@ profileWidget(Button profile) {
   );
 }
 
-drawerWidget(Button drawer) {
+drawerWidget(DraweButton drawer) {
   return InkWell(
     onTap: drawer.onTap,
     child: Row(
@@ -95,6 +77,23 @@ drawerWidget(Button drawer) {
         textFieldLabel(drawer.title)
       ],
     ),
+  );
+}
+
+Container divder(double width, double left, double right) {
+  return Container(
+    height: 3.h,
+    width: width,
+    color: ColorConstants.secondaryScaffoldBacground,
+    margin: EdgeInsets.only(right: right, left: left),
+  );
+}
+
+switchButton(bool light) {
+  return Switch(
+    value: light,
+    activeColor: Colors.red,
+    onChanged: (bool value) {},
   );
 }
 

@@ -1,8 +1,11 @@
-import 'package:ecommerce/src/model/user_model.dart';
-import 'package:ecommerce/src/repository/authentication/authentication_repository.dart';
-import 'package:ecommerce/src/repository/user_repository/user_repository.dart';
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../model/user_model.dart';
+import '../repository/authentication/authentication_repository.dart';
+import '../repository/user_repository/user_repository.dart';
 
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();

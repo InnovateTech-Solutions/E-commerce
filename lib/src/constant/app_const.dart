@@ -3,7 +3,7 @@ class AppConst {
   //size const
   static double smallSize = 15;
   static double medium = 35;
-  static double largeSize = 50;
+  static double largeSize = 45;
   // String const
   static String login = "LOGIN";
   static String signUp = "SIGN UP";
@@ -11,4 +11,5 @@ class AppConst {
   static String password = "Password";
   static String username = "User Name";
   static String phoneNumber = "Phone Number";
+  static String verificationOTP = "VERIFICATION CODE";
 }

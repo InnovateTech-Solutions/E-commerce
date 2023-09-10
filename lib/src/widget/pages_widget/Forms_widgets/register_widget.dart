@@ -1,16 +1,14 @@
-import 'package:ecommerce/src/View/setting/profile_page.dart';
-import 'package:ecommerce/src/constant/app_const.dart';
-import 'package:ecommerce/src/getx/register_controller.dart';
-import 'package:ecommerce/src/model/login_model.dart';
-import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
-import 'package:ecommerce/src/widget/custom_Widget.dart/button_widget.dart';
-import 'package:ecommerce/src/widget/custom_Widget.dart/form_widget.dart';
-import 'package:ecommerce/src/widget/custom_Widget.dart/login_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../constant/app_const.dart';
+import '../../../getx/register_controller.dart';
+import '../../../model/login_model.dart';
 import '../../../model/user_model.dart';
+import '../../Text_Widget/form_text.dart';
+import '../../custom_Widget.dart/button_widget.dart';
+import '../../custom_Widget.dart/form_widget.dart';
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key? key}) : super(key: key);
@@ -38,6 +36,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               textFieldLabel(AppConst.email),
               FormWidget(
                   login: Login(
+                      enable: true,
                       controller: controller.email,
                       hintText: AppConst.email,
                       icon: const Icon(Icons.email),
@@ -52,6 +51,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               textFieldLabel(AppConst.username),
               FormWidget(
                   login: Login(
+                      enable: true,
                       controller: controller.userName,
                       hintText: AppConst.username,
                       icon: const Icon(Icons.abc),
@@ -66,6 +66,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               textFieldLabel(AppConst.password),
               FormWidget(
                   login: Login(
+                      enable: true,
                       controller: controller.password,
                       hintText: AppConst.password,
                       icon: const Icon(Icons.password),
@@ -80,12 +81,13 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               textFieldLabel(AppConst.phoneNumber),
               FormWidget(
                   login: Login(
+                      enable: true,
                       controller: controller.phoneNumber,
                       hintText: AppConst.phoneNumber,
                       icon: const Icon(Icons.phone),
                       invisible: false,
                       validator: (email) => controller.vaildPhoneNumber(email),
-                      type: TextInputType.phone,
+                      type: TextInputType.number,
                       onChange: null,
                       inputFormat: null)),
               SizedBox(
@@ -93,21 +95,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               ),
               ButtonWidget(
                   onTap: () {
-                    controller.createUser(UserModel(
+                    controller.onSignup(UserModel(
                         email: controller.email.text.trim(),
                         name: controller.userName.text.trim(),
                         password: controller.password.text.trim(),
                         phone: controller.phoneNumber.text.trim(),
                         imageUrl: ""));
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProfilePage()),
-                    );
                   },
-                  tilte: AppConst.signUp),
-              LoginIcon(),
+                  tilte: AppConst.signUp)
             ],
           ),
         ));

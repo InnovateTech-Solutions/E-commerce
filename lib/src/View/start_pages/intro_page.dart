@@ -1,7 +1,6 @@
-import 'package:ecommerce/src/constant/color.dart';
 import 'package:flutter/material.dart';
-
-import '../../widget/pages_wide/start_widget/intropage_widget.dart';
+import '../../constant/color.dart';
+import '../../widget/pages_widget/start_widget.dart/intropage_widget.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({Key? key}) : super(key: key);

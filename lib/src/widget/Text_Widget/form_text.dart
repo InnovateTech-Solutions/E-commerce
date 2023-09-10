@@ -1,17 +1,17 @@
-import 'package:ecommerce/src/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../View/Forms/forhet_password_screen.dart';
+import '../../View/Forms/forgot_password_screen.dart';
+import '../../constant/color.dart';
 
 mainText(String title) {
   return Center(
     child: Text(title.tr,
         style: GoogleFonts.poppins(
             textStyle: TextStyle(
-                fontSize: 28.sp,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.w400,
                 color: ColorConstants.mainTextColor))),
   );
@@ -21,7 +21,7 @@ textFieldLabel(String title) {
   return Text(title.tr,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.normal,
               color: ColorConstants.mainTextColor)));
 }
@@ -51,10 +51,7 @@ TextButton textButton(Function()? onTap, String title) {
 forgetPasswordText(context) {
   return GestureDetector(
     onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ForgotPwScreen()),
-      );
+      Get.to(const ForgotPwScreen());
     },
     child: Text(
       "Forgot Password?",

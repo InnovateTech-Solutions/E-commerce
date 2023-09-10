@@ -1,15 +1,15 @@
-import 'package:ecommerce/src/model/button_model.dart';
-import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
+import '../../View/setting/profile_page.dart';
 import '../../constant/app_const.dart';
+import '../../constant/color.dart';
 import '../../getx/profile_controller.dart';
+import '../../model/button_model.dart';
 import '../../model/user_model.dart';
 import '../../repository/user_repository/user_repository.dart';
 import '../Text_Widget/form_text.dart';
+import '../constant_widget/constant_widget.dart';
 
 class DrawerWidget extends StatelessWidget {
   final userController = Get.put(UserRepository());
@@ -18,52 +18,46 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProfileController());
-    List<Button> drawer = [
-      Button(
+    List<DraweButton> drawer = [
+      DraweButton(
           title: 'Home',
-          icon: SvgPicture.asset(
-            'assets/home.svg',
-            matchTextDirection: true,
-            width: 20.w,
-            height: 20.h,
+          icon: Icon(
+            Icons.home_outlined,
+            color: ColorConstants.mainTextColor,
           ),
-          onTap: () {}),
-      Button(
+          onTap: () {
+            Get.to("");
+          }),
+      DraweButton(
           title: 'Categoris',
-          icon: SvgPicture.asset(
-            'assets/cat.svg',
-            matchTextDirection: true,
-            width: 20.w,
-            height: 20.h,
+          icon: Icon(
+            Icons.category_outlined,
+            color: ColorConstants.mainTextColor,
           ),
           onTap: () {}),
-      Button(
+      DraweButton(
           title: 'Location',
-          icon: SvgPicture.asset(
-            'assets/location.svg',
-            matchTextDirection: true,
-            width: 20.w,
-            height: 20.h,
+          icon: Icon(
+            Icons.location_on_outlined,
+            color: ColorConstants.mainTextColor,
           ),
           onTap: () {}),
-      Button(
+      DraweButton(
           title: 'My Appointments',
-          icon: SvgPicture.asset(
-            'assets/appointment.svg',
-            matchTextDirection: true,
-            width: 25.w,
-            height: 25.h,
+          icon: Icon(
+            Icons.access_time_outlined,
+            color: ColorConstants.mainTextColor,
           ),
           onTap: () {}),
-      Button(
+      DraweButton(
           title: 'Profile',
-          icon: SvgPicture.asset(
-            'assets/profile.svg',
-            matchTextDirection: true,
-            width: 20.w,
-            height: 20.h,
+          icon: Icon(
+            Icons.person_2_outlined,
+            color: ColorConstants.mainTextColor,
           ),
-          onTap: () {}),
+          onTap: () {
+            Get.to(const ProfilePage());
+          }),
     ];
     return FutureBuilder(
         future: controller.getUserData(),
@@ -111,27 +105,28 @@ class DrawerWidget extends StatelessWidget {
                       ),
                     ),
                     divder(2000.w, 0, 0),
-                    drawerWidget(Button(
+                    drawerWidget(DraweButton(
                         title: 'Support And Help',
-                        icon: SvgPicture.asset(
-                          'assets/support.svg',
-                          matchTextDirection: true,
-                          width: 20.w,
-                          height: 20.h,
+                        icon: Icon(
+                          Icons.support,
+                          color: ColorConstants.mainTextColor,
                         ),
                         onTap: () {})),
                     SizedBox(
                       height: AppConst.medium,
                     ),
-                    drawerWidget(Button(
-                        title: 'Logout',
-                        icon: SvgPicture.asset(
-                          'assets/logout.svg',
-                          matchTextDirection: true,
-                          width: 20.w,
-                          height: 20.h,
-                        ),
-                        onTap: () {})),
+                    drawerWidget(
+                      DraweButton(
+                          title: 'Logout',
+                          icon: Icon(
+                            Icons.logout,
+                            color: ColorConstants.mainTextColor,
+                          ),
+                          onTap: () {}),
+                    ),
+                    SizedBox(
+                      height: AppConst.smallSize,
+                    )
                   ],
                 ),
               );

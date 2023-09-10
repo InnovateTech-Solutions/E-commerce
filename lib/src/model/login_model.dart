@@ -7,12 +7,14 @@ class Login {
   String hintText;
   Icon icon;
   bool invisible;
+  bool enable;
   final String? Function(String?)? validator;
   TextInputType type;
   void Function(String?)? onChange;
   List<TextInputFormatter>? inputFormat;
   Login(
       {required this.controller,
+      required this.enable,
       required this.hintText,
       required this.icon,
       required this.invisible,

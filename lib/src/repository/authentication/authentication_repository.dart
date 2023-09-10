@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/src/View/Forms/login_page.dart';
-import 'package:ecommerce/src/View/setting/profile_page.dart';
-import 'package:ecommerce/src/getx/register_controller.dart';
-import 'package:ecommerce/src/model/user_model.dart';
-import 'package:ecommerce/src/repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../View/Forms/login_page.dart';
+import '../../View/NavBar_pages/main_page.dart';
+import '../../View/start_pages/intro_page.dart';
+import '../../constant/color.dart';
+import '../../getx/register_controller.dart';
+import '../exceptions/signup_email_password_failure.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -14,14 +16,16 @@ class AuthenticationRepository extends GetxController {
 
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
+
   GoogleSignIn googleSign = GoogleSignIn();
 
   late Rx<GoogleSignInAccount?> googleSignInAccount;
-
+  var verificationID = ''.obs;
   @override
   void onReady() {
     super.onReady();
     firebaseUser = Rx<User?>(_auth.currentUser);
+
     googleSignInAccount = Rx<GoogleSignInAccount?>(googleSign.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
@@ -30,15 +34,29 @@ class AuthenticationRepository extends GetxController {
   }
 
   _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(const LoginPage())
-        : Get.offAll(const ProfilePage());
+    user == null ? Get.offAll(const IntroPage()) : Get.offAll(const MainPage());
   }
 
   _setScreenGoogle(GoogleSignInAccount? googleSignInAccount) {
     googleSignInAccount == null
-        ? Get.offAll(const LoginPage())
-        : Get.offAll(const ProfilePage());
+        ? Get.offAll(const IntroPage())
+        : Get.offAll(const MainPage());
+  }
+
+  Future<bool> createUserWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return true;
+    } on FirebaseException catch (e) {
+      print(e.message);
+      Get.snackbar("ERROR ", "${e.message}",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: ColorConstants.mainScaffoldBackgroundColor,
+          backgroundColor: ColorConstants.snakbarColorError);
+      return false;
+    }
   }
 
   void signInWithGoogle() async {
@@ -51,18 +69,10 @@ class AuthenticationRepository extends GetxController {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
-        final List<String> signInMethods =
-            await _auth.fetchSignInMethodsForEmail(googleSignInAccount.email);
-        if (signInMethods.isEmpty) {
-          controller.createUser(UserModel(
-              email: googleSignInAccount.email,
-              name: googleSignInAccount.displayName.toString(),
-              password: "",
-              phone: "",
-              imageUrl: ""));
-        }
+        // ignore: duplicate_ignore
         await _auth
             .signInWithCredential(credential)
+            // ignore: invalid_return_type_for_catch_error
             .catchError((onError) => print(onError));
       }
     } catch (e) {
@@ -92,6 +102,35 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+  Future<void> phoneAuthentication(String phoneNo) async {
+    await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNo,
+        verificationCompleted: (credential) async {
+          await _auth.signInWithCredential(credential);
+        },
+        verificationFailed: (e) {
+          if (e.code == 'invalid-phone-number') {
+            Get.snackbar('Error', 'The provided phone number is not valid');
+          } else {
+            Get.snackbar('Error', 'The provided phone number is not valid');
+          }
+        },
+        codeSent: ((verificationId, forceResendingToken) {
+          verificationID.value = verificationId;
+        }),
+        codeAutoRetrievalTimeout: ((verificationId) {
+          verificationID.value = verificationId;
+        }));
+  }
+
+  Future<bool> verifyOTP(String otp) async {
+    var credentails = await _auth.signInWithCredential(
+        PhoneAuthProvider.credential(
+            verificationId: verificationID.value, smsCode: otp));
+
+    return credentails.user != null ? true : false;
+  }
+
   void deleteUserAccount(String email, String password) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -113,7 +152,7 @@ class AuthenticationRepository extends GetxController {
         await querySnapshot.docs.first.reference.delete();
         await user.delete();
         print('User account deleted successfully.');
-        Get.offAll(LoginPage());
+        Get.offAll(const LoginPage());
         Get.snackbar("User account Deleted", "Success");
       } else {
         Get.snackbar("Error", "User with the provided email not found.");

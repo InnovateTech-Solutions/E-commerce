@@ -8,3 +8,11 @@ class Button {
 
   Button({required this.title, required this.icon, required this.onTap});
 }
+
+class DraweButton {
+  late Icon icon;
+  late String title;
+  late VoidCallback onTap;
+
+  DraweButton({required this.title, required this.icon, required this.onTap});
+}

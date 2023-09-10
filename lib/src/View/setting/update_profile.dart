@@ -1,7 +1,6 @@
-import 'package:ecommerce/src/constant/color.dart';
 import 'package:flutter/material.dart';
-
-import '../../widget/pages_wide/setting/update_widget.dart';
+import '../../constant/color.dart';
+import '../../widget/pages_widget/setting/update_widget.dart';
 
 class UpdateProfile extends StatelessWidget {
   const UpdateProfile({Key? key}) : super(key: key);

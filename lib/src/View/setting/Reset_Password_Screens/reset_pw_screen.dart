@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../constant/color.dart';
-import '../../widget/pages_widget/Forms_widgets/login_widget.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+import '../../../constant/color.dart';
+import '../../../widget/pages_widget/setting/Reset_Password_Widget.dart/reset_pw_widget.dart';
+
+class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class LoginPage extends StatelessWidget {
         body: const SingleChildScrollView(
           child: Column(
             children: [
-              LoginWidget(),
+              ResetPasswordWidget(),
             ],
           ),
         ),

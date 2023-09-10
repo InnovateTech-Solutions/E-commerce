@@ -1,7 +1,8 @@
-import 'package:ecommerce/src/constant/color.dart';
-import 'package:ecommerce/src/repository/authentication/authentication_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
+import '../constant/color.dart';
+import '../repository/authentication/authentication_repository.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();

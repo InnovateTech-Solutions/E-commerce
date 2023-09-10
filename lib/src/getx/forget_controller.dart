@@ -1,5 +1,6 @@
-import 'package:ecommerce/src/repository/Forget_Password/forget_password.dart';
 import 'package:get/get.dart';
+
+import '../repository/Forget_Password/forget_password.dart';
 
 class ForgetPasswordcontroller extends GetxController {
   static ForgetPasswordcontroller get instance => Get.find();

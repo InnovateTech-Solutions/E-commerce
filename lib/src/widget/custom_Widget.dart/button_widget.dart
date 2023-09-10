@@ -1,13 +1,13 @@
-import 'package:ecommerce/src/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../constant/color.dart';
 
 class ButtonWidget extends StatelessWidget {
-  ButtonWidget({Key? key, required this.onTap, required this.tilte})
+  const ButtonWidget({Key? key, required this.onTap, required this.tilte})
       : super(key: key);
   final String tilte;
-  VoidCallback onTap;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

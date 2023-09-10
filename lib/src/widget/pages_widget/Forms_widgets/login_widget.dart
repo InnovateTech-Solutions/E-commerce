@@ -1,17 +1,15 @@
-import 'package:ecommerce/src/constant/app_const.dart';
-import 'package:ecommerce/src/model/login_model.dart';
-import 'package:ecommerce/src/repository/user_repository/user_repository.dart';
-import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
-import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
-import 'package:ecommerce/src/widget/custom_Widget.dart/button_widget.dart';
-import 'package:ecommerce/src/widget/custom_Widget.dart/form_widget.dart';
-import 'package:ecommerce/src/widget/custom_Widget.dart/login_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
+import '../../../constant/app_const.dart';
 import '../../../getx/login_Controller.dart';
+import '../../../model/login_model.dart';
+import '../../Text_Widget/form_text.dart';
+import '../../constant_widget/constant_widget.dart';
+import '../../custom_Widget.dart/button_widget.dart';
+import '../../custom_Widget.dart/form_widget.dart';
+import '../../partial_widget/login_icon.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
@@ -22,10 +20,6 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   final controller = Get.put(LoginController());
-  final controllerr = Get.put(UserRepository());
-  void clear() {
-    controller.password.clear();
-  }
 
   @override
   void dispose() {
@@ -66,34 +60,31 @@ class _LoginWidgetState extends State<LoginWidget> {
                         validator: (email) => controller.validateEmail(email),
                         type: TextInputType.emailAddress,
                         onChange: null,
-                        inputFormat: null)),
+                        inputFormat: null,
+                        enable: true)),
                 SizedBox(
                   height: AppConst.medium.h,
                 ),
                 textFieldLabel(AppConst.password),
                 FormWidget(
                     login: Login(
-                        controller: controller.password,
-                        hintText: AppConst.password,
-                        icon: const Icon(Icons.lock),
-                        invisible: true,
-                        validator: (password) =>
-                            controller.vaildatePassword(password),
-                        type: TextInputType.visiblePassword,
-                        onChange: null,
-                        inputFormat: null)),
+                  controller: controller.password,
+                  hintText: AppConst.password,
+                  icon: const Icon(Icons.lock),
+                  invisible: true,
+                  validator: (password) =>
+                      controller.vaildatePassword(password),
+                  type: TextInputType.visiblePassword,
+                  onChange: null,
+                  inputFormat: null,
+                  enable: true,
+                )),
                 forgetPasswordText(context),
                 SizedBox(
                   height: AppConst.medium.h,
                 ),
                 ButtonWidget(
-                    onTap: () {
-                      controller.onLogin();
-                      clear();
-                      print(
-                          controllerr.getUserDetails('modtech7677@gmail.com'));
-                    },
-                    tilte: AppConst.login),
+                    onTap: () => controller.onLogin(), tilte: AppConst.login),
                 dontHaveAccountRow(),
               ],
             ),

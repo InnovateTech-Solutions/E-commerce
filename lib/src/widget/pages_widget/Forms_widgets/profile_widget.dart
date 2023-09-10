@@ -1,18 +1,18 @@
-import 'package:ecommerce/src/View/setting/setting_page.dart';
-import 'package:ecommerce/src/View/setting/update_profile.dart';
-import 'package:ecommerce/src/constant/app_const.dart';
-import 'package:ecommerce/src/widget/Text_Widget/form_text.dart';
-import 'package:ecommerce/src/widget/constant_widget/constant_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../View/setting/setting_page.dart';
+import '../../../View/setting/update_profile.dart';
+import '../../../constant/app_const.dart';
 import '../../../getx/profile_controller.dart';
 import '../../../model/button_model.dart';
 import '../../../model/user_model.dart';
 import '../../../repository/authentication/authentication_repository.dart';
 import '../../../repository/user_repository/user_repository.dart';
+import '../../Text_Widget/form_text.dart';
+import '../../constant_widget/constant_widget.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
@@ -56,6 +56,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             height: 15.h,
           ),
           onTap: () => Get.to(const SettingPage())),
+      Button(
+          title: 'About',
+          icon: SvgPicture.asset(
+            'assets/arrow.svg',
+            matchTextDirection: true,
+            width: 15.w,
+            height: 15.h,
+          ),
+          onTap: () {}),
       Button(
         title: 'Logout',
         icon: SvgPicture.asset(
@@ -117,7 +126,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             );
                           },
                         ),
-                      ))
+                      )),
                 ],
               ),
             );

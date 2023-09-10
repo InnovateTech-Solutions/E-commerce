@@ -1,7 +1,7 @@
-import 'package:ecommerce/src/constant/color.dart';
-import 'package:ecommerce/src/model/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../constant/color.dart';
+import '../../model/login_model.dart';
 
 // ignore: must_be_immutable
 class FormWidget extends StatefulWidget {
@@ -23,6 +23,7 @@ class _FormWidgetState extends State<FormWidget> {
           fillColor: ColorConstants.secondaryScaffoldBacground,
         )),
         child: TextFormField(
+            enabled: widget.login.enable,
             inputFormatters: widget.login.inputFormat,
             keyboardType: widget.login.type,
             onChanged: widget.login.onChange,
