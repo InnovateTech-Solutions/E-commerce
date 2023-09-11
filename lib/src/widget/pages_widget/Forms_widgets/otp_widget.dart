@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../constant/app_const.dart';
-import '../../../constant/color.dart';
 import '../../../getx/otp_controller.dart';
 import '../../Text_Widget/form_text.dart';
 import '../../constant_widget/constant_widget.dart';

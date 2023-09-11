@@ -1,50 +1,46 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapSample extends StatefulWidget {
-  const MapSample({super.key});
+import '../getx/map_controller.dart';
+
+class MapWidget extends StatefulWidget {
+  const MapWidget({super.key});
 
   @override
-  State<MapSample> createState() => MapSampleState();
+  State<MapWidget> createState() => MapWidgetState();
 }
 
-class MapSampleState extends State<MapSample> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(31.52453, 35.58487),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+class MapWidgetState extends State<MapWidget> {
+  final mapController = Get.put(MapController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
-      ),
+    return FutureBuilder(
+      future: mapController.getMarker(),
+      builder: (context, snapShot) {
+        if (snapShot.connectionState == ConnectionState.done) {
+          if (snapShot.hasData) {
+            final markers = snapShot.data;
+            return Scaffold(
+              body: GoogleMap(
+                mapType: MapType.normal,
+                markers: markers!,
+                initialCameraPosition: mapController.kLake,
+                onMapCreated: (GoogleMapController controller) {
+                  mapController.Controller.complete(controller);
+                },
+              ),
+            );
+          } else if (snapShot.hasError) {
+            return Center(child: Text(snapShot.error.toString()));
+          } else {
+            return const Text("somthing went wrong");
+          }
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }

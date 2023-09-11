@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   static final List<Widget> _widgetsOptions = [
     const DashBoard(),
     const DashBoard(),
-    const MapSample(),
+    const MapWidget(),
     const DashBoard(),
     const ProfilePage()
   ];
