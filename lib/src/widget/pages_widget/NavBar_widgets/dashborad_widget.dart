@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/sockets/src/sockets_io.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/getx/slider_controller.dart';
-import 'package:profile_part/src/model/servicw_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/seemore_widget.dart';
@@ -30,6 +28,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
           if (snpshot.connectionState == ConnectionState.done) {
             if (snpshot.hasData) {
               List<Map<String, dynamic>> servicesData = snpshot.data!;
+              servicesData.shuffle();
               return Column(
                 children: [
                   const SliderWidget(),
@@ -47,11 +46,12 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: AppConst.smallSize,
+                              height: AppConst.smallSize.h,
                             ),
                             SizedBox(
                               height: 340.h,
                               child: GridView.builder(
+                                  shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: servicesData.length,
                                   gridDelegate:
@@ -92,7 +92,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                   })),
                             ),
                             SeeMore(
-                              onTap: () => null,
+                              onTap: () => Get.to(const CategoriesPage()),
                             )
                           ],
                         ),

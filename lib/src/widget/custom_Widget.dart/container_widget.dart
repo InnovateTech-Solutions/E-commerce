@@ -13,7 +13,7 @@ class DashboradContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: onTap,
       child: Container(
           margin: EdgeInsets.symmetric(vertical: 6.0.h, horizontal: 6.0.w),
           decoration: BoxDecoration(

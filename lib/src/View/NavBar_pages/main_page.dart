@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/dashborad_page.dart';
+import 'package:profile_part/src/View/start_pages/test.dart';
 import 'package:profile_part/src/constant/color.dart';
+
+import '../../repository/service_repository/service_data.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,10 +17,15 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final firebaseservice = Get.put(FirebaseService());
+
   int _selectedIndex = 0;
   static final List<Widget> _widgetsOptions = [
     const DashBoard(),
-    const CategoriesPage()
+    const CategoriesPage(),
+    Testpage(),
+    const Scaffold(),
+    const Scaffold(),
   ];
   @override
   Widget build(BuildContext context) {

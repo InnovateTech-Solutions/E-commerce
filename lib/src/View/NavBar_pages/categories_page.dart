@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/widget/constant_widget/App_Bar/first_appbar.dart';
+import 'package:profile_part/src/widget/pages_widget/NavBar_widgets/categories_widget.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key}) : super(key: key);
@@ -10,6 +13,12 @@ class CategoriesPage extends StatefulWidget {
 class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ColorConstants.secondaryScaffoldBacground,
+        appBar: secondAppBar(),
+        body: const CategoriesWidget(),
+      ),
+    );
   }
 }
