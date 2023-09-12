@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
+import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
-import 'package:profile_part/src/widget/pages_widget/NavBar_widgets/dashborad_widget.dart';
 
 class ProductsWidget extends StatefulWidget {
   const ProductsWidget({Key? key, required this.id, required this.category})
@@ -51,6 +51,10 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                               width: AppConst.medium.w,
                             ),
                             textFieldLabel(products[index]['Title']),
+                            SizedBox(
+                              width: AppConst.largeSize.w,
+                            ),
+                            ButtonWidget(onTap: () => null, tilte: 'BOOK NOW ')
                           ]),
                         ],
                       );
