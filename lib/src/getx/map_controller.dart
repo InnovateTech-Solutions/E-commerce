@@ -10,17 +10,18 @@ class MapController extends GetxController {
 
   final Completer<GoogleMapController> Controller =
       Completer<GoogleMapController>();
+  static LatLng? initialPosition;
 
   CameraPosition kGooglePlex = const CameraPosition(
     target: LatLng(20.42796133580664, 75.885749655962),
     zoom: 14.4746,
   );
 
-  CameraPosition kLake = const CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(31.908002, 35.888167),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+  // CameraPosition kLake = CameraPosition(
+  //     bearing: 192.8334901395799,
+  //     target: determinePosition(),
+  //     tilt: 59.440717697143555,
+  //     zoom: 19.151926040649414);
 
   Future<Set<Marker>> getMarker() async {
     final collectionReference =
@@ -46,12 +47,12 @@ class MapController extends GetxController {
     return markers.toSet();
   }
 
-  Future<Position> determinePosition() async {
-    bool sreviceEnable;
+  Future<LatLng> determinePosition() async {
+    bool serviceEnable;
     LocationPermission permission;
-    sreviceEnable = await Geolocator.isLocationServiceEnabled();
+    serviceEnable = await Geolocator.isLocationServiceEnabled();
 
-    if (!sreviceEnable) {
+    if (!serviceEnable) {
       return Future.error('Location services are disable');
     }
 
@@ -68,7 +69,11 @@ class MapController extends GetxController {
       return Future.error('Location permission are permanently denied');
     }
 
-    Position position = await Geolocator.getCurrentPosition();
-    return position;
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    initialPosition = LatLng(position.latitude, position.longitude);
+    print(initialPosition);
+    return initialPosition!;
   }
 }
