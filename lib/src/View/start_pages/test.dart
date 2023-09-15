@@ -1,40 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
+import 'package:profile_part/src/widget/custom_Widget.dart/location_widget.dart';
 
-class Testpage extends StatefulWidget {
-  const Testpage({Key? key}) : super(key: key);
+const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
-  @override
-  State<Testpage> createState() => _TestpageState();
-}
+class ExampleParallax extends StatelessWidget {
+  const ExampleParallax({
+    super.key,
+  });
 
-class _TestpageState extends State<Testpage> {
   @override
   Widget build(BuildContext context) {
     final firebaseservice = Get.put(FirebaseService());
 
     return FutureBuilder(
-      future: firebaseservice.getServicesByCategory(),
+      future: firebaseservice.getAllCategory(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             List<Map<String, dynamic>> categories = snapshot.data!;
 
-            return ListView.builder(
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Text(categories[index]['Category']),
-                    ],
-                  );
-                });
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 690.h,
+                    child: ListView.builder(
+                        itemCount: categories.length,
+                        itemBuilder: ((context, index) {
+                          return LocationWidget(
+                            imageUrl: categories[index]['image'],
+                            name: categories[index]['Title'],
+                            description: categories[index]['id'],
+                          );
+                        })),
+                  )
+                ],
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error${snapshot.error}'));
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Text("something went wrong");
           }
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         } else {
-          return Text('Somthing wroing');
+          return const Text("somthing went wrong");
         }
       },
     );

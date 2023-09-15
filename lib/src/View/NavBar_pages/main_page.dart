@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/dashborad_page.dart';
@@ -23,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   static final List<Widget> _widgetsOptions = [
     const DashBoard(),
     const CategoriesPage(),
-    Testpage(),
+    ExampleParallax(),
     const Scaffold(),
     const Scaffold(),
   ];

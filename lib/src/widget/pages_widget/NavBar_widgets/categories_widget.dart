@@ -6,7 +6,6 @@ import 'package:profile_part/src/View/Products/products_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
-import 'package:profile_part/src/widget/pages_widget/Products/products_widget.dart';
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({Key? key}) : super(key: key);
@@ -22,7 +21,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
 
     return Center(
       child: FutureBuilder(
-        future: firebaseservice.fetchAllCategotieTest(),
+        future: firebaseservice.getAllCategory(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {

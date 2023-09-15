@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/model/service_model.dart';
 import 'package:profile_part/src/widget/pages_widget/Products/products_widget.dart';
 
 import '../../widget/constant_widget/App_Bar/first_appbar.dart';

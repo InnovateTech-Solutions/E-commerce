@@ -71,7 +71,7 @@ class FirebaseService extends GetxController {
         .toList();
   }
 
-  Future<List<Map<String, dynamic>>> fetchAllCategotieTest() async {
+  Future<List<Map<String, dynamic>>> getAllCategory() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Categories').get();
 
@@ -82,10 +82,11 @@ class FirebaseService extends GetxController {
     }).toList();
   }
 
-  Future<List<Map<String, dynamic>>> getServicesByCategory() async {
+  Future<List<Map<String, dynamic>>> getServicesByCategory(
+      String category) async {
     final QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('Services')
-        .where('Category', isEqualTo: 'category_id_1')
+        .collection('Vendors')
+        .where('Category', isEqualTo: category)
         .get();
 
     return snapshot.docs
