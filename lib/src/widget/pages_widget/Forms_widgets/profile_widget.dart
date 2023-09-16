@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../View/setting/setting_page.dart';
 import '../../../View/setting/update_profile.dart';
 import '../../../constant/app_const.dart';
+import '../../../getx/map_controller.dart';
 import '../../../getx/profile_controller.dart';
 import '../../../model/button_model.dart';
 import '../../../model/user_model.dart';
@@ -28,6 +29,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   Widget build(BuildContext context) {
     final controllerr = Get.put(ProfileController());
     final userController = Get.put(UserRepository());
+    final mapController = Get.put(MapController());
     List<Button> profile = [
       Button(
           title: 'My Appointments',
@@ -37,7 +39,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             width: 15.w,
             height: 15.h,
           ),
-          onTap: () {}),
+          onTap: () {
+            mapController.determinePosition();
+          }),
       Button(
           title: 'Payment Method',
           icon: SvgPicture.asset(

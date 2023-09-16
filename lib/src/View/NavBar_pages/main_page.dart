@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../constant/color.dart';
-import '../map.dart';
+import '../map_page.dart';
 import '../setting/profile_page.dart';
 import 'dashborad_page.dart';
 
@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   static final List<Widget> _widgetsOptions = [
     const DashBoard(),
     const DashBoard(),
-    const MapSample(),
+    const MapPage(),
     const DashBoard(),
     const ProfilePage()
   ];
