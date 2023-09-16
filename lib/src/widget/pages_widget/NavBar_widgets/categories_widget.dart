@@ -52,7 +52,6 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                   DashboradContainer(
                                     imgName: categories[index]['image'],
                                     onTap: () => Get.to(ProductsPage(
-                                      id: categories[index]['id'],
                                       title: categories[index]['Title'],
                                     )),
                                   ),

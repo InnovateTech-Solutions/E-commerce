@@ -93,4 +93,29 @@ class FirebaseService extends GetxController {
         .map((docs) => docs.data() as Map<String, dynamic>)
         .toList();
   }
+
+  Future<List<Map<String, dynamic>>> fetchAllAds() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('Ads').get();
+
+    return querySnapshot.docs
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
+  }
+
+  Future<Map<String, List<DocumentSnapshot>>> fetchAdsAndCategories() async {
+    final adsQuery = FirebaseFirestore.instance.collection('Ads').get();
+    final categoriesQuery =
+        FirebaseFirestore.instance.collection('Categories').get();
+
+    final results = await Future.wait([adsQuery, categoriesQuery]);
+
+    List<DocumentSnapshot> ads = results[0].docs;
+    List<DocumentSnapshot> categories = results[1].docs;
+
+    return {
+      'ads': ads,
+      'categories': categories,
+    };
+  }
 }

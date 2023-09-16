@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LocationWidget extends StatelessWidget {
   LocationWidget({
@@ -21,7 +22,7 @@ class LocationWidget extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 16 / 9,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           child: Stack(
             children: [
               _buildParallaxBackground(context),

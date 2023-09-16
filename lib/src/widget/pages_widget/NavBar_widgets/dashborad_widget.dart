@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
+import 'package:profile_part/src/View/Products/products_page.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
@@ -23,15 +25,42 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: firebaseservice.fetchData(),
+        future: firebaseservice.fetchAdsAndCategories(),
         builder: (context, snpshot) {
           if (snpshot.connectionState == ConnectionState.done) {
             if (snpshot.hasData) {
-              List<Map<String, dynamic>> servicesData = snpshot.data!;
-              servicesData.shuffle();
+              final ads = snpshot.data!['ads'];
+              final categories = snpshot.data!['categories'];
+
+              List<Widget> convertSnapshotsToWidgets(
+                  List<DocumentSnapshot<Object?>>? documentSnapshots) {
+                List<Widget> widgetsList = [];
+
+                if (documentSnapshots != null) {
+                  for (DocumentSnapshot<Object?> snapshot
+                      in documentSnapshots) {
+                    // Extract data from the snapshot and create a widget.
+                    var data = snapshot.data() as Map<String,
+                        dynamic>?; // Adjust data type as per your document structure.
+
+                    if (data != null) {
+                      Widget documentWidget = DashboradContainer(
+                          imgName: data['image'],
+                          onTap: () => Get.to(categories));
+
+                      widgetsList.add(documentWidget);
+                    }
+                  }
+                }
+
+                return widgetsList;
+              }
+
               return Column(
                 children: [
-                  const SliderWidget(),
+                  SliderWidget(
+                    item: convertSnapshotsToWidgets(ads),
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
@@ -53,7 +82,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                               child: GridView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: servicesData.length,
+                                  itemCount: categories?.length,
                                   gridDelegate:
                                       const SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent: 200,
@@ -69,15 +98,17 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                       child: Stack(
                                         children: [
                                           DashboradContainer(
-                                            imgName: servicesData[index]
+                                            imgName: categories?[index]
                                                 ['image'],
-                                            onTap: () {},
+                                            onTap: () => Get.to(ProductsPage(
+                                                title: categories?[index]
+                                                    ['Title'])),
                                           ),
                                           Container(
                                             margin: EdgeInsets.only(
                                                 top: 140.h, left: 20.w),
                                             child: Text(
-                                                servicesData[index]['Title'],
+                                                categories?[index]['Title'],
                                                 style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
                                                         fontSize: 14.sp,

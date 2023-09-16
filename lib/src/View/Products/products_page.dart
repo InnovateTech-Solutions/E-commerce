@@ -5,9 +5,7 @@ import 'package:profile_part/src/widget/pages_widget/Products/products_widget.da
 import '../../widget/constant_widget/App_Bar/first_appbar.dart';
 
 class ProductsPage extends StatefulWidget {
-  const ProductsPage({required this.id, required this.title, Key? key})
-      : super(key: key);
-  final String id;
+  const ProductsPage({required this.title, Key? key}) : super(key: key);
   final String title;
 
   @override
@@ -21,7 +19,6 @@ class _ProductsPageState extends State<ProductsPage> {
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
       appBar: productsAppBar(widget.title),
       body: ProductsWidget(
-        id: widget.id,
         category: widget.title,
       ),
     );
