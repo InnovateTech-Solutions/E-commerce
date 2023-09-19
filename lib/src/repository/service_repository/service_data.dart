@@ -2,22 +2,54 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/model/categories_model.dart';
+import 'package:profile_part/src/model/product_model.dart';
 
 class FirebaseService extends GetxController {
   static FirebaseService get instance => Get.find();
-  Future<List<Map<String, dynamic>>> fetchData() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('Categories')
-        .limit(4)
-        .get();
+  final _db = FirebaseFirestore.instance;
+
+  Future<Map<String, List<DocumentSnapshot>>> fetchAdsAndCategories() async {
+    ////that query fetch all categories , that used in Categories widget
+    final adsQuery = _db.collection('Ads').get();
+    final categoriesQuery = _db.collection('Categories').limit(4).get();
+
+    final results = await Future.wait([adsQuery, categoriesQuery]);
+
+    List<DocumentSnapshot> ads = results[0].docs;
+    List<DocumentSnapshot> categories = results[1].docs;
+
+    return {
+      'ads': ads,
+      'categories': categories,
+    };
+  }
+
+  Future<List<Categories>> fetchAllCategories() async {
+//that query fetch all categories , that used in Categories widget
+    final querySnapshot = await _db.collection('Categories').get();
 
     return querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
+        .map((doc) => Categories.fromSnapshot(doc))
         .toList();
   }
 
+  Future<List<Product>> fetchVendorByCategory(String category) async {
+    //that query fetch all vendors in each Category , that used in products widget
+
+    final querySnapshot = await _db
+        .collection('Vendors')
+        .where('Category', isEqualTo: category)
+        .get();
+
+    return querySnapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
+  }
+
+// not used querys
+
   Future<List<Map<String, dynamic>>> getSkinCareSubcollection(
       String subCategories, String id) async {
+    //sub collection call examle
     final QuerySnapshot skinCareQuery = await FirebaseFirestore.instance
         .collection('Categories') // Replace with your collection name
         .doc(id) // Replace with the specific document ID
@@ -26,15 +58,6 @@ class FirebaseService extends GetxController {
 
     return skinCareQuery.docs
         .map((docs) => docs.data() as Map<String, dynamic>)
-        .toList();
-  }
-
-  Future<List<Map<String, dynamic>>> fetchAllCategoties() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('Categories').get();
-
-    return querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
   }
 
@@ -82,18 +105,6 @@ class FirebaseService extends GetxController {
     }).toList();
   }
 
-  Future<List<Map<String, dynamic>>> getServicesByCategory(
-      String category) async {
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('Vendors')
-        .where('Category', isEqualTo: category)
-        .get();
-
-    return snapshot.docs
-        .map((docs) => docs.data() as Map<String, dynamic>)
-        .toList();
-  }
-
   Future<List<Map<String, dynamic>>> fetchAllAds() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('Ads').get();
@@ -101,21 +112,5 @@ class FirebaseService extends GetxController {
     return querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
-  }
-
-  Future<Map<String, List<DocumentSnapshot>>> fetchAdsAndCategories() async {
-    final adsQuery = FirebaseFirestore.instance.collection('Ads').get();
-    final categoriesQuery =
-        FirebaseFirestore.instance.collection('Categories').get();
-
-    final results = await Future.wait([adsQuery, categoriesQuery]);
-
-    List<DocumentSnapshot> ads = results[0].docs;
-    List<DocumentSnapshot> categories = results[1].docs;
-
-    return {
-      'ads': ads,
-      'categories': categories,
-    };
   }
 }

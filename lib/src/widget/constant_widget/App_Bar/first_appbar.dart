@@ -61,7 +61,7 @@ productsAppBar(String title) {
           Icons.arrow_back_ios,
           color: ColorConstants.mainTextColor,
         )),
-    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    backgroundColor: ColorConstants.secondaryScaffoldBacground,
     elevation: 0,
     centerTitle: true,
     title: Text(

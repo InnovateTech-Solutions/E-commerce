@@ -44,7 +44,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                         dynamic>?; // Adjust data type as per your document structure.
 
                     if (data != null) {
-                      Widget documentWidget = DashboradContainer(
+                      Widget documentWidget = AppContainer(
                           imgName: data['image'],
                           onTap: () => Get.to(categories));
 
@@ -97,7 +97,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                               Radius.circular(14.r))),
                                       child: Stack(
                                         children: [
-                                          DashboradContainer(
+                                          AppContainer(
                                             imgName: categories?[index]
                                                 ['image'],
                                             onTap: () => Get.to(ProductsPage(

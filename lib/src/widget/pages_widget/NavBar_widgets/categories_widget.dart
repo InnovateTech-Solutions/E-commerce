@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/Products/products_page.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/repository/service_repository/service_data.dart';
+import 'package:profile_part/src/getx/data_controller.dart';
+import 'package:profile_part/src/model/categories_model.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
 
 class CategoriesWidget extends StatefulWidget {
@@ -17,15 +18,15 @@ class CategoriesWidget extends StatefulWidget {
 class _CategoriesWidgetState extends State<CategoriesWidget> {
   @override
   Widget build(BuildContext context) {
-    final firebaseservice = Get.put(FirebaseService());
+    final firebaseservice = Get.put(DataController());
 
     return Center(
-      child: FutureBuilder(
-        future: firebaseservice.getAllCategory(),
+      child: FutureBuilder<List<Categories>>(
+        future: firebaseservice.fetchAllCategories(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              List<Map<String, dynamic>> categories = snapshot.data!;
+              final categories = snapshot.data!;
               categories.shuffle();
               return Column(
                 children: [
@@ -49,16 +50,16 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                       BorderRadius.all(Radius.circular(14.r))),
                               child: Stack(
                                 children: [
-                                  DashboradContainer(
-                                    imgName: categories[index]['image'],
+                                  AppContainer(
+                                    imgName: categories[index].image,
                                     onTap: () => Get.to(ProductsPage(
-                                      title: categories[index]['Title'],
+                                      title: categories[index].title,
                                     )),
                                   ),
                                   Container(
                                     margin:
                                         EdgeInsets.only(top: 140.h, left: 20.w),
-                                    child: Text(categories[index]['Title'],
+                                    child: Text(categories[index].title,
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
                                                 fontSize: 14.sp,

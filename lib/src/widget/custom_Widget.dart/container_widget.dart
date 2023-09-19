@@ -3,9 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DashboradContainer extends StatelessWidget {
-  const DashboradContainer(
-      {required this.imgName, required this.onTap, Key? key})
+class AppContainer extends StatelessWidget {
+  const AppContainer({required this.imgName, required this.onTap, Key? key})
       : super(key: key);
   final String imgName;
   final VoidCallback onTap;
