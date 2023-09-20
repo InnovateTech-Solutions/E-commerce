@@ -8,6 +8,34 @@ import 'package:profile_part/src/model/product_model.dart';
 class FirebaseService extends GetxController {
   static FirebaseService get instance => Get.find();
   final _db = FirebaseFirestore.instance;
+   RxList<Product> products = <Product>[].obs;
+
+     @override
+  void onInit() {
+    super.onInit();
+    
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+    void filterPlayer(String playerName) {
+    RxList<Product> results = <Product>[].obs;
+    if (playerName.isEmpty) {
+      results = products;
+    } else {
+      results = products
+          .where((element) => element.name
+              .toString()
+              .toLowerCase()
+              .contains(playerName.toLowerCase()))
+          .toList().obs;
+    }
+    products.value = results;
+  }
+
 
   Future<Map<String, List<DocumentSnapshot>>> fetchAdsAndCategories() async {
     ////that query fetch all categories , that used in Categories widget
@@ -41,7 +69,7 @@ class FirebaseService extends GetxController {
         .collection('Vendors')
         .where('Category', isEqualTo: category)
         .get();
-
+        products = querySnapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList().obs;       
     return querySnapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
   }
 
