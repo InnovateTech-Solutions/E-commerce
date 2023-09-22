@@ -18,9 +18,7 @@ class _ProductsPageState extends State<ProductsPage> {
     return Scaffold(
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
       appBar: productsAppBar(widget.title),
-      body: ProductsWidget(
-        category: widget.title,
-      ),
+      body: ProductsWidget(widget.title,),
     );
   }
 }

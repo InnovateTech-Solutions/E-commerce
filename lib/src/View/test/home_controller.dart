@@ -1,26 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/model/product_model.dart';
 
 class HomeController extends GetxController {
-  final List<Map<String, dynamic>> allPlayers = [
-    {"name": "Rohit Sharma", "country": "India"},
-    {"name": "Virat Kohli ", "country": "India"},
-    {"name": "Glenn Maxwell", "country": "Australia"},
-    {"name": "Aaron Finch", "country": "Australia"},
-    {"name": "Martin Guptill", "country": "New Zealand"},
-    {"name": "Trent Boult", "country": "New Zealand"},
-    {"name": "David Miller", "country": "South Africa"},
-    {"name": "Kagiso Rabada", "country": "South Africa"},
-    {"name": "Chris Gayle", "country": "West Indies"},
-    {"name": "Jason Holder", "country": "West Indies"},
-    {"name": "Mohammed r5ess", "country": "Amman naur"},
-  ];
-  Rx<List<Map<String, dynamic>>> foundPlayers =
-      Rx<List<Map<String, dynamic>>>([]);
+  final _db = FirebaseFirestore.instance;
+
+  RxList<Product> foundPlayers = RxList<Product>([]);
+  RxList<Product> mainList = RxList<Product>([]);
 
   @override
   void onInit() {
     super.onInit();
-    foundPlayers.value = allPlayers;
+    // Initialize the foundPlayers list with data from Firestore when the controller is initialized.
+    fetchVendorByCategory("Skin care");
   }
 
   @override
@@ -30,18 +22,40 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
-  void filterPlayer(String playerName) {
-    List<Map<String, dynamic>> results = [];
-    if (playerName.isEmpty) {
-      results = allPlayers;
-    } else {
-      results = allPlayers
-          .where((element) => element["name"]
-              .toString()
-              .toLowerCase()
-              .contains(playerName.toLowerCase()))
-          .toList();
+
+  Future<void> fetchVendorByCategory(String category) async {
+    try {
+      final querySnapshot = await _db
+          .collection('Vendors')
+          .where('Category', isEqualTo: category)
+          .get();
+      mainList.assignAll(
+        querySnapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList(),
+      );
+      foundPlayers.assignAll(mainList);
+    } catch (e) {
+      // Handle any errors that may occur during the Firestore fetch.
+      print("Error fetching players: $e");
     }
-    foundPlayers.value = results;
   }
+
+void filterPlayer(String playerName) {
+  List<Product> result = RxList<Product>([]);
+
+  if (playerName.isEmpty) {
+    // If the search query is empty, simply assign the original list to foundPlayers.
+    foundPlayers.assignAll(mainList);
+  } else {
+     result = mainList.
+        where((element) => element.name
+            .toString()
+            .toLowerCase()
+            .contains(playerName.toLowerCase()))
+        .toList();
+    foundPlayers.assignAll(result);
+  }
+}
+
+
+
 }

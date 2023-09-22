@@ -35,15 +35,15 @@ class HomeView extends GetView<HomeController> {
             Expanded(
               child: Obx(
                 () => ListView.builder(
-                  itemCount: controller.foundPlayers.value.length,
+                  itemCount: controller.foundPlayers.length,
                   itemBuilder: (context, index) => ListTile(
                     title: Text(
-                      controller.foundPlayers.value[index]['name'],
+                      controller.foundPlayers[index].name,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     subtitle:
-                        Text(controller.foundPlayers.value[index]['country']),
+                        Text(controller.foundPlayers[index].description),
                   ),
                 ),
               ),

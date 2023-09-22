@@ -1,42 +1,62 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:profile_part/src/model/product_model.dart';
 
 class SearchControllerr extends GetxController {
-  RxList<Map<String, dynamic>> services = <Map<String, dynamic>>[].obs;
+  final String category;
+  SearchControllerr(this.category);
+  
+  final _db = FirebaseFirestore.instance;
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+   RxList<Product> mainList = RxList<Product>([]);
+   RxList<Product> filteredList = <Product>[].obs;
 
-  @override
+     @override
   void onInit() {
     super.onInit();
-    // Initialize your services data here, fetch data from Firestore.
-    // Replace this with your actual data retrieval logic.
-    fetchServicesFromFirestore();
+    fetchVendorByCategory(category);
   }
 
-  Future<void> fetchServicesFromFirestore() async {
-    try {
-      final QuerySnapshot querySnapshot = await _firestore.collection('Services').get();
+  @override
+  void onReady() {
+    super.onReady();
+  }
 
-      final servicesList = querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
-      services.assignAll(servicesList);
-      print(services);
-    } catch (error) {
-      print('Error fetching services: $error');
+  Future<List<Product>> fetchVendorByCategory(String category) async {
+    try { // #1 fetching the vendors data, #2 initializing the mainList and the filtered list
+      final querySnapshot = await _db
+          .collection('Vendors')
+          .where('Category', isEqualTo: category)
+          .get();
+      mainList.assignAll(
+        querySnapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList(),
+      );
+      filteredList.assignAll(mainList);
+    } catch (e) {
+      // Handle any errors that may occur during the Firestore fetch.
+      print("Error fetching players: $e");
     }
+     return filteredList;
+
   }
 
-  RxList<Map<String, dynamic>> searchServices(String query) {
-    if (query.isEmpty) {
-      return services;
-    }
-    
-    return services.where((service) {
-      final serviceName = service['Name'].toLowerCase();
-      final serviceDescription = service['Description'].toLowerCase();
-      return serviceName.contains(query.toLowerCase()) ||
-          serviceDescription.contains(query.toLowerCase());
-    }).toList().obs;
-  
+
+
+
+void filterPlayer(String playerName) {
+  List<Product> result = RxList<Product>([]);
+
+  if (playerName.isEmpty) {
+    // If the search query is empty, simply assign the original list to foundPlayers.
+    filteredList.assignAll(mainList);
+  } else {
+     result = mainList.
+        where((element) => element.name
+            .toString()
+            .toLowerCase()
+            .contains(playerName.toLowerCase()))
+        .toList();
+    filteredList.assignAll(result);
   }
+}
 }
