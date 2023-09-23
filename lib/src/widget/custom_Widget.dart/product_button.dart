@@ -14,12 +14,14 @@ class ProductButton extends StatelessWidget {
       child: Container(
         width: 150.w,
         height: 50.h,
+        alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             color: ColorConstants.secondaryScaffoldBacground),
         child: Center(
           child: Text(
-            "Visit",
+            "Book",
+            textAlign: TextAlign.left,
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(
                     fontSize: 14,

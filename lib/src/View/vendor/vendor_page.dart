@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/product_model.dart';
-import 'package:profile_part/src/widget/constant_widget/App_Bar/first_appbar.dart';
 import 'package:profile_part/src/widget/pages_widget/vendor/vendor_widget.dart';
 
 class VendorPage extends StatefulWidget {

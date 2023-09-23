@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppText extends StatelessWidget {
@@ -26,7 +25,7 @@ class AppText extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: fontSize,
         fontWeight: fontWeight,
-        letterSpacing: 1.0.h,
+        letterSpacing: 1.0,
         color: color,
       ),
     );

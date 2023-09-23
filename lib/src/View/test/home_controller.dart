@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
+  final RxInt selectedIndex = 0.obs; // Observable for the selected index
+
   final List<Map<String, dynamic>> allPlayers = [
     {"name": "Rohit Sharma", "country": "India"},
     {"name": "Virat Kohli ", "country": "India"},
@@ -24,11 +26,6 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {}
   void filterPlayer(String playerName) {
     List<Map<String, dynamic>> results = [];
@@ -43,5 +40,19 @@ class HomeController extends GetxController {
           .toList();
     }
     foundPlayers.value = results;
+  }
+}
+
+class Appcontroller extends GetxController {
+  var tabstatus = false.obs;
+  final RxInt selectedIndex = 0.obs; // Declare selectedIndex outside the class
+  var currentIndex = 0.obs;
+
+  void toggleTabs() {
+    tabstatus.value = !tabstatus.value;
+  }
+
+  void changeTab(int index) {
+    currentIndex.value = index;
   }
 }
