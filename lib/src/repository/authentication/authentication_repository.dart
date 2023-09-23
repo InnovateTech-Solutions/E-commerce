@@ -1,8 +1,10 @@
 // ignore_for_file: avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:profile_part/src/View/Forms/login_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/main_page.dart';
 import 'package:profile_part/src/View/start_pages/intro_page.dart';
 import 'package:profile_part/src/constant/color.dart';
@@ -126,6 +128,38 @@ class AuthenticationRepository extends GetxController {
             verificationId: verificationID.value, smsCode: otp));
 
     return credentails.user != null ? true : false;
+  }
+
+  void deleteUserAccount(String email, String password) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        Get.snackbar("Error", "No user is currently signed in.");
+        return;
+      }
+
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
+
+      await user.reauthenticateWithCredential(credential);
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('User')
+          .where("Email", isEqualTo: email)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        await querySnapshot.docs.first.reference.delete();
+        await user.delete();
+        print('User account deleted successfully.');
+        Get.offAll(const LoginPage());
+        Get.snackbar("User account Deleted", "Success");
+      } else {
+        Get.snackbar("Error", "User with the provided email not found.");
+      }
+    } catch (error) {
+      print('Error deleting user account: $error');
+      Get.snackbar("Error", "Failed to delete user account.");
+    }
   }
 
   Future<void> logout() async => await _auth.signOut();

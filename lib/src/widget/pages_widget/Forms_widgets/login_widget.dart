@@ -60,7 +60,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                         validator: (email) => controller.validateEmail(email),
                         type: TextInputType.emailAddress,
                         onChange: null,
-                        inputFormat: null)),
+                        inputFormat: null,
+                        enable: false)),
                 SizedBox(
                   height: AppConst.medium.h,
                 ),
@@ -75,7 +76,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                             controller.vaildatePassword(password),
                         type: TextInputType.visiblePassword,
                         onChange: null,
-                        inputFormat: null)),
+                        inputFormat: null,
+                        enable: false)),
                 forgetPasswordText(context),
                 SizedBox(
                   height: AppConst.medium.h,

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/constant/app_const.dart';
-import 'package:profile_part/src/getx/profile_controller.dart';
-import 'package:profile_part/src/getx/register_controller.dart';
-import 'package:profile_part/src/model/login_model.dart';
-import 'package:profile_part/src/model/user_model.dart';
-import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
-import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
-import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
+
+import '../../../constant/app_const.dart';
+import '../../../getx/profile_controller.dart';
+import '../../../getx/register_controller.dart';
+import '../../../model/login_model.dart';
+import '../../../model/user_model.dart';
+import '../../../repository/user_repository/user_repository.dart';
+import '../../Text_Widget/form_text.dart';
+import '../../custom_Widget.dart/button_widget.dart';
+import '../../custom_Widget.dart/form_widget.dart';
 
 class UpdateProfileWidget extends StatefulWidget {
   const UpdateProfileWidget({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class UpdateProfileWidget extends StatefulWidget {
 }
 
 class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
+  final usercontroller = Get.put(UserRepository());
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProfileController());
@@ -38,9 +41,8 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: AppConst.largeSize.h,
-                      ),
+                      imagepicker(),
+                      mainText(userName.text),
                       SizedBox(
                         height: 650.h,
                         width: 400.w,
@@ -50,6 +52,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                             textFieldLabel(AppConst.email),
                             FormWidget(
                                 login: Login(
+                                    enable: false,
                                     controller: email,
                                     hintText: 'Email',
                                     icon: const Icon(Icons.email_rounded),
@@ -65,6 +68,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                             textFieldLabel(AppConst.username),
                             FormWidget(
                                 login: Login(
+                                    enable: true,
                                     controller: userName,
                                     hintText: 'Username',
                                     icon: const Icon(Icons.person),
@@ -80,6 +84,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                             textFieldLabel(AppConst.phoneNumber),
                             FormWidget(
                                 login: Login(
+                                    enable: true,
                                     controller: phoneNumber,
                                     hintText: 'Phone Number',
                                     icon: const Icon(Icons.phone),
@@ -93,20 +98,6 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                               height: AppConst.smallSize.h,
                             ),
                             textFieldLabel(AppConst.password),
-                            FormWidget(
-                                login: Login(
-                                    controller: password,
-                                    hintText: 'Password',
-                                    icon: const Icon(Icons.lock),
-                                    invisible: true,
-                                    validator: (password) =>
-                                        validator.vaildatePassword(password),
-                                    type: TextInputType.text,
-                                    onChange: null,
-                                    inputFormat: [])),
-                            SizedBox(
-                              height: AppConst.smallSize.h,
-                            ),
                             ButtonWidget(
                                 onTap: () async {
                                   if ((controller.fromkey.currentState!
@@ -116,7 +107,8 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                         email: email.text.trim(),
                                         name: userName.text.trim(),
                                         password: password.text.trim(),
-                                        phone: phoneNumber.text.trim());
+                                        phone: phoneNumber.text.trim(),
+                                        imageUrl: "");
                                     await controller.updateRecord(userData);
                                   }
                                 },
@@ -131,9 +123,27 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
             } else {
               return const Text("somthing went wrong");
             }
-          } else {
+          } else if (snapShot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
+          } else {
+            return const Text("somthing went wrong");
           }
         }));
+  }
+
+  GestureDetector imagepicker() {
+    return GestureDetector(
+      onTap: () async {
+        usercontroller.pickUpImage();
+      },
+      child: Container(
+        width: 150.w,
+        height: 150.h,
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(50))),
+        child: usercontroller.getUserImageUrl(),
+      ),
+    );
   }
 }

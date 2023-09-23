@@ -6,7 +6,7 @@ import 'package:profile_part/src/constant/color.dart';
 
 firstAppBar() {
   return AppBar(
-    backgroundColor: ColorConstants.secondaryScaffoldBacground,
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
     actions: [
       Row(

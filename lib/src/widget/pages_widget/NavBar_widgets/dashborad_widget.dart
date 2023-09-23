@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
-import 'package:profile_part/src/View/Products/products_page.dart';
-import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
-import 'package:profile_part/src/widget/partial_widget/seemore_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/slider_widget.dart';
+
+import '../../../View/Products/products_page.dart';
+import '../../../constant/app_const.dart';
+import '../../partial_widget/seemore_widget.dart';
 
 class DashBoradWidget extends StatefulWidget {
   const DashBoradWidget({Key? key}) : super(key: key);
@@ -56,12 +57,21 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                 return widgetsList;
               }
 
-              return Column(
-                children: [
-                  SliderWidget(
-                    item: convertSnapshotsToWidgets(ads),
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+                    elevation: 0,
+                    pinned: true,
+                    centerTitle: false,
+                    expandedHeight: 300.h,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: SliderWidget(
+                        item: convertSnapshotsToWidgets(ads),
+                      ),
+                    ),
                   ),
-                  Expanded(
+                  SliverToBoxAdapter(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Container(
@@ -74,6 +84,9 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                 topRight: Radius.circular(20.r))),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: AppConst.smallSize.h,
+                            ),
                             SizedBox(
                               height: AppConst.smallSize.h,
                             ),
@@ -123,13 +136,14 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                   })),
                             ),
                             SeeMore(
-                              onTap: () => Get.to(const CategoriesPage()),
+                              onTap: () =>
+                                  AuthenticationRepository.instance.logout(),
                             )
                           ],
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               );
             } else if (snpshot.hasError) {

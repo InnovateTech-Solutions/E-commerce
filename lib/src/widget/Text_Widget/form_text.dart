@@ -42,3 +42,25 @@ forgetPasswordText(context) {
     ),
   );
 }
+
+blueText(String title) {
+  return Text(title.tr,
+      style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.normal,
+              color: ColorConstants.mainTextColor)));
+}
+
+greyText(String title) {
+  return Text(title.tr,
+      style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.normal,
+              color: ColorConstants.mainTextColor)));
+}
+
+TextButton textButton(Function()? onTap, String title) {
+  return TextButton(onPressed: onTap, child: greyText(title));
+}

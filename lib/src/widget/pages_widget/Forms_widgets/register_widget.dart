@@ -42,7 +42,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       validator: (email) => controller.validateEmail(email),
                       type: TextInputType.emailAddress,
                       onChange: null,
-                      inputFormat: null)),
+                      inputFormat: null,
+                      enable: false)),
               SizedBox(
                 height: AppConst.smallSize.h,
               ),
@@ -56,7 +57,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       validator: (email) => controller.vaildateUserName(email),
                       type: TextInputType.name,
                       onChange: null,
-                      inputFormat: null)),
+                      inputFormat: null,
+                      enable: false)),
               SizedBox(
                 height: AppConst.smallSize.h,
               ),
@@ -70,7 +72,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       validator: (email) => controller.vaildatePassword(email),
                       type: TextInputType.visiblePassword,
                       onChange: null,
-                      inputFormat: null)),
+                      inputFormat: null,
+                      enable: false)),
               SizedBox(
                 height: AppConst.smallSize.h,
               ),
@@ -84,7 +87,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       validator: (email) => controller.vaildPhoneNumber(email),
                       type: TextInputType.number,
                       onChange: null,
-                      inputFormat: null)),
+                      inputFormat: null,
+                      enable: false)),
               SizedBox(
                 height: AppConst.smallSize.h,
               ),
@@ -94,7 +98,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         email: controller.email.text.trim(),
                         name: controller.userName.text.trim(),
                         password: controller.password.text.trim(),
-                        phone: controller.phoneNumber.text.trim()));
+                        phone: controller.phoneNumber.text.trim(),
+                        imageUrl: ''));
                   },
                   tilte: AppConst.signUp)
             ],

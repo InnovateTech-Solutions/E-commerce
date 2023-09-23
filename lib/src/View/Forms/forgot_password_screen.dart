@@ -64,7 +64,8 @@ class _ForgotPwScreenState extends State<ForgotPwScreen> {
                       validator: (email) => controller.validateEmail(email),
                       type: TextInputType.emailAddress,
                       onChange: null,
-                      inputFormat: null)),
+                      inputFormat: null,
+                      enable: false)),
               SizedBox(
                 height: AppConst.medium.h,
               ),
