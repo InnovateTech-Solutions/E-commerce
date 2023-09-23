@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widget/pages_widget/map_widget.dart';
+import '../../widget/pages_widget/map_widegt/map_widget.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});

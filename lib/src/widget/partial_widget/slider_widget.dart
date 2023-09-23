@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constant/color.dart';
-import '../custom_Widget.dart/container_widget.dart';
 
 class SliderWidget extends StatefulWidget {
-  const SliderWidget({Key? key}) : super(key: key);
+  const SliderWidget({required this.item, Key? key}) : super(key: key);
+  final List<Widget> item;
 
   @override
   State<SliderWidget> createState() => _SliderWidgetState();
@@ -14,26 +14,13 @@ class SliderWidget extends StatefulWidget {
 
 class _SliderWidgetState extends State<SliderWidget> {
   int _currentIndex = 0;
-  late Future<List<Map<String, dynamic>>> dataFuture;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> carouselItems = [
-      DashboradContainer(
-        imgName:
-            "https://inventemr.com/cloud/storage/media/medical-firms/logos/Ram_Medical_Center_medical_bh_invent_its_bahrain_1626169335.jpg",
-        onTap: () {},
-      ),
-      DashboradContainer(
-        imgName:
-            "https://www.bahrainyellow.com/img/bh/n/1494139747-97-smile-studios-dental-clinic.jpg",
-        onTap: () {},
-      ),
-    ];
     return Column(
       children: [
         CarouselSlider(
-          items: carouselItems,
+          items: widget.item,
           options: CarouselOptions(
             enlargeCenterPage: true,
             autoPlay: true,
@@ -42,7 +29,7 @@ class _SliderWidgetState extends State<SliderWidget> {
             enableInfiniteScroll: true,
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
             viewportFraction: 0.8,
-            height: 200.0.h,
+            height: 250.0.h,
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
@@ -52,8 +39,8 @@ class _SliderWidgetState extends State<SliderWidget> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: carouselItems.map((item) {
-            int index = carouselItems.indexOf(item);
+          children: widget.item.map((item) {
+            int index = widget.item.indexOf(item);
             return Container(
               width: 8.0.w,
               height: 8.0.h,

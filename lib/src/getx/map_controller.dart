@@ -14,7 +14,7 @@ class MapController extends GetxController {
 
   CameraPosition kGooglePlex = const CameraPosition(
     target: LatLng(20.42796133580664, 75.885749655962),
-    zoom: 14.4746,
+    zoom: 0.151926040649414,
   );
 
   // CameraPosition kLake = CameraPosition(

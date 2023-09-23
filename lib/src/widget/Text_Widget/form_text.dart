@@ -41,7 +41,7 @@ greyText(String title) {
           textStyle: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.normal,
-              color: ColorConstants.greyTextColor)));
+              color: ColorConstants.secondaryScaffoldBacground)));
 }
 
 TextButton textButton(Function()? onTap, String title) {

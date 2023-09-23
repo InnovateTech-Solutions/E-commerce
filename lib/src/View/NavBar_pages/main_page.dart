@@ -1,8 +1,9 @@
+import 'package:ecommerce/src/View/NavBar_pages/categories_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../constant/color.dart';
-import '../map_page.dart';
+import '../map/map_page.dart';
 import '../setting/profile_page.dart';
 import 'dashborad_page.dart';
 
@@ -17,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetsOptions = [
     const DashBoard(),
-    const DashBoard(),
+    const CategoriesPage(),
     const MapPage(),
     const DashBoard(),
     const ProfilePage()

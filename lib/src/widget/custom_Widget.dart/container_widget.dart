@@ -3,9 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DashboradContainer extends StatelessWidget {
-  const DashboradContainer(
-      {required this.imgName, required this.onTap, Key? key})
+class AppContainer extends StatelessWidget {
+  const AppContainer({required this.imgName, required this.onTap, Key? key})
       : super(key: key);
   final String imgName;
   final VoidCallback onTap;
@@ -13,7 +12,7 @@ class DashboradContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: onTap,
       child: Container(
           margin: EdgeInsets.symmetric(vertical: 6.0.h, horizontal: 6.0.w),
           decoration: BoxDecoration(

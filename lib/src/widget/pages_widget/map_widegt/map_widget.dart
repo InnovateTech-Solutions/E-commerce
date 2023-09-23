@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../getx/map_controller.dart';
+import '../../../getx/map_controller.dart';
 
 class MapWidget extends StatefulWidget {
   MapWidget({super.key});
@@ -14,8 +14,8 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   final mapController = Get.put(MapController());
 
-  late LatLng initialPosition;
-  // Store the initial position
+  late LatLng initialPosition = LatLng(0.0, 0.0);
+
   @override
   void initState() {
     super.initState();

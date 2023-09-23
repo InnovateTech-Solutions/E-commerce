@@ -1,21 +1,25 @@
-import 'package:ecommerce/src/repository/service_repository/service_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+
+import '../model/categories_model.dart';
+import '../model/product_model.dart';
+import '../repository/service_repository/service_data.dart';
 
 class DataController extends GetxController {
   static DataController get instance => Get.find();
+  Future<Future<Map<String, List<DocumentSnapshot<Object?>>>>>
+      fetchAdsAndCategories() async {
+    // fetch All categorie And Ads
+    return FirebaseService.instance.fetchAdsAndCategories();
+  }
 
-  final FirebaseService _firebaseService;
+  Future<List<Categories>> fetchAllCategories() {
+    // fetch All categorie : Title , image , id
+    return FirebaseService.instance.fetchAllCategories();
+  }
 
-  DataController(this._firebaseService);
-
-  final RxList<Map<String, dynamic>> dataList = <Map<String, dynamic>>[].obs;
-
-  Future<void> fetchData() async {
-    try {
-      List<Map<String, dynamic>> data = await _firebaseService.fetchData();
-      dataList.assignAll(data);
-    } catch (e) {
-      // Handle error
-    }
+  Future<List<Product>> fetchVendorByCategory(String category) {
+    //fetch Service (all vendors) by Passing The category Name
+    return FirebaseService.instance.fetchVendorByCategory(category);
   }
 }
