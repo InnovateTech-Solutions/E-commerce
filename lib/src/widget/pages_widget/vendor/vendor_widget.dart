@@ -33,7 +33,7 @@ class VendorWidget extends GetView<Appcontroller> {
     final Uri appleMapsUri = Uri.parse(appleMapsUrl);
 
     try {
-      if (!await canLaunchUrl(googleMapsUri)) {
+      if (await canLaunchUrl(googleMapsUri)) {
         await launchUrl(googleMapsUri);
       } else if (await canLaunchUrl(appleMapsUri)) {
         await launchUrl(appleMapsUri);
@@ -220,7 +220,7 @@ class VendorWidget extends GetView<Appcontroller> {
                                                     style: GoogleFonts.poppins(
                                                         fontSize: 16.sp,
                                                         fontWeight:
-                                                            FontWeight.w500,
+                                                            FontWeight.w400,
                                                         color: controller
                                                                     .currentIndex
                                                                     .value ==

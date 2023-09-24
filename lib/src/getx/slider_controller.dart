@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SliderController extends GetxController {
@@ -17,7 +18,7 @@ class SliderController extends GetxController {
       myDataList.assignAll(newData);
     } catch (e) {
       // Handle errors
-      print('Error fetching and updating data: $e');
+      Text(e.toString());
     }
   }
 

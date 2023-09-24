@@ -53,7 +53,7 @@ class UserRepository extends GetxController {
   }
 
   Widget getUserImageUrl() {
-    if (userModel != null && userModel.imageUrl != null) {
+    if (userModel.imageUrl != null) {
       return CircleAvatar(
           radius: 70, // Adjust the radius as needed
           backgroundImage: NetworkImage(userModel.imageUrl!));
