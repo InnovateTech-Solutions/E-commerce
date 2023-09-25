@@ -50,7 +50,6 @@ class AuthenticationRepository extends GetxController {
           email: email, password: password);
       return true;
     } on FirebaseException catch (e) {
-      print(e.message);
       Get.snackbar("ERROR ", "${e.message}",
           snackPosition: SnackPosition.BOTTOM,
           colorText: ColorConstants.mainScaffoldBackgroundColor,
@@ -73,7 +72,7 @@ class AuthenticationRepository extends GetxController {
         await _auth
             .signInWithCredential(credential)
             // ignore: invalid_return_type_for_catch_error
-            .catchError((onError) => print(onError));
+            .catchError((onError) => ());
       }
     } catch (e) {
       Get.snackbar(
@@ -151,14 +150,13 @@ class AuthenticationRepository extends GetxController {
       if (querySnapshot.docs.isNotEmpty) {
         await querySnapshot.docs.first.reference.delete();
         await user.delete();
-        print('User account deleted successfully.');
+
         Get.offAll(const LoginPage());
         Get.snackbar("User account Deleted", "Success");
       } else {
         Get.snackbar("Error", "User with the provided email not found.");
       }
     } catch (error) {
-      print('Error deleting user account: $error');
       Get.snackbar("Error", "Failed to delete user account.");
     }
   }

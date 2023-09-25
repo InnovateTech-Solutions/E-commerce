@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:custom_info_window/custom_info_window.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,26 +9,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class MapController extends GetxController {
   static MapController get instance => Get.find();
 
-  final Completer<GoogleMapController> Controller =
+  final Completer<GoogleMapController> controller =
       Completer<GoogleMapController>();
   static LatLng? initialPosition;
 
-  CameraPosition kGooglePlex = const CameraPosition(
-    target: LatLng(20.42796133580664, 75.885749655962),
-    zoom: 0.151926040649414,
-  );
-
-  // CameraPosition kLake = CameraPosition(
-  //     bearing: 192.8334901395799,
-  //     target: determinePosition(),
-  //     tilt: 59.440717697143555,
-  //     zoom: 19.151926040649414);
+  CustomInfoWindowController customInfoWindowController =
+      CustomInfoWindowController();
+  List<Marker> markers = [];
 
   Future<Set<Marker>> getMarker() async {
     final collectionReference =
         FirebaseFirestore.instance.collection('markers');
     final querySnapshot = await collectionReference.get();
-    List<Marker> markers = [];
 
     for (var doc in querySnapshot.docs) {
       String title = doc['place'];
@@ -47,7 +40,7 @@ class MapController extends GetxController {
     return markers.toSet();
   }
 
-  Future<LatLng> determinePosition() async {
+  Future<Position> determinePosition() async {
     bool serviceEnable;
     LocationPermission permission;
     serviceEnable = await Geolocator.isLocationServiceEnabled();
@@ -72,8 +65,6 @@ class MapController extends GetxController {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    initialPosition = LatLng(position.latitude, position.longitude);
-    print(initialPosition);
-    return initialPosition!;
+    return position;
   }
 }

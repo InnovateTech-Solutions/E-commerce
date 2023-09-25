@@ -11,16 +11,6 @@ class FirebaseService extends GetxController {
   final _db = FirebaseFirestore.instance;
   RxList<Product> products = <Product>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
   void filterPlayer(String playerName) {
     RxList<Product> results = <Product>[].obs;
     if (playerName.isEmpty) {

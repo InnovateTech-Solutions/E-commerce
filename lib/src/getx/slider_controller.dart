@@ -17,7 +17,6 @@ class SliderController extends GetxController {
       myDataList.assignAll(newData);
     } catch (e) {
       // Handle errors
-      print('Error fetching and updating data: $e');
     }
   }
 

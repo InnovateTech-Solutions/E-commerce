@@ -1,6 +1,5 @@
+import 'package:ecommerce/src/widget/pages_widget/review_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../../widget/pages_widget/map_widegt/map_widget.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -12,9 +11,9 @@ class MapPage extends StatefulWidget {
 class MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-        body: MapWidget(),
+        body: ReviewWidget(),
       ),
     );
   }

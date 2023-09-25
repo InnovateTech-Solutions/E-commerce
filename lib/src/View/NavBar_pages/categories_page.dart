@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../constant/color.dart';
 import '../../widget/constant_widget/App_Bar/first_appbar.dart';
 import '../../widget/pages_widget/NavBar_widgets/categories_widget.dart';
@@ -17,7 +18,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
       child: Scaffold(
         backgroundColor: ColorConstants.secondaryScaffoldBacground,
         appBar: secondAppBar(),
-        body: CategoriesWidget(),
+        body: const CategoriesWidget(),
       ),
     );
   }

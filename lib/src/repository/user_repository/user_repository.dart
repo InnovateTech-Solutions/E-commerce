@@ -20,7 +20,6 @@ class UserRepository extends GetxController {
 
   void setUserModel(UserModel userModel) {
     this.userModel = userModel;
-    print("setUserModel " + this.userModel.toString());
   }
 
   createUser(UserModel user) {
@@ -63,18 +62,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  void addImage() {
-    print(_db
-        .collection("User")
-        .where('Email', isEqualTo: userModel.email)
-        .get()
-        .then((querySnapshot) {
-      if (querySnapshot.docs.isNotEmpty) {
-        var userDoc = querySnapshot.docs.first;
-        userDoc.reference.update({'imageUrl': userModel.imageUrl});
-      }
-    }));
-  }
+  void addImage() {}
 
   void pickUpImage() async {
     XFile? file = await ImagePicker().pickImage(

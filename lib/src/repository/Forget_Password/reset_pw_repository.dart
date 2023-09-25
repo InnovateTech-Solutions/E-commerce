@@ -67,23 +67,17 @@ class ResetPasswordRepository extends GetxController {
                 backgroundColor: ColorConstants.snakbarColorError);
           });
         }
-
-        print("Password updated successfully!");
       } else {
         Get.snackbar("Failure", "User is not logged in.",
             snackPosition: SnackPosition.BOTTOM,
             colorText: ColorConstants.mainScaffoldBackgroundColor,
             backgroundColor: ColorConstants.snakbarColorError);
-
-        print("User is not logged in.");
       }
     } on FirebaseAuthException catch (error) {
       Get.snackbar("Failure", error.message.toString(),
           snackPosition: SnackPosition.BOTTOM,
           colorText: ColorConstants.mainScaffoldBackgroundColor,
           backgroundColor: ColorConstants.snakbarColorError);
-
-      print("Password update error: $error");
     }
   }
 }
