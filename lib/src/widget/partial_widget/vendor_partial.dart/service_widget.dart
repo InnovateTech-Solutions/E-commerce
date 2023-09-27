@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/View/test/home_controller.dart';
+import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';

@@ -1,4 +1,4 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,8 +8,8 @@ import 'package:profile_part/src/getx/search_controller.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/location_widget.dart';
 import 'package:profile_part/src/widget/pages_widget/Vendor/vendors_display.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({required this.title, super.key});
+class VendorListSearchWidget extends StatelessWidget {
+  const VendorListSearchWidget({required this.title, super.key});
   final String title;
   @override
   Widget build(BuildContext context) {
@@ -55,11 +55,15 @@ class MyHomePage extends StatelessWidget {
                     return Center(
                         child: Column(
                       children: [
-                        LocationWidget(
-                            imageUrl: controller1.filteredList[index].image,
-                            name: controller1.filteredList[index].name,
-                            description:
-                                controller1.filteredList[index].description)
+                        GestureDetector(
+                          onTap: () => Get.to(VendorPage(
+                              vendor: controller1.filteredList[index])),
+                          child: LocationWidget(
+                              imageUrl: controller1.filteredList[index].image,
+                              name: controller1.filteredList[index].name,
+                              description:
+                                  controller1.filteredList[index].description),
+                        )
                       ],
                     ));
                   }),
@@ -167,4 +171,3 @@ class PageController extends GetxController {
     searchQuery.value = query;
   }
 }
-*/

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/View/test/home_controller.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';

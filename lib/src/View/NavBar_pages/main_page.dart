@@ -24,7 +24,6 @@ class _MainPageState extends State<MainPage> {
     const DashBoard(),
     const CategoriesPage(),
     const MapPage(),
-    const Scaffold(),
     const ProfilePage()
   ];
   @override

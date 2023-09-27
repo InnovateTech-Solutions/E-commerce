@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/firebase_options.dart';
 import 'package:profile_part/src/View/start_pages/intro_page.dart';
-import 'package:profile_part/src/View/test/home_controller.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/local_strings.dart';
+import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 
 void main() async {
