@@ -17,7 +17,7 @@ mainText(String title) {
 }
 
 textFieldLabel(String title) {
-  return Text(title,
+  return Text(title.tr,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
               fontSize: 14.sp,
@@ -31,7 +31,7 @@ forgetPasswordText(context) {
       Get.to(const ForgotPwScreen());
     },
     child: Text(
-      "Forgot Password?",
+      "Forgot Password?".tr,
       textAlign: TextAlign.end,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
@@ -61,6 +61,15 @@ greyText(String title) {
               color: ColorConstants.mainTextColor)));
 }
 
-TextButton textButton(Function()? onTap, String title) {
-  return TextButton(onPressed: onTap, child: greyText(title));
+textButton(Function()? onTap, String title) {
+  return TextButton(
+      onPressed: onTap,
+      child: Center(
+        child: Text(title.tr,
+            style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.normal,
+                    color: ColorConstants.mainTextColor))),
+      ));
 }

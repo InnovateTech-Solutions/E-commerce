@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/model/categories_model.dart';
-import 'package:profile_part/src/model/product_model.dart';
+import 'package:profile_part/src/model/vendor_model.dart';
 
 class FirebaseService extends GetxController {
   static FirebaseService get instance => Get.find();
@@ -34,15 +34,15 @@ class FirebaseService extends GetxController {
         .toList();
   }
 
-  Future<List<Product>> fetchVendorByCategory(String category) async {
-    //that query fetch all vendors in each Category , that used in products widget
-
+  Future<List<VendorModel>> fetchVendorByCategory(String category) async {
     final querySnapshot = await _db
         .collection('Vendors')
         .where('Category', isEqualTo: category)
         .get();
 
-    return querySnapshot.docs.map((doc) => Product.fromSnapshot(doc)).toList();
+    return querySnapshot.docs
+        .map((doc) => VendorModel.fromSnapshot(doc))
+        .toList();
   }
 
   Future<List<Map<String, dynamic>>> fetchServicebyName(String name) async {

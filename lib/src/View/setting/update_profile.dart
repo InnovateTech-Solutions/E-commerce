@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/widget/pages_widget/Forms_widgets/update_widget.dart';
+import 'package:profile_part/src/widget/pages_widget/setting_widget/update_widget.dart';
 
 class UpdateProfile extends StatelessWidget {
   const UpdateProfile({Key? key}) : super(key: key);

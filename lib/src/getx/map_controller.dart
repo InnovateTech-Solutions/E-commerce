@@ -69,7 +69,6 @@ class MapController extends GetxController {
         desiredAccuracy: LocationAccuracy.high);
 
     initialPosition = LatLng(position.latitude, position.longitude);
-    print(initialPosition);
     return initialPosition!;
   }
 }

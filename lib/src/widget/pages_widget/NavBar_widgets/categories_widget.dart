@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:profile_part/src/View/Products/products_page.dart';
-import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/data_controller.dart';
 import 'package:profile_part/src/model/categories_model.dart';
-import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
+import 'package:profile_part/src/widget/custom_Widget.dart/category_item.dart';
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({Key? key}) : super(key: key);
@@ -30,8 +26,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               categories.shuffle();
               return Column(
                 children: [
-                  SizedBox(
-                      height: 520.h,
+                  Expanded(
                       child: GridView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -42,33 +37,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                             crossAxisSpacing: 2,
                           ),
                           itemBuilder: ((context, index) {
-                            return Container(
-                              width: 150.w,
-                              height: 100.h,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(14.r))),
-                              child: Stack(
-                                children: [
-                                  AppContainer(
-                                    imgName: categories[index].image,
-                                    onTap: () => Get.to(ProductsPage(
-                                      title: categories[index].title,
-                                    )),
-                                  ),
-                                  Container(
-                                    margin:
-                                        EdgeInsets.only(top: 140.h, left: 20.w),
-                                    child: Text(categories[index].title,
-                                        style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: ColorConstants
-                                                    .mainScaffoldBackgroundColor))),
-                                  )
-                                ],
-                              ),
+                            return CategoryItem(
+                              category: categories[index],
                             );
                           }))),
                 ],

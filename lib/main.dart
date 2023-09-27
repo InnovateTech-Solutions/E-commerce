@@ -6,6 +6,7 @@ import 'package:profile_part/firebase_options.dart';
 import 'package:profile_part/src/View/start_pages/intro_page.dart';
 import 'package:profile_part/src/View/test/home_controller.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/constant/local_strings.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 
 void main() async {
@@ -27,6 +28,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return GetMaterialApp(
+          translations: LocalStrings(),
+          locale: const Locale('en', 'US'),
           title: 'E-commerce',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

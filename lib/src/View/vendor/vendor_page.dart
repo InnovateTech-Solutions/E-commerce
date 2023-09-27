@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/model/product_model.dart';
-import 'package:profile_part/src/widget/pages_widget/vendor/vendor_widget.dart';
+import 'package:profile_part/src/model/vendor_model.dart';
+import 'package:profile_part/src/widget/pages_widget/Vendor/vendor_widget.dart';
 
 class VendorPage extends StatefulWidget {
-  const VendorPage({required this.product, Key? key}) : super(key: key);
-  final Product product;
+  const VendorPage({required this.vendor, Key? key}) : super(key: key);
+  final VendorModel vendor;
   @override
   State<VendorPage> createState() => _VendorPageState();
 }
@@ -17,7 +17,7 @@ class _VendorPageState extends State<VendorPage> {
       child: Scaffold(
         backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
         body: VendorWidget(
-          product: widget.product,
+          vendor: widget.vendor,
         ),
       ),
     );

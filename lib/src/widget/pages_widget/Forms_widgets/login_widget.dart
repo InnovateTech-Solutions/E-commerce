@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
-import 'package:profile_part/src/widget/constant_widget/constant_widget.dart';
+import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
+import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
-import 'package:profile_part/src/widget/partial_widget/login_icon.dart';
+import 'package:profile_part/src/widget/partial_widget/forms_partial.dart/login_icon.dart';
 import '../../../getx/login_Controller.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -27,6 +28,12 @@ class _LoginWidgetState extends State<LoginWidget> {
     controller.dispose();
   }
 
+  void clearText() {
+    controller.email.clear();
+
+    controller.password.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,11 +41,11 @@ class _LoginWidgetState extends State<LoginWidget> {
         Form(
           key: controller.formkey,
           child: SizedBox(
-            height: 550.h,
-            width: 400.w,
+            height: 550,
+            width: double.infinity,
             child: ListView(
               physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(30.h.w),
+              padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
               children: [
                 SvgPicture.asset(
                   "assets/Logo.svg",
@@ -47,49 +54,47 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
                 constDivider(),
                 mainText(AppConst.login),
-                SizedBox(
-                  height: AppConst.medium.h,
-                ),
+                AppSizes.mediumHeightSizedBox,
                 textFieldLabel(AppConst.email),
                 FormWidget(
                     login: Login(
-                        controller: controller.email,
-                        hintText: AppConst.email,
-                        icon: const Icon(Icons.email),
-                        invisible: false,
-                        validator: (email) => controller.validateEmail(email),
-                        type: TextInputType.emailAddress,
-                        onChange: null,
-                        inputFormat: null,
-                        enable: false)),
-                SizedBox(
-                  height: AppConst.medium.h,
-                ),
+                  enableText: false,
+                  controller: controller.email,
+                  hintText: AppConst.email,
+                  icon: const Icon(Icons.email),
+                  invisible: false,
+                  validator: (email) => controller.validateEmail(email),
+                  type: TextInputType.emailAddress,
+                  onChange: null,
+                  inputFormat: null,
+                )),
+                AppSizes.mediumHeightSizedBox,
                 textFieldLabel(AppConst.password),
                 FormWidget(
                     login: Login(
-                        controller: controller.password,
-                        hintText: AppConst.password,
-                        icon: const Icon(Icons.lock),
-                        invisible: true,
-                        validator: (password) =>
-                            controller.vaildatePassword(password),
-                        type: TextInputType.visiblePassword,
-                        onChange: null,
-                        inputFormat: null,
-                        enable: false)),
+                  enableText: false,
+                  controller: controller.password,
+                  hintText: AppConst.password,
+                  icon: const Icon(Icons.lock),
+                  invisible: true,
+                  validator: (password) =>
+                      controller.vaildatePassword(password),
+                  type: TextInputType.visiblePassword,
+                  onChange: null,
+                  inputFormat: null,
+                )),
                 forgetPasswordText(context),
-                SizedBox(
-                  height: AppConst.medium.h,
-                ),
+                AppSizes.mediumHeightSizedBox,
                 ButtonWidget(
-                    onTap: () => controller.onLogin(), tilte: AppConst.login),
+                    onTap: () => {controller.onLogin(), dispose(), clearText()},
+                    tilte: AppConst.login),
                 dontHaveAccountRow(),
               ],
             ),
           ),
         ),
-        const LoginIcon()
+        AppSizes.mediumHeightSizedBox,
+        const LoginIcon(),
       ],
     );
   }

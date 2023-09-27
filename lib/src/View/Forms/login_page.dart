@@ -12,11 +12,7 @@ class LoginPage extends StatelessWidget {
         backgroundColor:
             color_constants.ColorConstants.mainScaffoldBackgroundColor,
         body: const SingleChildScrollView(
-          child: Column(
-            children: [
-              LoginWidget(),
-            ],
-          ),
+          child: LoginWidget(),
         ),
       ),
     );

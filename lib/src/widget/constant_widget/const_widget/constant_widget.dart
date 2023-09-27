@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:profile_part/src/View/Forms/register_page.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/button_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
-import 'package:profile_part/src/widget/constant_widget/lang_list.dart';
+import 'package:profile_part/src/constant/lang_list.dart';
 
 constDivider() {
   return Divider(
@@ -20,31 +21,34 @@ constDivider() {
 dontHaveAccountRow() {
   return Padding(
     padding: EdgeInsets.only(top: 8.h),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "don’t have account?",
-          textAlign: TextAlign.center,
-          style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.normal,
-                  color: ColorConstants.mainTextColor)),
-        ),
-        GestureDetector(
-          child: Text(
-            "Create one",
+    child: GestureDetector(
+      onTap: () => Get.to(const RegisterPage()),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "don’t have account?",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(
-                    decoration: TextDecoration.underline,
                     fontSize: 10.sp,
                     fontWeight: FontWeight.normal,
                     color: ColorConstants.mainTextColor)),
           ),
-        )
-      ],
+          GestureDetector(
+            child: Text(
+              "Create one",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.normal,
+                      color: ColorConstants.mainTextColor)),
+            ),
+          )
+        ],
+      ),
     ),
   );
 }
@@ -58,7 +62,7 @@ Container divder(double width, double left, double right) {
   );
 }
 
-drawerWidget(DrawerButt drawer) {
+drawerWidget(Button drawer) {
   return InkWell(
     onTap: drawer.onTap,
     child: Row(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/user_actions/user_actions.dart';
+import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
 import '../../../constant/app_const.dart';
 import '../../../getx/profile_controller.dart';
@@ -25,6 +27,14 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
   Widget build(BuildContext context) {
     final controller = Get.put(ProfileController());
     final validator = Get.put(RegisterController());
+
+    @override
+    dispose() {
+      super.dispose();
+      controller.dispose();
+      validator.dispose();
+    }
+
     return FutureBuilder(
         future: controller.getUserData(),
         builder: ((context, snapShot) {
@@ -36,6 +46,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
               final userName = TextEditingController(text: userData.name);
               final phoneNumber = TextEditingController(text: userData.phone);
               final password = TextEditingController(text: userData.password);
+
               return Form(
                   key: controller.fromkey,
                   child: Column(
@@ -45,14 +56,15 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                       mainText(userName.text),
                       SizedBox(
                         height: 650.h,
-                        width: 400.w,
+                        width: double.infinity,
                         child: ListView(
-                          padding: EdgeInsets.all(30.h.w),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30.w, vertical: 30.h),
                           children: [
                             textFieldLabel(AppConst.email),
                             FormWidget(
                                 login: Login(
-                                    enable: false,
+                                    enableText: true,
                                     controller: email,
                                     hintText: 'Email',
                                     icon: const Icon(Icons.email_rounded),
@@ -62,13 +74,11 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                     type: TextInputType.emailAddress,
                                     onChange: null,
                                     inputFormat: [])),
-                            SizedBox(
-                              height: AppConst.smallSize.h,
-                            ),
+                            AppSizes.smallHeightSizedBox,
                             textFieldLabel(AppConst.username),
                             FormWidget(
                                 login: Login(
-                                    enable: true,
+                                    enableText: false,
                                     controller: userName,
                                     hintText: 'Username',
                                     icon: const Icon(Icons.person),
@@ -78,13 +88,11 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                     type: TextInputType.name,
                                     onChange: null,
                                     inputFormat: [])),
-                            SizedBox(
-                              height: AppConst.smallSize.h,
-                            ),
+                            AppSizes.smallHeightSizedBox,
                             textFieldLabel(AppConst.phoneNumber),
                             FormWidget(
                                 login: Login(
-                                    enable: true,
+                                    enableText: false,
                                     controller: phoneNumber,
                                     hintText: 'Phone Number',
                                     icon: const Icon(Icons.phone),
@@ -94,10 +102,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                     type: TextInputType.number,
                                     onChange: null,
                                     inputFormat: [])),
-                            SizedBox(
-                              height: AppConst.smallSize.h,
-                            ),
-                            textFieldLabel(AppConst.password),
+                            AppSizes.mediumHeightSizedBox,
                             ButtonWidget(
                                 onTap: () async {
                                   if ((controller.fromkey.currentState!
@@ -111,6 +116,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                         imageUrl: "");
                                     await controller.updateRecord(userData);
                                   }
+                                  dispose();
                                 },
                                 tilte: 'UPDATE')
                           ],
@@ -129,21 +135,5 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
             return const Text("somthing went wrong");
           }
         }));
-  }
-
-  GestureDetector imagepicker() {
-    return GestureDetector(
-      onTap: () async {
-        usercontroller.pickUpImage();
-      },
-      child: Container(
-        width: 150.w,
-        height: 150.h,
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(50))),
-        child: usercontroller.getUserImageUrl(),
-      ),
-    );
   }
 }

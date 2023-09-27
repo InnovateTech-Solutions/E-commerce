@@ -23,6 +23,7 @@ class _FormWidgetState extends State<FormWidget> {
           fillColor: ColorConstants.secondaryScaffoldBacground,
         )),
         child: TextFormField(
+            readOnly: widget.login.enableText,
             inputFormatters: widget.login.inputFormat,
             keyboardType: widget.login.type,
             onChanged: widget.login.onChange,

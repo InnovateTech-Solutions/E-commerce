@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -67,7 +69,7 @@ class UserRepository extends GetxController {
   }
 
   void addImage() {
-    print(_db
+    _db
         .collection("User")
         .where('Email', isEqualTo: userModel.email)
         .get()
@@ -76,7 +78,7 @@ class UserRepository extends GetxController {
         var userDoc = querySnapshot.docs.first;
         userDoc.reference.update({'imageUrl': userModel.imageUrl});
       }
-    }));
+    });
   }
 
   void pickUpImage() async {
@@ -86,19 +88,19 @@ class UserRepository extends GetxController {
       maxWidth: 500.w,
       imageQuality: 75,
     );
-    print('${file!.path}');
     if (file == null) return;
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirImage = referenceRoot.child("images");
 
     Reference referenceImageToUpload = referenceDirImage.child(file.path);
     try {
-      await referenceImageToUpload.putFile(File(file!.path));
-      print("first image " + await referenceImageToUpload.getDownloadURL());
-      print(userModel.email);
+      await referenceImageToUpload.putFile(File(file.path));
+
       userModel.imageUrl = await referenceImageToUpload.getDownloadURL();
 
       addImage();
-    } catch (error) {}
+    } catch (error) {
+      Text(error.toString());
+    }
   }
 }

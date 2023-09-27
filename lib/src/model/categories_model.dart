@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Categories {
   late String image;
   late String title;
-  Categories({required this.title, required this.image});
+  late VoidCallback? callback;
+  Categories({required this.title, required this.image, this.callback});
 
   factory Categories.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {

@@ -6,7 +6,7 @@ import 'package:profile_part/src/View/Forms/login_page.dart';
 import 'package:profile_part/src/View/Forms/register_page.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/widget/constant_widget/constant_widget.dart';
+import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
 
 class IntroWidget extends StatelessWidget {

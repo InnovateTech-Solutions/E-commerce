@@ -10,9 +10,7 @@ class RegisterPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-        body: const Center(
-          child: RegisterWidget(),
-        ),
+        body: const RegisterWidget(),
       ),
     );
   }

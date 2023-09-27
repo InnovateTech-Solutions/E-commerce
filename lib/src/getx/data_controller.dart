@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/model/categories_model.dart';
-import 'package:profile_part/src/model/product_model.dart';
+import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 
 class DataController extends GetxController {
@@ -17,7 +17,7 @@ class DataController extends GetxController {
     return FirebaseService.instance.fetchAllCategories();
   }
 
-  Future<List<Product>> fetchVendorByCategory(String category) {
+  Future<List<VendorModel>> fetchVendorByCategory(String category) {
     //fetch Service (all vendors) by Passing The category Name
     return FirebaseService.instance.fetchVendorByCategory(category);
   }

@@ -6,12 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
+import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
-import 'package:profile_part/src/widget/partial_widget/slider_widget.dart';
+import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/slider_widget.dart';
 
-import '../../../View/Products/products_page.dart';
-import '../../../constant/app_const.dart';
-import '../../partial_widget/seemore_widget.dart';
+import '../../../View/vendor/vendor_display.dart';
+import '../../partial_widget/dashboard_partial.dart/seemore_widget.dart';
 
 class DashBoradWidget extends StatefulWidget {
   const DashBoradWidget({Key? key}) : super(key: key);
@@ -84,14 +84,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                 topRight: Radius.circular(20.r))),
                         child: Column(
                           children: [
-                            SizedBox(
-                              height: AppConst.smallSize.h,
-                            ),
-                            SizedBox(
-                              height: AppConst.smallSize.h,
-                            ),
-                            SizedBox(
-                              height: 340.h,
+                            AppSizes.mediumHeightSizedBox,
+                            Expanded(
                               child: GridView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
@@ -113,9 +107,10 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                           AppContainer(
                                             imgName: categories?[index]
                                                 ['image'],
-                                            onTap: () => Get.to(ProductsPage(
-                                                title: categories?[index]
-                                                    ['Title'])),
+                                            onTap: () => Get.to(
+                                                VendorDisplaypage(
+                                                    title: categories?[index]
+                                                        ['Title'])),
                                           ),
                                           Container(
                                             margin: EdgeInsets.only(

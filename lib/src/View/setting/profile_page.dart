@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:profile_part/src/widget/constant_widget/App_Bar/app_bar.dart';
 import 'package:profile_part/src/widget/pages_widget/setting_widget/profile_widget.dart';
 
 import '../../constant/color.dart';
@@ -10,20 +11,11 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-          elevation: 0,
-          iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
-        ),
+        appBar: profileAppBar(),
         drawer: Drawer(
           child: DrawerWidget(),
         ),
         backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-        body: const SafeArea(
-          child: SizedBox(
-            width: double.infinity,
-            child: ProfileWidget(),
-          ),
-        ));
+        body: const ProfileWidget());
   }
 }

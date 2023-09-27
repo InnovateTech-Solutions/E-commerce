@@ -7,7 +7,7 @@ class Login {
   String hintText;
   Icon icon;
   bool invisible;
-  bool enable;
+  bool enableText;
 
   final String? Function(String?)? validator;
   TextInputType type;
@@ -15,7 +15,7 @@ class Login {
   List<TextInputFormatter>? inputFormat;
   Login(
       {required this.controller,
-      required this.enable,
+      required this.enableText,
       required this.hintText,
       required this.icon,
       required this.invisible,

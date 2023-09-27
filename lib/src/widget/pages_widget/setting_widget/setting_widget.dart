@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/View/setting/deleteaccount_widget.dart';
+import 'package:profile_part/src/View/setting/delete_account.dart';
 import 'package:profile_part/src/View/setting/reset_pw_screen.dart';
 
 import '../../../constant/app_const.dart';
 import '../../../model/button_model.dart';
 import '../../../repository/user_repository/user_repository.dart';
 import '../../Text_Widget/form_text.dart';
-import '../../constant_widget/constant_widget.dart';
+import '../../constant_widget/const_widget/constant_widget.dart';
 
 class SettingWidget extends StatelessWidget {
   final controller = Get.put(UserRepository());
@@ -45,7 +45,7 @@ class SettingWidget extends StatelessWidget {
             width: 15.w,
             height: 15.h,
           ),
-          onTap: () => Get.to(DeleteUserAccountWidget())),
+          onTap: () => Get.to(const DeleteAccountPage())),
       Button(
           title: 'Change Password',
           icon: SvgPicture.asset(
@@ -90,7 +90,7 @@ class SettingWidget extends StatelessWidget {
           Expanded(
               flex: 7,
               child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
+                padding: EdgeInsets.only(right: 8.0.w),
                 child: SizedBox(
                   height: double.infinity,
                   width: double.infinity,

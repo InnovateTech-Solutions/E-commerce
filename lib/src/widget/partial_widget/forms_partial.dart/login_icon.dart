@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/widget/constant_widget/constant_widget.dart';
+import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 
-import '../../constant/app_const.dart';
+import '../../../constant/app_const.dart';
 
 class LoginIcon extends StatelessWidget {
   const LoginIcon({super.key});

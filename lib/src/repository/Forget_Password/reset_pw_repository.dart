@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../../constant/color.dart';
-import '../../getx/reset_pw_controller.dart';
+import '../../getx/reset_password_controller.dart';
 import '../user_repository/user_repository.dart';
 
 class ResetPasswordRepository extends GetxController {

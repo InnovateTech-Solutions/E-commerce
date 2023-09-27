@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
-import 'package:profile_part/src/getx/reset_pw_controller.dart';
+import 'package:profile_part/src/getx/reset_password_controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
@@ -17,14 +17,16 @@ class ResetPasswordWidget extends StatefulWidget {
 
 class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   final resetPwcontroller = Get.put(ResetPasswordController());
-  void clear() {
-    resetPwcontroller.oldPassword.clear();
-  }
 
   @override
   void dispose() {
     super.dispose();
     resetPwcontroller.dispose();
+  }
+
+  void clearText() {
+    resetPwcontroller.newPassword.clear();
+    resetPwcontroller.confirmPassword.clear();
   }
 
   @override
@@ -53,16 +55,17 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 textFieldLabel("New Password"),
                 FormWidget(
                     login: Login(
-                        controller: resetPwcontroller.newPassword,
-                        hintText: "New Password",
-                        icon: const Icon(Icons.password),
-                        invisible: false,
-                        validator: (password) =>
-                            resetPwcontroller.validatePassword(password),
-                        type: TextInputType.visiblePassword,
-                        onChange: null,
-                        inputFormat: null,
-                        enable: true)),
+                  enableText: false,
+                  controller: resetPwcontroller.newPassword,
+                  hintText: "New Password",
+                  icon: const Icon(Icons.password),
+                  invisible: false,
+                  validator: (password) =>
+                      resetPwcontroller.validatePassword(password),
+                  type: TextInputType.visiblePassword,
+                  onChange: null,
+                  inputFormat: null,
+                )),
                 SizedBox(
                   height: AppConst.medium.h,
                 ),
@@ -71,16 +74,17 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 textFieldLabel("Confirm Password"),
                 FormWidget(
                     login: Login(
-                        controller: resetPwcontroller.confirmPassword,
-                        hintText: "Confirm Password",
-                        icon: const Icon(Icons.password),
-                        invisible: false,
-                        validator: (password) =>
-                            resetPwcontroller.validatePassword(password),
-                        type: TextInputType.visiblePassword,
-                        onChange: null,
-                        inputFormat: null,
-                        enable: true)),
+                  enableText: false,
+                  controller: resetPwcontroller.confirmPassword,
+                  hintText: "Confirm Password",
+                  icon: const Icon(Icons.password),
+                  invisible: false,
+                  validator: (password) =>
+                      resetPwcontroller.validatePassword(password),
+                  type: TextInputType.visiblePassword,
+                  onChange: null,
+                  inputFormat: null,
+                )),
                 SizedBox(
                   height: AppConst.medium.h,
                 ),
@@ -88,7 +92,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 ButtonWidget(
                     onTap: () {
                       resetPwcontroller.changePassword();
-                      clear();
+                      clearText();
                     },
                     tilte: "Submit"),
               ],

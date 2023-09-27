@@ -87,3 +87,11 @@ productsAppBar(String title) {
     ],
   );
 }
+
+profileAppBar() {
+  return AppBar(
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    elevation: 0,
+    iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
+  );
+}
