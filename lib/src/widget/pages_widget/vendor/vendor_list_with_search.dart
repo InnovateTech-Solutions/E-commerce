@@ -8,13 +8,14 @@ import 'package:profile_part/src/getx/search_controller.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/location_widget.dart';
 import 'package:profile_part/src/widget/pages_widget/Vendor/vendors_display.dart';
 
-class VendorListSearchWidget extends StatelessWidget {
+class VendorListSearchWidget extends GetView<PageController> {
   const VendorListSearchWidget({required this.title, super.key});
   final String title;
+
   @override
   Widget build(BuildContext context) {
-    final pagecontroller = Get.put(PageController());
     final controller1 = Get.put(SearchControllerr(title));
+    final pagecontroller = Get.put(PageController());
 
     return Scaffold(
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,

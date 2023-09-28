@@ -14,6 +14,7 @@ void main() async {
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
   Get.put(Appcontroller());
+
   runApp(const MyApp());
 }
 

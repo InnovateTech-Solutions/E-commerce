@@ -5,6 +5,7 @@ import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/dashborad_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/map_page.dart';
 import 'package:profile_part/src/View/setting/profile_page.dart';
+import 'package:profile_part/src/View/test/test.dart';
 import 'package:profile_part/src/constant/color.dart';
 
 import '../../repository/service_repository/service_data.dart';
@@ -24,6 +25,9 @@ class _MainPageState extends State<MainPage> {
     const DashBoard(),
     const CategoriesPage(),
     const MapPage(),
+    const ReviewsWidget(
+      vendor: 'Toni & Guy Bahrain City Centre',
+    ),
     const ProfilePage()
   ];
   @override
