@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/widget/pages_widget/Vendor/vendors_display.dart';
-
-import '../../widget/constant_widget/App_Bar/app_bar.dart';
+import 'package:profile_part/src/View/test/test.dart';
 
 class VendorDisplaypage extends StatefulWidget {
   const VendorDisplaypage({required this.title, Key? key}) : super(key: key);
@@ -15,12 +12,8 @@ class VendorDisplaypage extends StatefulWidget {
 class _VendorDisplaypageState extends State<VendorDisplaypage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-      appBar: productsAppBar(widget.title),
-      body: VendorDisplayWidget(
-        category: widget.title,
-      ),
+    return MyHomePage(
+      title: widget.title,
     );
   }
 }

@@ -23,13 +23,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
     final forgetController = Get.put(ForgetPasswordcontroller());
-
-    @override
-    void dispose() {
-      super.dispose();
-      controller.dispose();
-      forgetController.dispose();
-    }
+    TextEditingController email = TextEditingController();
 
     return Column(
       children: [
@@ -50,7 +44,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
               FormWidget(
                   login: Login(
                 enableText: false,
-                controller: controller.email,
+                controller: email,
                 hintText: AppConst.email,
                 icon: const Icon(Icons.email),
                 invisible: false,
@@ -62,9 +56,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
               AppSizes.mediumHeightSizedBox,
               ButtonWidget(
                 onTap: () => {
-                  forgetController.passwordRest(
-                      context, controller.email.text.trim()),
-                  dispose()
+                  forgetController.passwordRest(context, email.text.trim()),
                 },
                 tilte: "RESET PASSWORD",
               ),

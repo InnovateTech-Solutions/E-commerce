@@ -51,12 +51,12 @@ class _MainPageState extends State<MainPage> {
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 5,
-              activeColor: Colors.black,
+              activeColor: ColorConstants.mainTextColor,
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: const Duration(milliseconds: 400),
               tabBackgroundColor: Colors.grey[100]!,
-              color: Colors.black,
+              color: ColorConstants.mainTextColor,
               tabs: const [
                 GButton(
                   icon: Icons.home_outlined,

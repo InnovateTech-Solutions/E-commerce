@@ -17,6 +17,13 @@ class ResetPasswordController extends GetxController {
     return null;
   }
 
+  validateEmail(String? email) {
+    if (GetUtils.isEmail(email!)) {
+      return null;
+    }
+    return 'Email is not vaild';
+  }
+
   Future<void> changePassword() async {
     if (resetFormkey.currentState!.validate()) {
       ResetPasswordRepository()

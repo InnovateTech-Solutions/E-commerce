@@ -2,13 +2,10 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_info_window/custom_info_window.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/widget/Text_Widget/setting_text.dart';
+import 'package:profile_part/src/widget/partial_widget/map_partial.dart';
 
 class MapController extends GetxController {
   static MapController get instance => Get.find();
@@ -49,7 +46,6 @@ class MapController extends GetxController {
         ),
       );
     }
-
     return markers.toSet();
   }
 
@@ -79,51 +75,5 @@ class MapController extends GetxController {
         desiredAccuracy: LocationAccuracy.high);
 
     return position;
-  }
-}
-
-class mapDialog extends StatelessWidget {
-  const mapDialog({
-    super.key,
-    required this.title,
-    required this.image,
-  });
-
-  final String title;
-  final String image;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => {},
-      child: Padding(
-        padding: const EdgeInsets.only(top: 25.0),
-        child: Stack(
-          children: [
-            Container(
-              width: 300,
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                color: ColorConstants.mainScaffoldBackgroundColor,
-              ),
-              child: Column(
-                children: [
-                  Container(
-                      height: 100.h,
-                      width: double.infinity.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                        image: DecorationImage(
-                            image: NetworkImage(image), fit: BoxFit.cover),
-                      )),
-                  settingText(title),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

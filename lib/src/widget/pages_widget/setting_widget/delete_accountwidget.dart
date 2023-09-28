@@ -5,6 +5,7 @@ import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/getx/login_Controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
+import 'package:profile_part/src/repository/user_repository/user_repository.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -23,6 +24,9 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
   Widget build(BuildContext context) {
     final logincontroller = Get.put(LoginController());
     final autuhcontroller = Get.put(AuthenticationRepository());
+    final userController = Get.put(UserRepository());
+    final email = TextEditingController(text: userController.userModel.email);
+    final password = TextEditingController();
     @override
     void dispose() {
       super.dispose();
@@ -31,7 +35,6 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
     }
 
     void clearText() {
-      logincontroller.email.clear();
       logincontroller.password.clear();
     }
 
@@ -51,22 +54,22 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                 textFieldLabel(AppConst.email),
                 FormWidget(
                     login: Login(
-                        enableText: false,
-                        controller: logincontroller.email,
-                        hintText: AppConst.email,
-                        icon: const Icon(Icons.email),
+                        enableText: true,
+                        controller: email,
+                        hintText: "Email",
+                        icon: const Icon(Icons.email_rounded),
                         invisible: false,
                         validator: (email) =>
                             logincontroller.validateEmail(email),
                         type: TextInputType.emailAddress,
                         onChange: null,
-                        inputFormat: null)),
+                        inputFormat: [])),
                 AppSizes.smallHeightSizedBox,
                 textFieldLabel(AppConst.password),
                 FormWidget(
                     login: Login(
                         enableText: false,
-                        controller: logincontroller.password,
+                        controller: password,
                         hintText: AppConst.password,
                         icon: const Icon(Icons.lock),
                         invisible: true,
@@ -79,8 +82,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                 ButtonWidget(
                   onTap: () => {
                     autuhcontroller.deleteUserAccount(
-                        logincontroller.email.text,
-                        logincontroller.password.text),
+                        email.text, password.text),
                     dispose(),
                     clearText()
                   },

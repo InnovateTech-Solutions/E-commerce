@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
@@ -131,8 +131,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                   })),
                             ),
                             SeeMore(
-                              onTap: () =>
-                                  AuthenticationRepository.instance.logout(),
+                              onTap: () => Get.to(CategoriesPage()),
                             )
                           ],
                         ),
