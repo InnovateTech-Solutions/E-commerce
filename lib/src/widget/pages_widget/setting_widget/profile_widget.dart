@@ -5,6 +5,7 @@ import 'package:profile_part/src/View/setting/update_profile.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
+import 'package:profile_part/src/widget/partial_widget/loading/profile_loading.dart';
 
 import '../../../getx/profile_controller.dart';
 import '../../../repository/user_repository/user_repository.dart';
@@ -26,7 +27,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     final controllerr = Get.put(ProfileController());
     final userController = Get.put(UserRepository());
     return FutureBuilder(
-      future: controllerr.getUserData(),
+      future: Future.delayed(
+        const Duration(seconds: 1),
+        () => controllerr.getUserData(),
+      ),
       builder: (context, snapShot) {
         if (snapShot.connectionState == ConnectionState.done) {
           if (snapShot.hasData) {
@@ -45,7 +49,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         blueText(userName.text),
                         AppSizes.smallHeightSizedBox,
                         divder(115.w, 0, 0),
-                        textButton(() => Get.to(const UpdateProfile()),
+                        textButton(
+                            () => Get.to(const UpdateProfile(),
+                                transition: Transition.upToDown),
                             "View Profile"),
                       ],
                     ),
@@ -70,12 +76,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               ),
             );
           } else if (snapShot.hasError) {
-            return Center(child: Text(snapShot.error.toString()));
+            return Center(child: Text('Error${snapShot.error}'));
           } else {
-            return const Text("somthing went wrong");
+            return const Text("something went wrong");
           }
+        } else if (snapShot.connectionState == ConnectionState.waiting) {
+          return ProfileLoading();
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const Text("somthing went wrong");
         }
       },
     );

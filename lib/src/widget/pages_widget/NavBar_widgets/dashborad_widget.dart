@@ -9,6 +9,7 @@ import 'package:profile_part/src/repository/service_repository/service_data.dart
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/slider_widget.dart';
+import 'package:profile_part/src/widget/partial_widget/loading/dashboard_loading.dart';
 
 import '../../../View/vendor/vendor_display.dart';
 import '../../partial_widget/dashboard_partial.dart/seemore_widget.dart';
@@ -26,7 +27,10 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: firebaseservice.fetchAdsAndCategories(),
+        future: Future.delayed(
+          const Duration(seconds: 2),
+          () => firebaseservice.fetchAdsAndCategories(),
+        ),
         builder: (context, snpshot) {
           if (snpshot.connectionState == ConnectionState.done) {
             if (snpshot.hasData) {
@@ -47,7 +51,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                     if (data != null) {
                       Widget documentWidget = AppContainer(
                           imgName: data['image'],
-                          onTap: () => Get.to(categories));
+                          onTap: () => Get.to(categories,
+                              transition: Transition.rightToLeft));
 
                       widgetsList.add(documentWidget);
                     }
@@ -110,7 +115,9 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                             onTap: () => Get.to(
                                                 VendorDisplaypage(
                                                     title: categories?[index]
-                                                        ['Title'])),
+                                                        ['Title']),
+                                                transition:
+                                                    Transition.rightToLeft),
                                           ),
                                           Container(
                                             margin: EdgeInsets.only(
@@ -131,7 +138,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                   })),
                             ),
                             SeeMore(
-                              onTap: () => Get.to(CategoriesPage()),
+                              onTap: () => Get.to(CategoriesPage(),
+                                  transition: Transition.rightToLeft),
                             )
                           ],
                         ),
@@ -146,7 +154,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
               return const Text("somthing went wrong");
             }
           } else if (snpshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: DashboardLoading());
           } else {
             return const Text("somthing went wrong");
           }
