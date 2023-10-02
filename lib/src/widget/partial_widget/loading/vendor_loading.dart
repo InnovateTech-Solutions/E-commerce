@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
-import 'package:shimmer/shimmer.dart';
 
 class VendorLoading extends StatelessWidget {
   const VendorLoading({super.key});
