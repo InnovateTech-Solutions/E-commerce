@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/user_actions/user_actions.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
-import 'package:profile_part/src/widget/partial_widget/loading/update_loading.dart';
 
 import '../../../constant/app_const.dart';
 import '../../../getx/profile_controller.dart';
@@ -134,7 +133,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
               return const Text("somthing went wrong");
             }
           } else if (snapShot.connectionState == ConnectionState.waiting) {
-            return const Center(child: UpdateLoading());
+            return const Center(child: CircularProgressIndicator());
           } else {
             return const Text("somthing went wrong");
           }

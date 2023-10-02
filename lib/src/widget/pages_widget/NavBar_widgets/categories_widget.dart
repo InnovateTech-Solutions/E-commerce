@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/getx/data_controller.dart';
 import 'package:profile_part/src/model/categories_model.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/category_item.dart';
-import 'package:profile_part/src/widget/partial_widget/loading/categories_loading.dart';
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({Key? key}) : super(key: key);
@@ -53,7 +52,9 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               return const Text("something went wrong");
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return CategoriesLoading();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           } else {
             return const Text("somthing went wrong");
           }

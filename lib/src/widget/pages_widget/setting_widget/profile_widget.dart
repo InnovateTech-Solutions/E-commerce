@@ -5,7 +5,6 @@ import 'package:profile_part/src/View/setting/update_profile.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
-import 'package:profile_part/src/widget/partial_widget/loading/profile_loading.dart';
 
 import '../../../getx/profile_controller.dart';
 import '../../../repository/user_repository/user_repository.dart';
@@ -81,7 +80,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             return const Text("something went wrong");
           }
         } else if (snapShot.connectionState == ConnectionState.waiting) {
-          return ProfileLoading();
+          return CircularProgressIndicator();
         } else {
           return const Text("somthing went wrong");
         }

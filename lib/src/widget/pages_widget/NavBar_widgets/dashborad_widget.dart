@@ -9,7 +9,6 @@ import 'package:profile_part/src/repository/service_repository/service_data.dart
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/slider_widget.dart';
-import 'package:profile_part/src/widget/partial_widget/loading/dashboard_loading.dart';
 
 import '../../../View/vendor/vendor_display.dart';
 import '../../partial_widget/dashboard_partial.dart/seemore_widget.dart';
@@ -154,7 +153,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
               return const Text("somthing went wrong");
             }
           } else if (snpshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: DashboardLoading());
+            return const Center(child: CircularProgressIndicator());
           } else {
             return const Text("somthing went wrong");
           }
