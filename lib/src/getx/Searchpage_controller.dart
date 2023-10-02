@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class testPageController extends GetxController {
+class SearchPageController extends GetxController {
   final RxBool isSearchBarOpen = false.obs;
   final RxString searchQuery = ''.obs;
 

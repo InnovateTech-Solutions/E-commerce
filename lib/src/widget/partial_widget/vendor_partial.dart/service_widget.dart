@@ -60,7 +60,10 @@ class Service extends GetView<Appcontroller> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          ProductButton(onTap: () => null),
+                          ProductButton(
+                            onTap: () => null,
+                            title: 'Book',
+                          ),
                           subvendorText(
                             servicePrice,
                           )

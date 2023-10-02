@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 GestureDetector imagepicker() {
@@ -48,5 +49,19 @@ Future<void> launchMap(String? address) async {
     }
   } catch (e) {
     throw "Error launching URL: $e";
+  }
+}
+
+class PreferencesHelper {
+  static const String isLoggedInKey = 'isLoggedIn';
+
+  static Future<void> setLoggedIn(bool value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(isLoggedInKey, value);
+  }
+
+  static Future<bool> isLoggedIn() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(isLoggedInKey) ?? false;
   }
 }

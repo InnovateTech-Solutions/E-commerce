@@ -4,8 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/constant/color.dart';
 
 class ProductButton extends StatelessWidget {
-  const ProductButton({required this.onTap, Key? key}) : super(key: key);
+  const ProductButton({required this.title, required this.onTap, Key? key})
+      : super(key: key);
   final VoidCallback onTap;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ProductButton extends StatelessWidget {
             color: ColorConstants.secondaryScaffoldBacground),
         child: Center(
           child: Text(
-            "Book",
+            title,
             textAlign: TextAlign.left,
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(

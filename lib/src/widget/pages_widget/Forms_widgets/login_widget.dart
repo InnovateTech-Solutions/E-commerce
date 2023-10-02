@@ -31,7 +31,6 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   void clearText() {
     controller.email.clear();
-
     controller.password.clear();
   }
 
@@ -87,7 +86,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                 forgetPasswordText(context),
                 AppSizes.mediumHeightSizedBox,
                 ButtonWidget(
-                    onTap: () => {controller.onLogin(), dispose(), clearText()},
+                    onTap: () => {
+                          controller.onLogin(),
+                          dispose(),
+                          clearText(),
+                        },
                     tilte: AppConst.login),
                 dontHaveAccountRow(),
               ],

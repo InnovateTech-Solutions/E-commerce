@@ -7,16 +7,17 @@ import 'package:profile_part/src/View/start_pages/intro_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/local_strings.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
-import 'package:profile_part/src/getx/page_controller.dart';
+import 'package:profile_part/src/getx/Searchpage_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
+
   Get.put(Appcontroller());
-  Get.put(testPageController());
-  runApp(const MyApp());
+  Get.put(SearchPageController());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,14 +31,13 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) {
         return GetMaterialApp(
-          translations: LocalStrings(),
-          locale: const Locale('en', 'US'),
-          title: 'E-commerce',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-              primaryColor: ColorConstants.mainScaffoldBackgroundColor),
-          home: const IntroPage(),
-        );
+            translations: LocalStrings(),
+            locale: const Locale('en', 'US'),
+            title: 'E-commerce',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+                primaryColor: ColorConstants.mainScaffoldBackgroundColor),
+            home: IntroPage());
       },
     );
   }

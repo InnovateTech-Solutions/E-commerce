@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:profile_part/src/View/test/test.dart';
+import 'package:profile_part/src/widget/pages_widget/Vendor/vendor_list_with_search.dart';
 
 class VendorDisplaypage extends StatefulWidget {
   const VendorDisplaypage({required this.title, Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class VendorDisplaypage extends StatefulWidget {
 class _VendorDisplaypageState extends State<VendorDisplaypage> {
   @override
   Widget build(BuildContext context) {
-    return MyHomePage(
+    return VendorListSearchWidget(
       title: widget.title,
     );
   }

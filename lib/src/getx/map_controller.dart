@@ -5,7 +5,7 @@ import 'package:custom_info_window/custom_info_window.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:profile_part/src/widget/partial_widget/map_partial.dart';
+import 'package:profile_part/src/widget/partial_widget/map_partial/map_partial.dart';
 
 class MapController extends GetxController {
   static MapController get instance => Get.find();
