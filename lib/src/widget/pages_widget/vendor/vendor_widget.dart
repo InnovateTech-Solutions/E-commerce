@@ -15,6 +15,7 @@ import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/product_button.dart';
+import 'package:profile_part/src/widget/partial_widget/loading/vendor_loading.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/header_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/rating_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/service_select.dart';
@@ -112,7 +113,10 @@ class VendorWidget extends GetView<Appcontroller> {
 
     Get.put(Appcontroller());
     return FutureBuilder(
-        future: FirebaseService.instance.fetchServicebyName(vendor.name),
+        future: Future.delayed(
+          const Duration(seconds: 2),
+          () => FirebaseService.instance.fetchServicebyName(vendor.name),
+        ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
@@ -437,11 +441,7 @@ class VendorWidget extends GetView<Appcontroller> {
               return const Text("something went wrong");
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: CircularProgressIndicator(
-              color: ColorConstants.mainScaffoldBackgroundColor,
-              value: 0.5,
-            ));
+            return VendorLoading();
           } else {
             return const Text("something went wrong");
           }

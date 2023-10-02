@@ -20,7 +20,8 @@ class CategoryItem extends StatelessWidget {
         children: [
           AppContainer(
             imgName: category.image,
-            onTap: () => Get.to(VendorDisplaypage(title: category.title)),
+            onTap: () => Get.to(VendorDisplaypage(title: category.title),
+                transition: Transition.rightToLeft),
           ),
           Container(
             margin: EdgeInsets.only(top: 140.h, left: 20.w),

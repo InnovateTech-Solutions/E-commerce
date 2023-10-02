@@ -46,7 +46,8 @@ class AppConst {
           width: 15.w,
           height: 15.h,
         ),
-        onTap: () => Get.to(const SettingPage())),
+        onTap: () =>
+            Get.to(const SettingPage(), transition: Transition.rightToLeft)),
     Button(
         title: 'About',
         icon: SvgPicture.asset(
@@ -76,7 +77,8 @@ class AppConst {
           Icons.home_outlined,
           color: ColorConstants.mainTextColor,
         ),
-        onTap: () => Get.to(const DashBoard())),
+        onTap: () =>
+            Get.to(const DashBoard(), transition: Transition.rightToLeft)),
     AppDrawerButton(
         title: 'Categoris',
         icon: Icon(
@@ -84,7 +86,8 @@ class AppConst {
           color: ColorConstants.mainTextColor,
         ),
         onTap: () {
-          Get.to(const CategoriesPage());
+          Get.to(const CategoriesPage(),
+              transition: Transition.rightToLeftWithFade);
         }),
     AppDrawerButton(
         title: 'Location',
@@ -93,7 +96,7 @@ class AppConst {
           color: ColorConstants.mainTextColor,
         ),
         onTap: () {
-          Get.to(const MapPage());
+          Get.to(const MapPage(), transition: Transition.rightToLeft);
         }),
     AppDrawerButton(
         title: 'My Appointments',
@@ -109,7 +112,7 @@ class AppConst {
           color: ColorConstants.mainTextColor,
         ),
         onTap: () {
-          Get.to(const ProfilePage());
+          Get.to(const ProfilePage(), transition: Transition.rightToLeft);
         }),
   ];
   //setting List

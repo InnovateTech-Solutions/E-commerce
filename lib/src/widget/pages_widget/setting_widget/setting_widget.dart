@@ -13,7 +13,6 @@ import '../../partial_widget/setting_partial/setting.dart';
 
 class SettingWidget extends StatelessWidget {
   final controller = Get.put(UserRepository());
-
   SettingWidget({super.key});
 
   @override

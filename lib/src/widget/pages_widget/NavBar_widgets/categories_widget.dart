@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/getx/data_controller.dart';
 import 'package:profile_part/src/model/categories_model.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/category_item.dart';
+import 'package:profile_part/src/widget/partial_widget/loading/categories_loading.dart';
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({Key? key}) : super(key: key);
@@ -18,7 +19,10 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
 
     return Center(
       child: FutureBuilder<List<Categories>>(
-        future: firebaseservice.fetchAllCategories(),
+        future: Future.delayed(
+          const Duration(seconds: 1),
+          () => firebaseservice.fetchAllCategories(),
+        ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
@@ -49,9 +53,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               return const Text("something went wrong");
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return CategoriesLoading();
           } else {
             return const Text("somthing went wrong");
           }
