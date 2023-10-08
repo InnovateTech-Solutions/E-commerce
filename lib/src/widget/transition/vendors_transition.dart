@@ -4,8 +4,8 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:shimmer/shimmer.dart';
 
-class VendorsDisplayLoading extends StatelessWidget {
-  const VendorsDisplayLoading({super.key});
+class VendorsDisplayTransition extends StatelessWidget {
+  const VendorsDisplayTransition({super.key});
 
   @override
   Widget build(BuildContext context) {

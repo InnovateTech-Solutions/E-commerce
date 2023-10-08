@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/widget/constant_widget/App_Bar/app_bar.dart';
 import 'package:profile_part/src/widget/pages_widget/setting_widget/reset_pw_widget.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class ResetPasswordScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+        appBar: profileAppBar(),
         body: const SingleChildScrollView(
           child: Column(
             children: [

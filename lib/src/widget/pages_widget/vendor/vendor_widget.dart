@@ -14,10 +14,10 @@ import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/product_button.dart';
-import 'package:profile_part/src/widget/partial_widget/loading/vendor_loading.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/header_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/rating_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/service_select.dart';
+import 'package:profile_part/src/widget/transition/vendor_transition.dart';
 
 import '../../../getx/reviews_controller.dart';
 
@@ -113,7 +113,7 @@ class VendorWidget extends GetView<Appcontroller> {
     Get.put(Appcontroller());
     return FutureBuilder(
         future: Future.delayed(
-          const Duration(seconds: 2),
+          const Duration(milliseconds: 500),
           () => FirebaseService.instance.fetchServicebyName(vendor.name),
         ),
         builder: (context, snapshot) {
@@ -328,7 +328,7 @@ class VendorWidget extends GetView<Appcontroller> {
               return const Text("something went wrong");
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return VendorLoading();
+            return VendorTransition();
           } else {
             return const Text("something went wrong");
           }

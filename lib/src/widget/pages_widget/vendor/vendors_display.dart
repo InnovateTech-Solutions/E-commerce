@@ -4,7 +4,7 @@ import 'package:profile_part/src/View/vendor/vendor_page.dart';
 import 'package:profile_part/src/getx/data_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/location_widget.dart';
-import 'package:profile_part/src/widget/partial_widget/loading/vendors_loading.dart';
+import 'package:profile_part/src/widget/transition/vendors_transition.dart';
 
 class VendorDisplayWidget extends StatefulWidget {
   const VendorDisplayWidget({Key? key, required this.category})
@@ -21,7 +21,7 @@ class _VendorDisplayWidgetState extends State<VendorDisplayWidget> {
     final firebaseservice = Get.put(DataController());
     return FutureBuilder<List<VendorModel>>(
       future: Future.delayed(
-        const Duration(seconds: 1),
+        const Duration(milliseconds: 500),
         () => firebaseservice.fetchVendorByCategory(widget.category),
       ),
       builder: (context, snapshot) {
@@ -59,7 +59,7 @@ class _VendorDisplayWidgetState extends State<VendorDisplayWidget> {
           }
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: VendorsDisplayLoading(),
+            child: VendorsDisplayTransition(),
           );
         } else {
           return const Text("something went wrong");

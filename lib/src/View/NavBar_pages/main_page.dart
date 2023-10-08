@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
     const CategoriesPage(),
     const MapPage(),
     const Scaffold(),
-    const ProfilePage()
+    const ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

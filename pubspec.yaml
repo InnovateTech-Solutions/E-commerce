@@ -53,6 +53,8 @@ dependencies:
   geolocator: ^10.1.0
   custom_info_window: ^1.0.1
   shimmer: ^3.0.0
+  cached_network_image: ^3.3.0
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:

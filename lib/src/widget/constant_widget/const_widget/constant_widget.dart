@@ -7,7 +7,7 @@ import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/lang_list.dart';
 import 'package:profile_part/src/model/button_model.dart';
-import 'package:profile_part/src/model/drawer_button.dart';
+import 'package:profile_part/src/model/drawer_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 
 constDivider() {
@@ -60,6 +60,43 @@ Container divder(double width, double left, double right) {
     width: width,
     color: ColorConstants.secondaryScaffoldBacground,
     margin: EdgeInsets.only(right: right, left: left),
+  );
+}
+
+mapww() {
+  return GestureDetector(
+    onTap: () {},
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: ColorConstants.backProductButton,
+            borderRadius: BorderRadius.circular(12)),
+        height: 120,
+        width: 300,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  height: 100,
+                  child: Center(child: Icon(Icons.food_bank_sharp)),
+                  width: 100,
+                  decoration: BoxDecoration(
+                      color: ColorConstants.buttonColor,
+                      borderRadius: BorderRadius.circular(12))),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(""),
+              ],
+            )
+          ],
+        ),
+      ),
+    ),
   );
 }
 

@@ -4,8 +4,8 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:shimmer/shimmer.dart';
 
-class DashboardLoading extends StatelessWidget {
-  const DashboardLoading({super.key});
+class DashboardTransition extends StatelessWidget {
+  const DashboardTransition({super.key});
 
   @override
   Widget build(BuildContext context) {

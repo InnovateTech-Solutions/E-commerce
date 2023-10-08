@@ -33,12 +33,19 @@ class IntroWidget extends StatelessWidget {
               height: 100.h,
             ),
             ButtonWidget(
-                onTap: () => Get.to(const LoginPage()), tilte: AppConst.login),
+                onTap: () => Get.to(
+                      const LoginPage(),
+                      transition: Transition.fade,
+                    ),
+                tilte: AppConst.login),
             SizedBox(
               height: AppConst.largeSize.h,
             ),
             ButtonWidget(
-                onTap: () => Get.to(const RegisterPage()),
+                onTap: () => Get.to(
+                      const RegisterPage(),
+                      transition: Transition.fade,
+                    ),
                 tilte: AppConst.signUp)
           ],
         ),

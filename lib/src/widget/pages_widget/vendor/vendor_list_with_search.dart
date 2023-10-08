@@ -4,19 +4,17 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/vendor/vendor_page.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/getx/page_controller.dart';
 import 'package:profile_part/src/getx/search_controller.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/location_widget.dart';
 import 'package:profile_part/src/widget/pages_widget/Vendor/vendors_display.dart';
 
-class VendorListSearchWidget extends GetView<PageController> {
+class VendorListSearchWidget extends StatelessWidget {
   const VendorListSearchWidget({required this.title, super.key});
   final String title;
-
   @override
   Widget build(BuildContext context) {
+    final pagecontroller = Get.put(PageController());
     final controller1 = Get.put(SearchControllerr(title));
-    final pagecontroller = Get.put(testPageController());
 
     return Scaffold(
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
@@ -86,7 +84,7 @@ class GetXSearchBar extends GetWidget<PageController> {
     final controller1 = Get.put(SearchControllerr(title));
 
     return Obx(() {
-      final searchController = Get.find<testPageController>();
+      final searchController = Get.find<PageController>();
 
       if (searchController.isSearchBarOpen.value) {
         return Expanded(

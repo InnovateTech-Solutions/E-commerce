@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/getx/data_controller.dart';
 import 'package:profile_part/src/model/categories_model.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/category_item.dart';
-import 'package:profile_part/src/widget/partial_widget/loading/categories_loading.dart';
+import 'package:profile_part/src/widget/transition/categories_transition.dart';
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
     return Center(
       child: FutureBuilder<List<Categories>>(
         future: Future.delayed(
-          const Duration(seconds: 1),
+          const Duration(milliseconds: 500),
           () => firebaseservice.fetchAllCategories(),
         ),
         builder: (context, snapshot) {
@@ -53,7 +53,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               return const Text("something went wrong");
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return CategoriesLoading();
+            return CategoriesTransition();
           } else {
             return const Text("somthing went wrong");
           }

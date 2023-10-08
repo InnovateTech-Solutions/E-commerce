@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
@@ -27,7 +28,13 @@ class ProfileController extends GetxController {
   }
 
   updateRecord(UserModel user) async {
-    print(' User data : ${user.email}');
-    await _userRepo.updateUserRecord(user);
+    try {
+      print(' User data : ${user.email}');
+      await _userRepo.updateUserRecord(user);
+      Get.snackbar("Success", " Account  Created Successfullly",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: ColorConstants.mainScaffoldBackgroundColor,
+          backgroundColor: ColorConstants.snakbarColorsuccessful);
+    } catch (e) {}
   }
 }

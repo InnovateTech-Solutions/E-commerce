@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/profile_controller.dart';
-import 'package:profile_part/src/model/drawer_button.dart';
+import 'package:profile_part/src/model/drawer_model.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';

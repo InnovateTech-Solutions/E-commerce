@@ -11,6 +11,7 @@ import 'package:profile_part/src/widget/constant_widget/const_widget/constant_wi
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
+import 'package:profile_part/src/widget/transition/delete_account_transition.dart';
 
 class DeleteAccountWidget extends StatefulWidget {
   const DeleteAccountWidget({Key? key}) : super(key: key);
@@ -38,61 +39,71 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
       logincontroller.password.clear();
     }
 
-    return Form(
-      key: logincontroller.formkey,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 100.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-                child: ListView(
-              children: [
-                mainText("Delete my account"),
-                divder(150.w, 0, 0),
-                AppSizes.largeHeightSizedBox,
-                textFieldLabel(AppConst.email),
-                FormWidget(
-                    login: Login(
-                        enableText: true,
-                        controller: email,
-                        hintText: "Email",
-                        icon: const Icon(Icons.email_rounded),
-                        invisible: false,
-                        validator: (email) =>
-                            logincontroller.validateEmail(email),
-                        type: TextInputType.emailAddress,
-                        onChange: null,
-                        inputFormat: [])),
-                AppSizes.smallHeightSizedBox,
-                textFieldLabel(AppConst.password),
-                FormWidget(
-                    login: Login(
-                        enableText: false,
-                        controller: password,
-                        hintText: AppConst.password,
-                        icon: const Icon(Icons.lock),
-                        invisible: true,
-                        validator: (password) =>
-                            logincontroller.vaildatePassword(password),
-                        type: TextInputType.visiblePassword,
-                        onChange: null,
-                        inputFormat: null)),
-                AppSizes.smallHeightSizedBox,
-                ButtonWidget(
-                  onTap: () => {
-                    autuhcontroller.deleteUserAccount(
-                        email.text, password.text),
-                    dispose(),
-                    clearText()
-                  },
-                  tilte: 'Delete account',
-                )
-              ],
-            ))
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: Future.delayed(
+            const Duration(milliseconds: 500), () => logincontroller),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Form(
+              key: logincontroller.formkey,
+              child: Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 30.w, vertical: 100.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: ListView(
+                      children: [
+                        mainText("Delete my account"),
+                        divder(150.w, 0, 0),
+                        AppSizes.largeHeightSizedBox,
+                        textFieldLabel(AppConst.email),
+                        FormWidget(
+                            login: Login(
+                                enableText: true,
+                                controller: email,
+                                hintText: "Email",
+                                icon: const Icon(Icons.email_rounded),
+                                invisible: false,
+                                validator: (email) =>
+                                    logincontroller.validateEmail(email),
+                                type: TextInputType.emailAddress,
+                                onChange: null,
+                                inputFormat: [])),
+                        AppSizes.smallHeightSizedBox,
+                        textFieldLabel(AppConst.password),
+                        FormWidget(
+                            login: Login(
+                                enableText: false,
+                                controller: password,
+                                hintText: AppConst.password,
+                                icon: const Icon(Icons.lock),
+                                invisible: true,
+                                validator: (password) =>
+                                    logincontroller.vaildatePassword(password),
+                                type: TextInputType.visiblePassword,
+                                onChange: null,
+                                inputFormat: null)),
+                        AppSizes.smallHeightSizedBox,
+                        ButtonWidget(
+                          onTap: () => {
+                            autuhcontroller.deleteUserAccount(
+                                email.text, password.text),
+                            dispose(),
+                            clearText()
+                          },
+                          tilte: 'Delete account',
+                        )
+                      ],
+                    ))
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return DeleteAccountTransition();
+          }
+        });
   }
 }

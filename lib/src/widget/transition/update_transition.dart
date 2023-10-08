@@ -4,8 +4,8 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:shimmer/shimmer.dart';
 
-class UpdateLoading extends StatelessWidget {
-  const UpdateLoading({super.key});
+class UpdateTransition extends StatelessWidget {
+  const UpdateTransition({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,8 @@ class UpdateLoading extends StatelessWidget {
           child: Column(
             children: [
               AppSizes.smallHeightSizedBox,
-              Container(
-                width: 150.w,
-                height: 150.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(50.r)),
-                    color: ColorConstants.mainScaffoldBackgroundColor),
+              CircleAvatar(
+                radius: 80.r,
               ),
               AppSizes.largeHeightSizedBox,
               SizedBox(

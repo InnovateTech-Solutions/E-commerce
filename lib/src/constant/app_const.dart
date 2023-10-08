@@ -4,12 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/dashborad_page.dart';
-import 'package:profile_part/src/View/NavBar_pages/map_page.dart';
 import 'package:profile_part/src/View/setting/profile_page.dart';
 import 'package:profile_part/src/View/setting/setting_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/button_model.dart';
-import 'package:profile_part/src/model/drawer_button.dart';
+import 'package:profile_part/src/model/drawer_model.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 
 class AppConst {
@@ -46,8 +45,7 @@ class AppConst {
           width: 15.w,
           height: 15.h,
         ),
-        onTap: () =>
-            Get.to(const SettingPage(), transition: Transition.rightToLeft)),
+        onTap: () => Get.to(const SettingPage(), transition: Transition.fade)),
     Button(
         title: 'About',
         icon: SvgPicture.asset(
@@ -86,8 +84,7 @@ class AppConst {
           color: ColorConstants.mainTextColor,
         ),
         onTap: () {
-          Get.to(const CategoriesPage(),
-              transition: Transition.rightToLeftWithFade);
+          Get.to(const CategoriesPage(), transition: Transition.rightToLeft);
         }),
     AppDrawerButton(
         title: 'Location',
@@ -95,9 +92,7 @@ class AppConst {
           Icons.location_on_outlined,
           color: ColorConstants.mainTextColor,
         ),
-        onTap: () {
-          Get.to(const MapPage(), transition: Transition.rightToLeft);
-        }),
+        onTap: () {}),
     AppDrawerButton(
         title: 'My Appointments',
         icon: Icon(

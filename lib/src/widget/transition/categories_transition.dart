@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:shimmer/shimmer.dart';
 
-class CategoriesLoading extends StatelessWidget {
-  const CategoriesLoading({super.key});
+class CategoriesTransition extends StatelessWidget {
+  const CategoriesTransition({super.key});
 
   @override
   Widget build(BuildContext context) {

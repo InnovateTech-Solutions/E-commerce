@@ -44,7 +44,8 @@ class SettingWidget extends StatelessWidget {
             width: 15.w,
             height: 15.h,
           ),
-          onTap: () => Get.to(const DeleteAccountPage())),
+          onTap: () => Get.to(const DeleteAccountPage(),
+              transition: Transition.rightToLeft)),
       Button(
           title: 'Change Password',
           icon: SvgPicture.asset(
@@ -53,33 +54,41 @@ class SettingWidget extends StatelessWidget {
             width: 15.w,
             height: 15.h,
           ),
-          onTap: () => Get.to(const ResetPasswordScreen())),
+          onTap: () => Get.to(const ResetPasswordScreen(),
+              transition: Transition.rightToLeft)),
     ];
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      child: Column(
-        children: [
-          Expanded(flex: 3, child: settingColumn()),
-          Expanded(
-              flex: 8,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
-                child: SizedBox(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: setting.length,
-                    itemBuilder: ((context, index) {
-                      return profileWidget(setting[index]);
-                    }),
-                    separatorBuilder: (BuildContext context, int index) =>
-                        AppSizes.mediumHeightSizedBox,
-                  ),
-                ),
-              ))
-        ],
+    return FutureBuilder(
+      future: Future.delayed(
+        const Duration(milliseconds: 500),
       ),
+      builder: (context, snapshot) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: Column(
+            children: [
+              Expanded(flex: 3, child: settingColumn()),
+              Expanded(
+                  flex: 8,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    child: SizedBox(
+                      height: double.infinity,
+                      width: double.infinity,
+                      child: ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: setting.length,
+                        itemBuilder: ((context, index) {
+                          return profileWidget(setting[index]);
+                        }),
+                        separatorBuilder: (BuildContext context, int index) =>
+                            AppSizes.mediumHeightSizedBox,
+                      ),
+                    ),
+                  ))
+            ],
+          ),
+        );
+      },
     );
   }
 }

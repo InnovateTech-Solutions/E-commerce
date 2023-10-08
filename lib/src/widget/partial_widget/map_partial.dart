@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+/*import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/widget/Text_Widget/setting_text.dart';
+import 'package:profile_part/src/getx/map_controller.dart';
 
 class mapDialog extends StatelessWidget {
-  const mapDialog({
+  mapDialog({
     super.key,
     required this.title,
     required this.image,
@@ -12,39 +12,55 @@ class mapDialog extends StatelessWidget {
 
   final String title;
   final String image;
-
+  final mapController = Get.put(MapController());
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => {},
-      child: Padding(
-        padding: const EdgeInsets.only(top: 25.0),
-        child: Stack(
-          children: [
-            Container(
-              width: 500.w,
-              height: 200.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                color: ColorConstants.mainScaffoldBackgroundColor,
-              ),
-              child: Column(
-                children: [
-                  Container(
-                      height: 100.h,
-                      width: double.infinity.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                        image: DecorationImage(
-                            image: NetworkImage(image), fit: BoxFit.cover),
-                      )),
-                  settingText(title),
-                ],
+    return SizedBox(
+      height: 100,
+      width: 500,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: mapController.markers.length,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: ColorConstants.backProductButton,
+                    borderRadius: BorderRadius.circular(12)),
+                height: 120,
+                width: 300,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          height: 100,
+                          child: Center(child: Icon(Icons.food_bank_sharp)),
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: ColorConstants.buttonColor,
+                              borderRadius: BorderRadius.circular(12))),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 }
+*/

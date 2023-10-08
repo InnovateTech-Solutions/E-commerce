@@ -5,7 +5,7 @@ import 'package:profile_part/src/View/setting/update_profile.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
-import 'package:profile_part/src/widget/partial_widget/loading/profile_loading.dart';
+import 'package:profile_part/src/widget/transition/profile_transition.dart';
 
 import '../../../getx/profile_controller.dart';
 import '../../../repository/user_repository/user_repository.dart';
@@ -28,7 +28,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     final userController = Get.put(UserRepository());
     return FutureBuilder(
       future: Future.delayed(
-        const Duration(seconds: 1),
+        const Duration(milliseconds: 500),
         () => controllerr.getUserData(),
       ),
       builder: (context, snapShot) {
@@ -40,38 +40,34 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: [
-                        userController.getUserImageUrl(),
-                        AppSizes.smallHeightSizedBox,
-                        blueText(userName.text),
-                        AppSizes.smallHeightSizedBox,
-                        divder(115.w, 0, 0),
-                        textButton(
-                            () => Get.to(const UpdateProfile(),
-                                transition: Transition.upToDown),
-                            "View Profile"),
-                      ],
+                  Column(
+                    children: [
+                      userController.getUserImageUrl(),
+                      AppSizes.smallHeightSizedBox,
+                      blueText(userName.text),
+                      AppSizes.smallHeightSizedBox,
+                      divder(115.w, 0, 0),
+                      textButton(
+                          () => Get.to(const UpdateProfile(),
+                              transition: Transition.fade),
+                          "View Profile"),
+                    ],
+                  ),
+                  AppSizes.smallHeightSizedBox,
+                  SizedBox(
+                    height: 300.h,
+                    width: 350.w,
+                    child: ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: AppConst.profileList.length,
+                      itemBuilder: ((context, index) {
+                        return profileWidget(AppConst.profileList[index]);
+                      }),
+                      separatorBuilder: (BuildContext context, int index) {
+                        return AppSizes.mediumHeightSizedBox;
+                      },
                     ),
                   ),
-                  Expanded(
-                      flex: 3,
-                      child: SizedBox(
-                        height: double.infinity,
-                        width: double.infinity,
-                        child: ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: AppConst.profileList.length,
-                          itemBuilder: ((context, index) {
-                            return profileWidget(AppConst.profileList[index]);
-                          }),
-                          separatorBuilder: (BuildContext context, int index) {
-                            return AppSizes.mediumHeightSizedBox;
-                          },
-                        ),
-                      )),
                 ],
               ),
             );
@@ -81,7 +77,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             return const Text("something went wrong");
           }
         } else if (snapShot.connectionState == ConnectionState.waiting) {
-          return ProfileLoading();
+          return ProfileTransition();
         } else {
           return const Text("somthing went wrong");
         }
