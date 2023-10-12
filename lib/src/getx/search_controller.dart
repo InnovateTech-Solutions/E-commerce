@@ -8,7 +8,7 @@ class SearchControllerr extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
-  RxList<VendorModel> mainList = RxList<VendorModel>([]);
+  RxList<VendorModel> mainList = <VendorModel>[].obs;
   RxList<VendorModel> filteredList = <VendorModel>[].obs;
 
   @override

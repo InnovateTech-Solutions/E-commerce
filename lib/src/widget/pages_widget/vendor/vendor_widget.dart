@@ -117,7 +117,6 @@ class VendorWidget extends GetView<Appcontroller> {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               final services = snapshot.data!;
-
               return Stack(
                 children: [
                   CustomScrollView(slivers: [
@@ -159,7 +158,12 @@ class VendorWidget extends GetView<Appcontroller> {
                                       ],
                                     ),
                               AppSizes.xsmallHeightSizedBox,
-                              ratingBarIndicator('4', '150'),
+                              Obx(() => reviewsController.reviews.isEmpty
+                                  ? Container()
+                                  : ratingBarIndicator(
+                                      '4.5',
+                                      reviewsController.reviews.length
+                                          .toString())),
                               AppSizes.xsmallHeightSizedBox,
                               addressText(vendor.coordinates, vendor.address),
                               AppSizes.smallHeightSizedBox,
@@ -178,8 +182,10 @@ class VendorWidget extends GetView<Appcontroller> {
                                         () => Column(
                                           children: [
                                             GestureDetector(
-                                                onTap: () => controller
-                                                    .currentIndex.value = index,
+                                                onTap: () => {
+                                                      controller.currentIndex
+                                                          .value = index,
+                                                    },
                                                 child: serviceSelcet(
                                                     services[index].name,
                                                     index,
@@ -191,6 +197,12 @@ class VendorWidget extends GetView<Appcontroller> {
                                     }),
                               ),
                               Builder(builder: (context) {
+                                // Check if a service with a specific name exists in the list
+                                // bool serviceExists = cartController.cartItems
+                                //     .any((service) =>
+                                //         service.serviceModel.name ==
+                                //         service.serviceModel.name);
+
                                 return services.isEmpty
                                     ? Center(
                                         child: mainText('No Service Available'),
@@ -210,16 +222,13 @@ class VendorWidget extends GetView<Appcontroller> {
                                               children: [
                                                 ProductButton(
                                                   onTap: () => {
-                                                    cartController.addToCart(
-                                                        services[controller
-                                                            .currentIndex
-                                                            .value]),
-                                                    cartController.totalCart(
-                                                        services[controller
-                                                            .currentIndex
-                                                            .value]),
-                                                    print(cartController
-                                                        .cartItems.length),
+                                                    cartController
+                                                        .toggleService(services[
+                                                            controller
+                                                                .currentIndex
+                                                                .value]),
+                                                    print(
+                                                        '${services[controller.currentIndex.value].isSelected}  + ${controller.currentIndex.value}'),
                                                   },
                                                   title: 'Book',
                                                 ),
@@ -363,10 +372,10 @@ class VendorWidget extends GetView<Appcontroller> {
                   services.isEmpty
                       ? Container()
                       : Builder(builder: (context) {
-                          String price = services[controller.currentIndex.value]
-                              .price
-                              .replaceAll('BD', '');
-                          int priceoverall = int.parse(price);
+                          //   String price = services[controller.currentIndex.value]
+                          //       .price
+                          //      .replaceAll('BD', '');
+                          //  int priceoverall = int.parse(price);
 
                           return Obx(
                             () => cartController.cartItems.isEmpty
@@ -398,7 +407,7 @@ class VendorWidget extends GetView<Appcontroller> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                'BD ${cartController.cartItems.fold<int>(0, (sum, item) => sum + priceoverall).toStringAsFixed(2)}',
+                                                "BD ${cartController.counter.toString()}",
                                                 style: TextStyle(
                                                   color: ColorConstants
                                                       .mainTextColor, // Customize text color
@@ -419,7 +428,9 @@ class VendorWidget extends GetView<Appcontroller> {
                                             ],
                                           ),
                                           ProductButton(
-                                            onTap: () => null,
+                                            onTap: () => {
+                                              cartController.clearCart(),
+                                            },
                                             title: 'Confrim',
                                           )
                                         ],
@@ -439,7 +450,6 @@ class VendorWidget extends GetView<Appcontroller> {
             return Center(
                 child: CircularProgressIndicator(
               color: ColorConstants.mainScaffoldBackgroundColor,
-              value: 0.5,
             ));
           } else {
             return const Text("something went wrong");

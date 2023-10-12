@@ -55,6 +55,7 @@ dependencies:
   flutter_sliding_up_panel: ^2.1.1
   shared_preferences: ^2.2.1
   shimmer: ^3.0.0
+  syncfusion_flutter_calendar: ^23.1.38
 
 dev_dependencies:
   flutter_test:
