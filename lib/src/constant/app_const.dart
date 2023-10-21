@@ -11,6 +11,7 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/button_model.dart';
 import 'package:profile_part/src/model/drawer_button.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
+import 'package:profile_part/src/user_actions/shared_preference/prefs.dart';
 
 class AppConst {
   AppConst._();
@@ -65,7 +66,10 @@ class AppConst {
         width: 15.w,
         height: 15.h,
       ),
-      onTap: () => AuthenticationRepository().logout(),
+      onTap: () => {
+        AuthenticationRepository().logout(),
+        SharedPref.instance.deleteSharedPreferencesUserDeatils()
+      },
     ),
   ];
 
@@ -116,4 +120,18 @@ class AppConst {
         }),
   ];
   //setting List
+  static List<String> timeList = [
+    '12:00 PM',
+    '1:00 PM',
+    '2:00 PM',
+    '3:00 PM',
+    '4:00 PM',
+    '5:00 PM',
+    '6:00 PM',
+    '7:00 PM',
+    '8:00 PM',
+    '9:00 PM',
+    '10:00 PM',
+    '11:00 PM',
+  ];
 }

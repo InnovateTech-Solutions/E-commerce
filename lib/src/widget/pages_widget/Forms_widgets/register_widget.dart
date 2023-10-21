@@ -22,6 +22,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(RegisterController());
+    final sharedPreferences = Get.put(SharedPref());
+
     @override
     void dispose() {
       super.dispose();
@@ -112,8 +114,12 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             phone: controller.phoneNumber.text.trim(),
                             imageUrl: '')),
                         dispose(),
-                        clearText(),
-                        Prefess().login()
+                        sharedPreferences.saveUserJasonData(
+                          email: controller.email.text.trim(),
+                          name: controller.userName.text.trim(),
+                          phone: controller.phoneNumber.text.trim(),
+                        ),
+                        clearText()
                       },
                   tilte: AppConst.signUp)
             ],

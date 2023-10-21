@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/service_model.dart';
 
 class ServiceController extends GetxController {
-  RxList<ServiceModel> _cartItems = <ServiceModel>[].obs;
+  var _cartItems = <ServiceModel>[].obs;
   RxInt total = 0.obs;
   List<ServiceModel> get cartItems => _cartItems;
   RxInt counter = 0.obs;
@@ -13,7 +14,11 @@ class ServiceController extends GetxController {
   }
 
   void removeFromCart(ServiceModel serviceModel) {
+    String price = serviceModel.price.replaceAll('BD', '');
+    int priceoverall = int.parse(price);
     _cartItems.remove(serviceModel);
+    counter = counter - priceoverall;
+    update();
   }
 
   totalCart(ServiceModel serviceModel) {

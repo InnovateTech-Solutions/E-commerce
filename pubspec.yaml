@@ -56,6 +56,9 @@ dependencies:
   shared_preferences: ^2.2.1
   shimmer: ^3.0.0
   syncfusion_flutter_calendar: ^23.1.38
+  flutter_datetime_picker: ^1.5.1
+  flutter_timeline_calendar: ^1.0.9
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

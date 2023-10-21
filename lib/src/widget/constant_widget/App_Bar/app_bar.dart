@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 
 firstAppBar() {
   return AppBar(
@@ -115,5 +116,32 @@ profileAppBar() {
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
     iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
+  );
+}
+
+cartAppbar() {
+  return AppBar(
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    elevation: 0,
+    iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
+    title: mainVendorText('Confarmation page'),
+  );
+}
+
+appointmentsAppBar() {
+  return AppBar(
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    elevation: 0,
+    iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
+    title: mainVendorText('Select Time'),
+  );
+}
+
+confirmAppBar() {
+  return AppBar(
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    elevation: 0,
+    iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
+    title: mainVendorText('Review and Confirm'),
   );
 }

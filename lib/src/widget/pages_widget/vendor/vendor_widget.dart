@@ -3,6 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:profile_part/src/View/checkout/cart_page.dart';
+import 'package:profile_part/src/View/checkout/confirm_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
@@ -429,7 +431,11 @@ class VendorWidget extends GetView<Appcontroller> {
                                           ),
                                           ProductButton(
                                             onTap: () => {
-                                              cartController.clearCart(),
+                                              {
+                                                Get.to(CartPage(
+                                                  vendorModel: vendor,
+                                                )),
+                                              },
                                             },
                                             title: 'Confrim',
                                           )

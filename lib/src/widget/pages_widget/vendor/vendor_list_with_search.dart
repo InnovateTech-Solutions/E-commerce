@@ -30,7 +30,6 @@ class _VendorListSearchWidgetState extends State<VendorListSearchWidget> {
     void dispose() {
       pagecontroller.dispose();
       searchController.dispose();
-
       super.dispose();
     }
 

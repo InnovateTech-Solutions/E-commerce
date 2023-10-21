@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
+import 'package:profile_part/src/user_actions/shared_preference/prefs.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/slider_widget.dart';
-
 import '../../../View/vendor/vendor_display.dart';
 import '../../partial_widget/dashboard_partial.dart/seemore_widget.dart';
 
@@ -22,6 +21,8 @@ class DashBoradWidget extends StatefulWidget {
 
 class _DashBoradWidgetState extends State<DashBoradWidget> {
   final firebaseservice = Get.put(FirebaseService());
+  final sharedPreferences = Get.put(Prefess());
+  final prefs = Get.put(SharedPref());
 
   @override
   Widget build(BuildContext context) {
@@ -137,9 +138,15 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                   })),
                             ),
                             SeeMore(
-                              onTap: () => Get.to(CategoriesPage(),
-                                  transition: Transition.rightToLeft),
-                            )
+                                onTap: () => {
+                                      //  Get.to(CategoriesPage(),
+                                      //    transition: Transition.rightToLeft),
+                                      /*  print(sharedPreferences
+                                          .getStringValuesSF()
+                                          .toString())*/
+                                      print('============================'),
+                                      print(prefs.getJason()),
+                                    }),
                           ],
                         ),
                       ),

@@ -16,7 +16,6 @@ void main() async {
       .then((value) => Get.put(AuthenticationRepository()));
   Get.put(Appcontroller());
   Get.put(SearchPageController());
-
   runApp(MyApp());
 }
 
