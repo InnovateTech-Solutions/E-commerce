@@ -5,6 +5,7 @@ import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/getx/register_controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/model/user_model.dart';
+import 'package:profile_part/src/user_actions/shared_preference/prefs.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
@@ -111,7 +112,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             phone: controller.phoneNumber.text.trim(),
                             imageUrl: '')),
                         dispose(),
-                        clearText()
+                        clearText(),
+                        Prefess().login()
                       },
                   tilte: AppConst.signUp)
             ],

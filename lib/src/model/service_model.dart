@@ -1,12 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
 class ServiceModel {
   late String name;
   late String price;
   late String description;
+  RxBool? isSelected;
 
   ServiceModel(
-      {required this.name, required this.price, required this.description});
+      {this.isSelected,
+      required this.name,
+      required this.price,
+      required this.description});
 
   toJason() {
     return {'Name': name, 'Price': price, 'Description': description};

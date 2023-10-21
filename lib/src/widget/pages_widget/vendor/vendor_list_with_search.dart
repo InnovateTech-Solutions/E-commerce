@@ -10,16 +10,29 @@ import 'package:profile_part/src/widget/constant_widget/search_bar/vendor_search
 import 'package:profile_part/src/widget/custom_Widget.dart/location_widget.dart';
 import 'package:profile_part/src/widget/pages_widget/Vendor/vendors_display.dart';
 
-class VendorListSearchWidget extends StatelessWidget {
+class VendorListSearchWidget extends StatefulWidget {
   const VendorListSearchWidget({required this.title, super.key});
 
   final String title;
 
   @override
+  State<VendorListSearchWidget> createState() => _VendorListSearchWidgetState();
+}
+
+class _VendorListSearchWidgetState extends State<VendorListSearchWidget> {
+  @override
   Widget build(BuildContext context) {
     final pagecontroller = Get.put(SearchPageController());
 
-    final searchController = Get.put(SearchControllerr(title));
+    final searchController = Get.put(SearchControllerr(widget.title));
+
+    @override
+    void dispose() {
+      pagecontroller.dispose();
+      searchController.dispose();
+
+      super.dispose();
+    }
 
     return Scaffold(
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
@@ -28,7 +41,9 @@ class VendorListSearchWidget extends StatelessWidget {
         leading: Obx(() => pagecontroller.isSearchBarOpen.value
             ? Container()
             : IconButton(
-                onPressed: () => Get.back(),
+                onPressed: () => {
+                      Get.back(),
+                    },
                 icon: Icon(
                   Icons.arrow_back_ios,
                   color: ColorConstants.mainTextColor,
@@ -36,14 +51,14 @@ class VendorListSearchWidget extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          title,
+          widget.title,
           style: GoogleFonts.poppins(
               textStyle: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w400,
                   color: ColorConstants.mainTextColor)),
         ),
-        actions: [VendorSearchBar(title: title)],
+        actions: [VendorSearchBar(title: widget.title)],
       ),
       body: Obx(() => pagecontroller.isSearchBarOpen.value
           ? SizedBox(
@@ -71,7 +86,7 @@ class VendorListSearchWidget extends StatelessWidget {
                   }),
             )
           : VendorDisplayWidget(
-              category: title,
+              category: widget.title,
             )),
     );
   }
