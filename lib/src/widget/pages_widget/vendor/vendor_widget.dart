@@ -75,7 +75,8 @@ class VendorWidget extends GetView<Appcontroller> {
                       AppSizes.largeHeightSizedBox,
                       GestureDetector(
                         onTap: () => {
-                          reviewsController.addReview(Review(
+                          reviewsController.addReview( 
+                            Review(
                               userEmail: "abdallah@gmail.com",
                               vendorName: vendor.name,
                               rating: reviewsController.rate,
@@ -159,7 +160,9 @@ class VendorWidget extends GetView<Appcontroller> {
                                       ],
                                     ),
                               AppSizes.xsmallHeightSizedBox,
-                              ratingBarIndicator('4', '150'),
+
+                              Obx(() => reviewsController.reviews.length == 0  ? ratingBarIndicator('0', '0') : ratingBarIndicator(reviewsController.averageRating.toString(), reviewsController.reviews.length.toString()) ),
+                              
                               AppSizes.xsmallHeightSizedBox,
                               addressText(vendor.coordinates, vendor.address),
                               AppSizes.smallHeightSizedBox,
@@ -176,15 +179,14 @@ class VendorWidget extends GetView<Appcontroller> {
                                     itemBuilder: (context, index) {
                                       return Obx(
                                         () => Column(
-                                          children: [
+                                          children: [ 
                                             GestureDetector(
                                                 onTap: () => controller
                                                     .currentIndex.value = index,
                                                 child: serviceSelcet(
                                                     services[index].name,
                                                     index,
-                                                    controller
-                                                        .currentIndex.value)),
+                                                    controller.currentIndex.value)),
                                           ],
                                         ),
                                       );
@@ -330,15 +332,8 @@ class VendorWidget extends GetView<Appcontroller> {
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              Text(reviewsController
-                                                                  .reviews[
-                                                                      index]
-                                                                  .userEmail),
-                                                              Text(
-                                                                  reviewsController
-                                                                      .reviews[
-                                                                          index]
-                                                                      .comment),
+                                                              Text(reviewsController.reviews[index].userEmail),
+                                                              Text( reviewsController.reviews[index].comment),
                                                             ],
                                                           ),
                                                           Spacer(),
