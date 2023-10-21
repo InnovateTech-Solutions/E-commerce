@@ -6,6 +6,7 @@ class VendorModel {
   late String image;
   String? address;
   String? coordinates;
+  double? averageRating;
 
   VendorModel({
     required this.name,
@@ -13,6 +14,7 @@ class VendorModel {
     required this.image,
     this.address,
     this.coordinates,
+    this.averageRating
   });
 
   factory VendorModel.fromSnapshot(
@@ -25,6 +27,7 @@ class VendorModel {
       image: data['Image'],
       address: data['Address'],
       coordinates: data['Coordinates'],
+      averageRating: data['averageRating'],
     );
   }
 }

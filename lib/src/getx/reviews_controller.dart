@@ -8,10 +8,10 @@ class ReviewsController extends GetxController {
   ReviewsController(this.vendor);
 
   final TextEditingController comment = TextEditingController();
-  late final double rate;
+  late double rate = 5.0;
   late double totalRating;
   late int reviewCount;
-  late double averageRating;
+  late RxDouble averageRating = 0.0.obs;
   final reviewsDb = FirebaseFirestore.instance.collection('Reviews');
   List<Review> reviews = <Review>[].obs;
 
@@ -19,7 +19,8 @@ class ReviewsController extends GetxController {
   void onInit() {
     super.onInit();
     getReviewsByVendor(vendor);
-  }
+    calculateAverageRating(vendor);
+  } 
 
   @override
   void onReady() {
@@ -31,8 +32,7 @@ class ReviewsController extends GetxController {
     try {
       await reviewsDb.add(review.toMap());
       reviews.add(review);
-
-      await updateVendorRating(review.vendorName);
+      calculateAverageRating(review.vendorName);
 
       print('Review added successfully');
     } catch (e) {
@@ -40,31 +40,10 @@ class ReviewsController extends GetxController {
     }
   }
 
-  Future<void> updateVendorRating(String vendorName) async {
-    final QuerySnapshot reviewsQuery =
+// calculates the average rating for each vendor by taking the vendor name
+  void calculateAverageRating(String vendorName) async  {
+     final QuerySnapshot reviewsQuery = 
         await reviewsDb.where('vendorName', isEqualTo: vendorName).get();
-    //calculating rating of each vendor and updating it in vendors collection
-
-    calculateAverageRating(reviewsQuery);
-    String roundedValue = averageRating.toStringAsFixed(1);
-    averageRating = double.parse(roundedValue);
-
-    FirebaseFirestore.instance
-        .collection("Vendors")
-        .where('Name', isEqualTo: vendorName)
-        .get()
-        .then((querySnapshot) {
-      if (querySnapshot.docs.isNotEmpty) {
-        var userDoc = querySnapshot.docs.first;
-        userDoc.reference.update({
-          'reviewCount': reviewCount,
-          'averageRating': averageRating,
-        });
-      }
-    });
-  }
-
-  void calculateAverageRating(QuerySnapshot reviewsQuery) {
     totalRating = 0;
     reviewCount = reviewsQuery.docs.length;
     for (QueryDocumentSnapshot reviewDoc in reviewsQuery.docs) {
@@ -72,24 +51,12 @@ class ReviewsController extends GetxController {
       totalRating += rating;
     }
 
-    averageRating = reviewCount > 0 ? totalRating / reviewCount : 0;
+    averageRating = reviewCount > 0 ? (totalRating / reviewCount).obs : 0.0.obs;
+    String roundedValue = averageRating.toStringAsFixed(1);
+    averageRating = double.parse(roundedValue).obs;
   }
 
-  Future<int> getReviewsCountByVendor(vendorName) async {
-    final QuerySnapshot reviewsQuery =
-        await reviewsDb.where('vendorName', isEqualTo: vendorName).get();
-    int reviewCount = reviewsQuery.docs.length;
-    return reviewCount;
-  }
-
-  //   Future<int> getAverageReviewsVendor(vendorName) async {
-  //   final QuerySnapshot reviewsQuery =
-  //      await FirebaseFirestore.instance
-  //       .collection("Vendors").where('vendorName', isEqualTo: vendorName).get();
-  //   int reviewCount = reviewsQuery.docs.length;
-  //   return reviewCount;
-  // }
-
+// fetches the list of reviews for each vendor by taking the vendor name
   Future<List<Review>> getReviewsByVendor(String vendorName) async {
     try {
       final QuerySnapshot reviewsQuery =
@@ -108,4 +75,50 @@ class ReviewsController extends GetxController {
       return []; // Return an empty list in case of an error
     }
   }
+
+
+
+    //currently not used, left for future work
+  // Future<void> updateVendorRating(String vendorName) async {
+ 
+  //   //calculating rating of each vendor and updating it in vendors collection
+
+  //   calculateAverageRating(vendorName);
+  
+
+  //   FirebaseFirestore.instance
+  //       .collection("Vendors")
+  //       .where('Name', isEqualTo: vendorName)
+  //       .get()
+  //       .then((querySnapshot) {
+  //     if (querySnapshot.docs.isNotEmpty) {
+  //       var userDoc = querySnapshot.docs.first;
+  //       userDoc.reference.update({
+  //         'reviewCount': reviewCount,
+  //         'averageRating': averageRating,
+  //       });
+  //     }
+  //   });
+  // }
+
+//currently not used, left for future work
+// void getAverageRatingByVendor(String vendorName) async {
+//   try {
+//     final QuerySnapshot vendorsQuery = await FirebaseFirestore.instance
+//         .collection("Vendors")
+//         .where('Name', isEqualTo: vendorName)
+//         .get();
+
+//     if (vendorsQuery.docs.isNotEmpty) {
+//       final vendorDoc = vendorsQuery.docs.first;
+//       final avgRating = vendorDoc['averageRating'] as double;
+//       averageRating = avgRating.obs;
+//     } else {
+//       averageRating.value = 0.0; // If there are no matching vendors, set a default rating of 0.0
+//     }
+//   } catch (e) {
+//     print('Error getting average rating by vendor: $e');
+//     averageRating.value = 0.0; // Set a default rating of 0.0 in case of an error
+//   }
+// }
 }
