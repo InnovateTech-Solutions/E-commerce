@@ -21,7 +21,7 @@ class DashBoradWidget extends StatefulWidget {
 
 class _DashBoradWidgetState extends State<DashBoradWidget> {
   final firebaseservice = Get.put(FirebaseService());
-  final sharedPreferences = Get.put(Prefess());
+  final sharedPreferences = Get.put(SharedPref());
   final prefs = Get.put(SharedPref());
 
   @override
@@ -145,7 +145,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                           .getStringValuesSF()
                                           .toString())*/
                                       print('============================'),
-                                      print(prefs.getJason()),
+                                   //   print(prefs.getJason()),
+                                      print(prefs.useremail.value)
                                     }),
                           ],
                         ),

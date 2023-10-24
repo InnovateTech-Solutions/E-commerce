@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/checkout/cart_page.dart';
-import 'package:profile_part/src/View/checkout/confirm_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
@@ -12,6 +11,7 @@ import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/model/review_model.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
+import 'package:profile_part/src/user_actions/shared_preference/prefs.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -31,6 +31,8 @@ class VendorWidget extends GetView<Appcontroller> {
   Widget build(BuildContext context) {
     final reviewsController = Get.put(ReviewsController(vendor.name));
     final cartController = Get.put(ServiceController());
+    final prefsController = Get.put(SharedPref());
+
     reviewDialog(BuildContext context) {
       showDialog(
           context: context,
@@ -79,7 +81,7 @@ class VendorWidget extends GetView<Appcontroller> {
                         onTap: () => {
                           reviewsController.addReview( 
                             Review(
-                              userEmail: "abdallah@gmail.com",
+                              userEmail: prefsController.useremail.value,
                               vendorName: vendor.name,
                               rating: reviewsController.rate,
                               comment: reviewsController.comment.text.trim(),

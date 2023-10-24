@@ -4,65 +4,10 @@ import 'package:get/get.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Prefess extends GetxController {
-  static Prefess get instance => Get.find();
-  void upDateSharedPreferences(
-      {required String email,
-      required String name,
-      required String phone}) async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.setString('name', name);
-    _prefs.setString('email', email);
-    _prefs.setString('phone', phone);
-  }
-
-  void saveImgeUrl(String imgUrl) async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.setString("imageUrl", imgUrl);
-  }
-
-  void login() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.setBool("showHome", true);
-  }
-
-  void logout() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.setBool("showHome", false);
-  }
-
-  void getUserDetails() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-
-    _prefs.getString('email');
-    _prefs.getString('name');
-    _prefs.getString('phone');
-  }
-
-  Future<void> printSharedPreference() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Replace 'your_key' with the actual key you used when saving the data.
-    final String? value = prefs.getString('phone');
-
-    if (value != null) {
-      print('Value from Shared Preferences: $value');
-    } else {
-      print('No value found for the specified key.');
-    }
-  }
-
-  getStringValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    String stringValue = prefs.getString('phone') ?? "";
-    return stringValue;
-  }
-}
-
 class SharedPref extends GetxController {
   static SharedPref get instance => Get.find();
 
-  RxString email = 'null email'.obs;
+  RxString useremail = 'null email'.obs;
   RxString name = 'null name'.obs;
   RxString phone = 'null phone'.obs;
   read(String key) async {
@@ -91,7 +36,8 @@ class SharedPref extends GetxController {
     final prefes = await SharedPreferences.getInstance();
     var userEmail = jsonEncode(email);
     var userName = jsonEncode(name);
-    var userPhoneNumber = jsonEncode(phone);
+    useremail.value = jsonEncode(email);
+    var userPhoneNumber = jsonEncode(email);
     await prefes.setString('email', userEmail);
     await prefes.setString('name', userName);
     await prefes.setString('phone', userPhoneNumber);
@@ -134,7 +80,7 @@ class SharedPref extends GetxController {
 
   Future<String?> getUserEmail() async {
     final prefes = await SharedPreferences.getInstance();
-    email.value = prefes.getString('email') ?? 'null ';
+    useremail.value = prefes.getString('email') ?? 'null ';
 
     update();
     return null;
