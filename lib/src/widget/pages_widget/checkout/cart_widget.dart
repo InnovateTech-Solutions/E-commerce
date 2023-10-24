@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,8 +6,6 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/product_button.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 import '../../../View/checkout/appointments.dart';
 
 class CartWidget extends GetView<ServiceController> {

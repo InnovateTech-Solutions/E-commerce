@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/checkout/cart_page.dart';
-import 'package:profile_part/src/View/checkout/confirm_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
@@ -77,8 +76,7 @@ class VendorWidget extends GetView<Appcontroller> {
                       AppSizes.largeHeightSizedBox,
                       GestureDetector(
                         onTap: () => {
-                          reviewsController.addReview( 
-                            Review(
+                          reviewsController.addReview(Review(
                               userEmail: "abdallah@gmail.com",
                               vendorName: vendor.name,
                               rating: reviewsController.rate,
@@ -161,9 +159,13 @@ class VendorWidget extends GetView<Appcontroller> {
                                       ],
                                     ),
                               AppSizes.xsmallHeightSizedBox,
-
-                              Obx(() => reviewsController.reviews.length == 0  ? ratingBarIndicator('0', '0') : ratingBarIndicator(reviewsController.averageRating.toString(), reviewsController.reviews.length.toString()) ),
-                              
+                              Obx(() => reviewsController.reviews.length == 0
+                                  ? ratingBarIndicator('0', '0')
+                                  : ratingBarIndicator(
+                                      reviewsController.averageRating
+                                          .toString(),
+                                      reviewsController.reviews.length
+                                          .toString())),
                               AppSizes.xsmallHeightSizedBox,
                               addressText(vendor.coordinates, vendor.address),
                               AppSizes.smallHeightSizedBox,
@@ -180,7 +182,7 @@ class VendorWidget extends GetView<Appcontroller> {
                                     itemBuilder: (context, index) {
                                       return Obx(
                                         () => Column(
-                                          children: [ 
+                                          children: [
                                             GestureDetector(
                                                 onTap: () => {
                                                       controller.currentIndex
@@ -189,7 +191,8 @@ class VendorWidget extends GetView<Appcontroller> {
                                                 child: serviceSelcet(
                                                     services[index].name,
                                                     index,
-                                                    controller.currentIndex.value)),
+                                                    controller
+                                                        .currentIndex.value)),
                                           ],
                                         ),
                                       );
@@ -338,8 +341,15 @@ class VendorWidget extends GetView<Appcontroller> {
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              Text(reviewsController.reviews[index].userEmail),
-                                                              Text( reviewsController.reviews[index].comment),
+                                                              Text(reviewsController
+                                                                  .reviews[
+                                                                      index]
+                                                                  .userEmail),
+                                                              Text(
+                                                                  reviewsController
+                                                                      .reviews[
+                                                                          index]
+                                                                      .comment),
                                                             ],
                                                           ),
                                                           Spacer(),
@@ -420,13 +430,9 @@ class VendorWidget extends GetView<Appcontroller> {
                                             ],
                                           ),
                                           ProductButton(
-                                            onTap: () => {
-                                              {
-                                                Get.to(CartPage(
-                                                  vendorModel: vendor,
-                                                )),
-                                              },
-                                            },
+                                            onTap: () => Get.to(CartPage(
+                                              vendorModel: vendor,
+                                            )),
                                             title: 'Confrim',
                                           )
                                         ],

@@ -32,7 +32,6 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   Expanded(
                       child: GridView.builder(
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: categories.length,
                           gridDelegate:
                               const SliverGridDelegateWithMaxCrossAxisExtent(
