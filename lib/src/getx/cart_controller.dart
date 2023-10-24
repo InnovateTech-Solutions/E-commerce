@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/service_model.dart';
 
 class ServiceController extends GetxController {

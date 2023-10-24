@@ -26,12 +26,12 @@ class _VendorListSearchWidgetState extends State<VendorListSearchWidget> {
 
     final searchController = Get.put(SearchControllerr(widget.title));
 
-    @override
+    /* @override
     void dispose() {
       pagecontroller.dispose();
       searchController.dispose();
       super.dispose();
-    }
+    }*/
 
     return Scaffold(
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,

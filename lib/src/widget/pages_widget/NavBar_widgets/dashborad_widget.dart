@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/user_actions/shared_preference/prefs.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -145,8 +146,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                           .getStringValuesSF()
                                           .toString())*/
                                       print('============================'),
-                                   //   print(prefs.getJason()),
-                                      print(prefs.useremail.value)
+                                      print(prefs.getJason()),
+                                      AuthenticationRepository.instance.logout()
                                     }),
                           ],
                         ),

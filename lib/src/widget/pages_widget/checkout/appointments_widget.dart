@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/checkout/confirm_page.dart';
 import 'package:profile_part/src/constant/app_const.dart';
@@ -79,7 +78,11 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                             //  addTimestampToDatabase(DateTime.parse(
                             //    '${selectedDate.value}${AppConst.timeList[index]}'))
                             print(parsingDate),
-                            Get.to(ConfirmPage(vendorModel: widget.vendorModel))
+                            Get.to(ConfirmPage(
+                              vendorModel: widget.vendorModel,
+                              confirmDate: selectedDate.value,
+                              confirmTime: AppConst.timeList[index],
+                            ))
                           },
                           child: Text(AppConst.timeList[index],
                               style: GoogleFonts.poppins(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
+import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -63,5 +65,60 @@ class PreferencesHelper {
   static Future<bool> isLoggedIn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(isLoggedInKey) ?? false;
+  }
+}
+
+class Dialogs extends StatefulWidget {
+  const Dialogs({super.key});
+
+  @override
+  State<Dialogs> createState() => _DialogsState();
+}
+
+class _DialogsState extends State<Dialogs> {
+  @override
+  Widget build(BuildContext context) {
+    void showAddNoteDialog(
+        TextEditingController textEditingController, RxString note) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Add Note'),
+            content: FormWidget(
+              login: Login(
+                  controller: textEditingController,
+                  enableText: false,
+                  hintText: 'Enter your note',
+                  icon: Icon(Icons.event_note_outlined),
+                  invisible: false,
+                  validator: null,
+                  type: TextInputType.name,
+                  onChange: null,
+                  inputFormat: null),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('Add'),
+                onPressed: () {
+                  note.value = textEditingController.text;
+                  Navigator.of(context).pop();
+                  print(note.value);
+                  textEditingController.clear();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    return Container();
   }
 }

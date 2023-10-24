@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
-import 'package:profile_part/src/widget/constant_widget/App_Bar/app_bar.dart';
-
 import '../../widget/pages_widget/checkout/appointments_widget.dart';
 
 class Appointments extends StatelessWidget {
