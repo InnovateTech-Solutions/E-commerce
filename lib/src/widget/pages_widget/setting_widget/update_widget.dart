@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/user_actions/user_actions.dart';
+import 'package:profile_part/src/user_actions/actions/user_actions.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
 import '../../../constant/app_const.dart';

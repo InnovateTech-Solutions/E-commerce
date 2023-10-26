@@ -11,7 +11,7 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/button_model.dart';
 import 'package:profile_part/src/model/drawer_button.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
-import 'package:profile_part/src/user_actions/shared_preference/prefs.dart';
+import 'package:profile_part/src/widget/helpers/shared_preference/prefs.dart';
 
 class AppConst {
   AppConst._();
@@ -28,7 +28,15 @@ class AppConst {
   static String username = "User Name";
   static String phoneNumber = "Phone Number";
   static String verificationOTP = "VERIFICATION CODE";
+  //Divider
+  static final pageDivider = Divider(
+    indent: 20.0,
+    endIndent: 10.0,
+    thickness: 1,
+    color: ColorConstants.textFiledmColor,
+  );
   //List of profile widgets
+
   static List<Button> profileList = [
     Button(
         title: 'My Appointments',
@@ -68,7 +76,6 @@ class AppConst {
       ),
       onTap: () => {
         AuthenticationRepository().logout(),
-        SharedPref.instance.deleteSharedPreferencesUserDeatils()
       },
     ),
   ];

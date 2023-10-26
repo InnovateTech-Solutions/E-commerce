@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:profile_part/src/View/vendor/vendor_page.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 
 firstAppBar() {
@@ -137,11 +139,18 @@ appointmentsAppBar() {
   );
 }
 
-confirmAppBar() {
+confirmAppBar(VendorModel vendorModel) {
   return AppBar(
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
-    iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
+    leading: IconButton(
+        onPressed: () => {
+              Get.to(VendorPage(vendor: vendorModel)),
+            },
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: ColorConstants.mainTextColor,
+        )),
     title: mainVendorText('Review and Confirm'),
   );
 }

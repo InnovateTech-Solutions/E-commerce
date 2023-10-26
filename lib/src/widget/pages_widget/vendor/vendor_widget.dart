@@ -30,6 +30,7 @@ class VendorWidget extends GetView<Appcontroller> {
   Widget build(BuildContext context) {
     final reviewsController = Get.put(ReviewsController(vendor.name));
     final cartController = Get.put(ServiceController());
+
     reviewDialog(BuildContext context) {
       showDialog(
           context: context,
@@ -77,7 +78,7 @@ class VendorWidget extends GetView<Appcontroller> {
                       GestureDetector(
                         onTap: () => {
                           reviewsController.addReview(Review(
-                              userEmail: "abdallah@gmail.com",
+                              userEmail: 'userEmail.value',
                               vendorName: vendor.name,
                               rating: reviewsController.rate,
                               comment: reviewsController.comment.text.trim(),
@@ -102,7 +103,7 @@ class VendorWidget extends GetView<Appcontroller> {
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

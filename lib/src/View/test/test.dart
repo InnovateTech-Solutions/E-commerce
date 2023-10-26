@@ -1,218 +1,139 @@
-/*
-class ServerController extends GetxController {
-  RxList<Server> servers = <Server>[].obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    // Initialize the list of servers here
-    servers.addAll([
-      Server("Server 1", false.obs),
-      Server("Server 2", false.obs),
-      Server("Server 3", false.obs),
-
-      // Add more servers as needed
-    ]);
-  }
-
-  void toggleServerSelection(int index) {
-    servers[index].isSelected.value = !servers[index].isSelected.value;
-  }
-}
-
-class Server {
-  String name;
-  RxBool isSelected = false.obs;
-
-  Server(this.name, this.isSelected);
-}
-
-class MyApp extends GetView<ServerController> {
-  @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(ServerController());
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Server Selection"),
-        ),
-        body: Container(
-          child: SizedBox(
-            height: 200,
-            child: ListView.builder(
-              itemCount: controller.servers.length,
-              itemBuilder: (context, index) {
-                return Obx(
-                  () => controller.servers[index].isSelected.value
-                      ? ListTile(
-                          title: Text(controller.servers[index].name),
-                          onTap: () {
-                            // Toggle the server selection
-                            controller.toggleServerSelection(index);
-                          },
-                          tileColor: Colors.grey)
-                      : ListTile(
-                          title: Text(controller.servers[index].name),
-                          onTap: () {
-                            // Toggle the server selection
-                            controller.toggleServerSelection(index);
-                          },
-                          tileColor: Colors.red),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-*/
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/constant/color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BookingScreen(),
+      home: UserInfoPage(),
     );
   }
 }
 
-class BookingScreen extends StatefulWidget {
+class UserInfoPage extends StatefulWidget {
   @override
-  _BookingScreenState createState() => _BookingScreenState();
+  _UserInfoPageState createState() => _UserInfoPageState();
 }
 
-class _BookingScreenState extends State<BookingScreen> {
-  late DateTime selectedDate;
-  late TimeOfDay selectedTime;
+class _UserInfoPageState extends State<UserInfoPage> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  RxString? userEmail = ''.obs;
+  RxString? username = ''.obs;
 
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now();
-    selectedTime = TimeOfDay.now();
+    getUserInfo();
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
+  Future<void> saveUserInfo() async {
+    final username = usernameController.text;
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    await SharedPreferencesHelper.saveUserInfo(username, email, password);
+    getUserInfo();
   }
 
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
-    if (picked != null && picked != selectedTime)
-      setState(() {
-        selectedTime = picked;
-      });
+  Future<void> getUserInfo() async {
+    final email = await SharedPreferencesHelper.getUserEmail();
+    final name = await SharedPreferencesHelper.getUsername();
+    userEmail!.value = email ?? '';
+    username!.value = name ?? "";
+  }
+
+  Future<void> clearUserInfo() async {
+    await SharedPreferencesHelper.clearUserInfo();
+    getUserInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Booking System'),
+        title: Text('Shared Preferences Example'),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "Selected Date: ${selectedDate.toLocal()}".split(' ')[0],
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            Obx(() => Column(
+                  children: [
+                    Text('User Info:'),
+                    Text('Username: ${username ?? "N/A"}'),
+                    Text('Email: ${userEmail ?? "N/A"}'),
+                  ],
+                )),
+            SizedBox(height: 20),
+            TextField(
+              controller: usernameController,
+              decoration: InputDecoration(labelText: 'Username'),
             ),
-            SizedBox(
-              height: 20.0,
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(labelText: 'Email'),
             ),
-            ElevatedButton(
-              onPressed: () => _selectDate(context),
-              child: Text('Select date'),
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(labelText: 'Password'),
             ),
-            Text(
-              "Selected Time: ${selectedTime.format(context)}",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            ElevatedButton(
-              onPressed: () => _selectTime(context),
-              child: Text('Select time'),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Implement Firebase data storage here
-                // You'll need to send selectedDate and selectedTime to Firebase.
-                bookAppointment(selectedDate, selectedTime);
-                print(selectedDate);
-                print(selectedTime);
-              },
-              child: Text('Book Now'),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: saveUserInfo,
+                  child: Text('Save User Info'),
+                ),
+                ElevatedButton(
+                  onPressed: clearUserInfo,
+                  child: Text('Clear User Info'),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
-
-  void bookAppointment(DateTime selectedDate, TimeOfDay selectedTime) {
-    FirebaseFirestore.instance.collection('appointments').add({
-      'date': selectedDate.toLocal(),
-      'time': selectedTime.format(context),
-    }).then((value) {
-      return Get.snackbar(
-          'Success', '${selectedDate} the appointments is Booked',
-          snackPosition: SnackPosition.TOP,
-          colorText: ColorConstants.mainScaffoldBackgroundColor,
-          backgroundColor: ColorConstants.snakbarColorsuccessful);
-    }).catchError((error) {
-      // Handle errors
-      return Get.snackbar('Filed', '${selectedDate} the appointments is Booked',
-          snackPosition: SnackPosition.TOP,
-          colorText: ColorConstants.mainScaffoldBackgroundColor,
-          backgroundColor: ColorConstants.snakbarColorError);
-    });
-  }
-}
-/*
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(onPressed: () => {}, child: Text('remove'))
-          ],
-        ),
-      ),
-    );
+class SharedPreferencesHelper {
+  static Future<void> saveUserInfo(
+      String username, String email, String password) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', username);
+    await prefs.setString('email', email);
+    await prefs.setString('password', password);
   }
-}*/
+
+  static Future<bool> isUserLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('email') != null;
+  }
+
+  static Future<String?> getUserEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('email');
+  }
+
+  static Future<String?> getUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('username');
+  }
+
+  static Future<void> clearUserInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('username');
+    await prefs.remove('email');
+    await prefs.remove('password');
+  }
+}
