@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/user_actions/actions/user_actions.dart';
+import 'package:profile_part/src/helpers/actions/user_actions.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
 import '../../../constant/app_const.dart';
@@ -49,14 +49,14 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
               final userName = TextEditingController(text: userData.name);
               final phoneNumber = TextEditingController(text: userData.phone);
               final password = TextEditingController(text: userData.password);
-
+              RxString usernameTitle = userName.text.obs;
               return Form(
                   key: controller.fromkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       imagepicker(),
-                      mainText(userName.text),
+                      Obx(() => mainText(usernameTitle.value)),
                       SizedBox(
                         height: 650.h,
                         width: double.infinity,
@@ -120,6 +120,8 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                     await controller.updateRecord(userData);
                                   }
                                   dispose();
+                                  usernameTitle.value = userName.text.trim();
+                                  print(usernameTitle.value);
                                 },
                                 tilte: 'UPDATE')
                           ],

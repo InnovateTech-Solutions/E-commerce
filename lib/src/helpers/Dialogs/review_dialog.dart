@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:profile_part/src/View/test/test_version1.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/reviews_controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
@@ -11,6 +12,8 @@ import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
 
 reviewDialog(BuildContext context, String vendorName) {
+  final UserController userController = Get.find<UserController>();
+
   showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -58,7 +61,7 @@ reviewDialog(BuildContext context, String vendorName) {
                   GestureDetector(
                     onTap: () => {
                       reviewsController.addReview(Review(
-                          userEmail: 'userEmail.value',
+                          userEmail: userController.email.value,
                           vendorName: vendorName,
                           rating: reviewsController.rate,
                           comment: reviewsController.comment.text.trim(),

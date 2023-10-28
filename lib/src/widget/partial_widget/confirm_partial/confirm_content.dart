@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/helpers/Dialogs/confirm_dialog.dart';
 import 'package:profile_part/src/model/service_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/confirm_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
-
-import '../../../user_actions/Dialogs/confirm_dialog.dart';
 
 class Confirm {
   static Row appointmentImg(String image) {

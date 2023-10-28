@@ -9,11 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:profile_part/src/View/test/test_version1.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/user_model.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
+
+  final userController = Get.put(UserController());
 
   final _db = FirebaseFirestore.instance;
 
@@ -32,7 +35,6 @@ class UserRepository extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             colorText: ColorConstants.mainScaffoldBackgroundColor,
             backgroundColor: ColorConstants.snakbarColorsuccessful))
-        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stackTrace) {
       Get.snackbar(error.toString(), "Something went wrong , try agin",
           snackPosition: SnackPosition.BOTTOM,
@@ -50,6 +52,16 @@ class UserRepository extends GetxController {
         await _db.collection("User").where("Email", isEqualTo: email).get();
     final userdata = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     userModel = userdata;
+    userController.saveUserInfo(userdata);
+    return userdata;
+  }
+
+  Future<UserModel> getUserDetailsLocal(String email) async {
+    final snapshot =
+        await _db.collection("User").where("Email", isEqualTo: email).get();
+    final userdata = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    userModel = userdata;
+    userController.saveUserInfo(userdata);
     return userdata;
   }
 

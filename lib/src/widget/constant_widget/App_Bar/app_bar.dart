@@ -60,21 +60,19 @@ thirdAppBar() {
   return AppBar(
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
-    actions: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: ColorConstants.mainTextColor,
-              ))
-        ],
-      )
-    ],
+    leading: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: ColorConstants.mainTextColor,
+            ))
+      ],
+    ),
   );
 }
 

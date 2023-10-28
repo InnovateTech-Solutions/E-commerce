@@ -60,47 +60,44 @@ class _UserInfoPageState extends State<UserInfoPage> {
       appBar: AppBar(
         title: Text('Shared Preferences Example'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Obx(() => Column(
-                  children: [
-                    Text('User Info:'),
-                    Text('Username: ${username ?? "N/A"}'),
-                    Text('Email: ${userEmail ?? "N/A"}'),
-                  ],
-                )),
-            SizedBox(height: 20),
-            TextField(
-              controller: usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: saveUserInfo,
-                  child: Text('Save User Info'),
-                ),
-                ElevatedButton(
-                  onPressed: clearUserInfo,
-                  child: Text('Clear User Info'),
-                ),
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Obx(() => Column(
+                children: [
+                  Text('User Info:'),
+                  Text('Username: ${username ?? "N/A"}'),
+                  Text('Email: ${userEmail ?? "N/A"}'),
+                ],
+              )),
+          SizedBox(height: 20),
+          TextField(
+            controller: usernameController,
+            decoration: InputDecoration(labelText: 'Username'),
+          ),
+          TextField(
+            controller: emailController,
+            decoration: InputDecoration(labelText: 'Email'),
+          ),
+          TextField(
+            controller: passwordController,
+            decoration: InputDecoration(labelText: 'Password'),
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: saveUserInfo,
+                child: Text('Save User Info'),
+              ),
+              ElevatedButton(
+                onPressed: clearUserInfo,
+                child: Text('Clear User Info'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
