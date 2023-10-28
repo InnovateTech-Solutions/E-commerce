@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/dashborad_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/map_page.dart';
 import 'package:profile_part/src/View/setting/profile_page.dart';
 import 'package:profile_part/src/View/setting/setting_page.dart';
+import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/button_model.dart';
 import 'package:profile_part/src/model/drawer_button.dart';

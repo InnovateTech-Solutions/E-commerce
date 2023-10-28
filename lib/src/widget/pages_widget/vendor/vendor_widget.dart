@@ -10,6 +10,7 @@ import 'package:profile_part/src/getx/cart_controller.dart';
 import 'package:profile_part/src/helpers/Dialogs/review_dialog.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
+import 'package:profile_part/src/user_actions/shared_preference/prefs.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';

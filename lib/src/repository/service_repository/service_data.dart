@@ -9,6 +9,8 @@ import 'package:profile_part/src/model/vendor_model.dart';
 class FirebaseService extends GetxController {
   static FirebaseService get instance => Get.find();
   final _db = FirebaseFirestore.instance;
+  RxList timeList = [].obs;
+
 
   Future<Map<String, List<DocumentSnapshot>>> fetchAdsAndCategories() async {
     ////that query fetch all categories , that used in Categories widget
@@ -25,6 +27,31 @@ class FirebaseService extends GetxController {
       'categories': categories,
     };
   }
+
+  void generateTimeList(String timeRange) {
+
+      final parts = timeRange.split(' - ');
+      
+      if (parts.length != 2) {
+      print("error: start and end time should be specified");
+      }
+      
+      final startTime = parts[0];
+      final endTime = parts[1];
+      
+      final startHour = int.parse(startTime.split(':')[0]);
+      final startMinute = int.parse(startTime.split(':')[1]);
+      final endHour = int.parse(endTime.split(':')[0]);
+      final endMinute = int.parse(endTime.split(':')[1]);
+      
+      DateTime currentTime = DateTime(2023, 1, 1, startHour, startMinute);
+      
+      while (currentTime.hour < endHour || (currentTime.hour == endHour && currentTime.minute <= endMinute)) {
+        timeList.add('${currentTime.hour}:${currentTime.minute.toString().padLeft(2, '0')}');
+        currentTime = currentTime.add(Duration(minutes: 30)); // Increment by 30 minutes
+      }   
+}
+
 
   Future<List<Categories>> fetchAllCategories() async {
 //that query fetch all categories , that used in Categories widget
