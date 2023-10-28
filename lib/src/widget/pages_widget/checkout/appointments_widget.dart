@@ -7,6 +7,7 @@ import 'package:profile_part/src/View/checkout/confirm_page.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
+import 'package:profile_part/src/repository/service_repository/service_data.dart';
 
 class AppointmentsWidget extends StatefulWidget {
   const AppointmentsWidget({required this.vendorModel, super.key});
@@ -16,11 +17,23 @@ class AppointmentsWidget extends StatefulWidget {
 }
 
 class _AppointmentsWidgetState extends State<AppointmentsWidget> {
+    final firebaseServices = Get.put(FirebaseService());
+
+   @override
+  void initState() {
+    super.initState();
+    firebaseServices.generateTimeList("12:00 - 22:00");
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     RxString selectedDate = (DateTime.now()).toString().obs;
     DateTime parsingDate = DateTime.parse(selectedDate.value);
     RxString seletedTimeStamp = ''.obs;
+    final firebaseServices = Get.put(FirebaseService());
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -46,7 +59,8 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
               headerTextColor: ColorConstants.mainTextColor,
               resetDateColor: ColorConstants.mainTextColor,
               calendarIconColor: ColorConstants.mainTextColor,
-              navigationColor: ColorConstants.mainTextColor),
+              navigationColor: ColorConstants.mainTextColor
+              ),
           onChangeDateTime: (datetime) {
 //            print(datetime.getDate());
 
@@ -72,7 +86,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                             // print(AppConst.timeList[index]),
                             // bookAppointment(
                             //  selectedDate.value, AppConst.timeList[index]),
-
+                            
                             print(seletedTimeStamp.value =
                                 '${selectedDate.value}  ${AppConst.timeList[index]}'),
                             //  addTimestampToDatabase(DateTime.parse(
@@ -81,10 +95,10 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                             Get.to(ConfirmPage(
                               vendorModel: widget.vendorModel,
                               confirmDate: selectedDate.value,
-                              confirmTime: AppConst.timeList[index],
+                              confirmTime: firebaseServices.timeList[index],
                             ))
                           },
-                          child: Text(AppConst.timeList[index],
+                          child: Text(firebaseServices.timeList[index],
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                       fontSize: 14.sp,

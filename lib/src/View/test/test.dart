@@ -73,6 +73,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/repository/service_repository/service_data.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -91,10 +92,13 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   late DateTime selectedDate;
   late TimeOfDay selectedTime;
+      final firebaseservice = Get.put(FirebaseService());
+
 
   @override
   void initState() {
     super.initState();
+    firebaseservice.generateTimeList("12:00 - 22:00");
     selectedDate = DateTime.now();
     selectedTime = TimeOfDay.now();
   }
