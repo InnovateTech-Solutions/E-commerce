@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ColorConstants {
@@ -11,4 +13,14 @@ class ColorConstants {
   static Color subTextColor = const Color(0xffC91416);
   static Color buttonColor = const Color(0xffEC6453);
   static Color backProductButton = const Color(0xffE0E1E3);
+
+  static Color generateRandomColor() {
+    final random = Random();
+    return Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+    );
+  }
 }

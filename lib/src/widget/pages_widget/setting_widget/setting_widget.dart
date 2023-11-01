@@ -9,7 +9,7 @@ import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import '../../../model/button_model.dart';
 import '../../../repository/user_repository/user_repository.dart';
 import '../../constant_widget/const_widget/constant_widget.dart';
-import '../../partial_widget/setting_partial/setting.dart';
+import '../../partial_widget/setting_partial/setting_partial.dart';
 
 class SettingWidget extends StatelessWidget {
   final controller = Get.put(UserRepository());

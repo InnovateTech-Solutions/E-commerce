@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/View/test/test.dart';
+import 'package:profile_part/src/helpers/shared_preference/prefs.dart';
 
 class UserProfileWidget extends StatefulWidget {
   @override

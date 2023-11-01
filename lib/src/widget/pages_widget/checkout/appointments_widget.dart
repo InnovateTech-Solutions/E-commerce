@@ -17,16 +17,13 @@ class AppointmentsWidget extends StatefulWidget {
 }
 
 class _AppointmentsWidgetState extends State<AppointmentsWidget> {
-    final firebaseServices = Get.put(FirebaseService());
+  final firebaseServices = Get.put(FirebaseService());
 
-   @override
+  @override
   void initState() {
     super.initState();
     firebaseServices.generateTimeList("12:00 - 22:00");
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +56,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
               headerTextColor: ColorConstants.mainTextColor,
               resetDateColor: ColorConstants.mainTextColor,
               calendarIconColor: ColorConstants.mainTextColor,
-              navigationColor: ColorConstants.mainTextColor
-              ),
+              navigationColor: ColorConstants.mainTextColor),
           onChangeDateTime: (datetime) {
 //            print(datetime.getDate());
 
@@ -86,7 +82,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                             // print(AppConst.timeList[index]),
                             // bookAppointment(
                             //  selectedDate.value, AppConst.timeList[index]),
-                            
+
                             print(seletedTimeStamp.value =
                                 '${selectedDate.value}  ${AppConst.timeList[index]}'),
                             //  addTimestampToDatabase(DateTime.parse(
@@ -98,7 +94,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                               confirmTime: firebaseServices.timeList[index],
                             ))
                           },
-                          child: Text(firebaseServices.timeList[index],
+                          child: Text("${firebaseServices.timeList[index]} PM",
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                       fontSize: 14.sp,

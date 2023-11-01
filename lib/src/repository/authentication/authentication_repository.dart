@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, invalid_return_type_for_catch_error
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,11 +8,12 @@ import 'package:profile_part/src/View/Forms/login_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/main_page.dart';
 import 'package:profile_part/src/View/start_pages/intro_page.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/repository/exceptions/signup_email_password_failure.dart';
+import 'package:profile_part/src/repository/user_repository/user_repository.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
-
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
 
@@ -20,6 +21,8 @@ class AuthenticationRepository extends GetxController {
 
   late Rx<GoogleSignInAccount?> googleSignInAccount;
   var verificationID = ''.obs;
+  final userRepository = Get.put(UserRepository());
+
   @override
   void onReady() {
     super.onReady();
@@ -68,11 +71,23 @@ class AuthenticationRepository extends GetxController {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
-        // ignore: duplicate_ignore
         await _auth
             .signInWithCredential(credential)
-            // ignore: invalid_return_type_for_catch_error
             .catchError((onError) => print(onError));
+
+        bool userExists =
+            await userRepository.userExist(googleSignInAccount.email);
+
+        if (userExists) {
+          userRepository.createUser(UserModel(
+              email: googleSignInAccount.email,
+              name: googleSignInAccount.displayName!.trim(),
+              password: '',
+              phone: '',
+              imageUrl: googleSignInAccount.photoUrl ?? ''));
+        } else {
+          print('welcame back');
+        }
       }
     } catch (e) {
       Get.snackbar(
@@ -162,5 +177,5 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  Future<void> logout() async => await _auth.signOut();
+  Future<void> logout() async => {await _auth.signOut(), googleSign.signOut()};
 }

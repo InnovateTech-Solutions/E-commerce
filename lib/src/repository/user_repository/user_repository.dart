@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, body_might_complete_normally_catch_error
 
 import 'dart:io';
 
@@ -9,8 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:profile_part/src/View/test/test_version1.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/user_model.dart';
 
 class UserRepository extends GetxController {
@@ -56,13 +56,20 @@ class UserRepository extends GetxController {
     return userdata;
   }
 
-  Future<UserModel> getUserDetailsLocal(String email) async {
-    final snapshot =
-        await _db.collection("User").where("Email", isEqualTo: email).get();
-    final userdata = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
-    userModel = userdata;
-    userController.saveUserInfo(userdata);
-    return userdata;
+// to see if user is Exits to make google , Apple Authentication
+  Future<bool> userExist(String email) async {
+    try {
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
+
+      QuerySnapshot userSnapshot =
+          await users.where('Email', isEqualTo: email).get();
+
+      return userSnapshot.docs.isNotEmpty;
+    } catch (e) {
+      print('Error checking user existence: $e');
+      return false;
+    }
   }
 
   Widget getUserImageUrl() {

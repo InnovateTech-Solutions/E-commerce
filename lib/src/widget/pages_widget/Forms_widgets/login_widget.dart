@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
@@ -92,7 +93,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                           dispose(),
                           clearText(),
                           UserRepository.instance
-                              .getUserDetails(controller.email.text.trim())
+                              .getUserDetails(controller.email.text.trim()),
+                          UserController.instance.logIn()
                         },
                     tilte: AppConst.login),
                 dontHaveAccountRow(),

@@ -62,8 +62,8 @@ class ConfirmWidget extends GetView<ServiceController> {
                 ],
               ),
             ),
-            priceAndConfirm(
-                controller.counter.value, controller.cartItems.length)
+            priceAndConfirm(controller.counter.value,
+                controller.cartItems.length, () => null)
           ],
         ),
       ),
