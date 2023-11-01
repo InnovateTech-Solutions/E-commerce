@@ -152,4 +152,16 @@ class FirebaseService extends GetxController {
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
   }
+
+  Future<List<Map<String, dynamic>>> fetchCategoriesByVedor(
+      String vendorName) async {
+    final querySnapshot = await _db
+        .collection('Vendors')
+        .where('Vendor_Id', isEqualTo: vendorName)
+        .get();
+
+    return querySnapshot.docs
+        .map((docs) => docs.data() as Map<String, dynamic>)
+        .toList();
+  }
 }

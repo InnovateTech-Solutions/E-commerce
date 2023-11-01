@@ -79,3 +79,46 @@ class UserInfo extends StatelessWidget {
     );
   }
 }
+
+/*
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+class UserInfo extends StatefulWidget {
+  const UserInfo({super.key});
+
+  @override
+  State<UserInfo> createState() => _UserInfoState();
+}
+
+class _UserInfoState extends State<UserInfo> {
+  @override
+  Widget build(BuildContext context) {
+    Future otpFunction() async {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '+962 787781174',
+        verificationCompleted: (PhoneAuthCredential credential) {},
+        verificationFailed: (FirebaseAuthException e) {},
+        codeSent: (String verificationId, int? resendToken) {},
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+    }
+
+    Future testOtp() async {
+      FirebaseAuth auth = FirebaseAuth.instance;
+
+// Wait for the user to complete the reCAPTCHA & for an SMS code to be sent.
+      ConfirmationResult confirmationResult =
+          await auth.signInWithPhoneNumber('+962 7877 81174');
+      UserCredential userCredential =
+          await confirmationResult.confirm('123456');
+    }
+
+    return Column(
+      children: [
+        ElevatedButton(onPressed: () => testOtp(), child: Text('data'))
+      ],
+    );
+  }
+}
+*/
