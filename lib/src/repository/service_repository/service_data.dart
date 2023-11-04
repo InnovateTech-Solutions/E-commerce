@@ -11,9 +11,8 @@ class FirebaseService extends GetxController {
   final _db = FirebaseFirestore.instance;
   RxList timeList = [].obs;
 
-
   Future<Map<String, List<DocumentSnapshot>>> fetchAdsAndCategories() async {
-    ////that query fetch all categories , that used in Categories widget
+    ////that query fetch all categories , that used in Dashboard widget
     final adsQuery = _db.collection('Ads').get();
     final categoriesQuery = _db.collection('Categories').limit(4).get();
 
@@ -29,10 +28,9 @@ class FirebaseService extends GetxController {
   }
 
   void generateTimeList(String timeRange) {
+    final parts = timeRange.split(' - ');
 
-      final parts = timeRange.split(' - ');
-      
-      if (parts.length != 2) {
+    if (parts.length != 2) {
       print("error: start and end time should be specified");
       }
       
@@ -150,6 +148,18 @@ class FirebaseService extends GetxController {
 
     return querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
+  }
+
+  Future<List<Map<String, dynamic>>> fetchCategoriesByVedor(
+      String vendorName) async {
+    final querySnapshot = await _db
+        .collection('Vendors')
+        .where('Vendor_Id', isEqualTo: vendorName)
+        .get();
+
+    return querySnapshot.docs
+        .map((docs) => docs.data() as Map<String, dynamic>)
         .toList();
   }
 }

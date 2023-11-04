@@ -17,7 +17,7 @@ Widget settingColumn() {
           AppSizes.smallWidthSizedBox,
           settingText("Notifications"),
           const Spacer(),
-          switchButton(true),
+          NotificationSwitch(),
         ],
       ),
     ],

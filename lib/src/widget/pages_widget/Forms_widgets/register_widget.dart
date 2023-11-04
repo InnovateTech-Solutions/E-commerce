@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/getx/register_controller.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
@@ -21,6 +22,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(RegisterController());
+    final userController = Get.put(UserController());
 
     @override
     void dispose() {
@@ -112,12 +114,13 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             phone: controller.phoneNumber.text.trim(),
                             imageUrl: '')),
                         dispose(),
-                        //sharedPreferences.saveUserJasonData(
-                        //email: controller.email.text.trim(),
-                        //name: controller.userName.text.trim(),
-                        //phone: controller.phoneNumber.text.trim(),
-                        //),
-                        clearText()
+                        clearText(),
+                        userController.saveUserInfo(UserModel(
+                            email: controller.email.text.trim(),
+                            name: controller.userName.text.trim(),
+                            password: controller.password.text.trim(),
+                            phone: controller.phoneNumber.text.trim(),
+                            imageUrl: ''))
                       },
                   tilte: AppConst.signUp)
             ],

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,12 +17,39 @@ class ReviewsController extends GetxController {
   final reviewsDb = FirebaseFirestore.instance.collection('Reviews');
   List<Review> reviews = <Review>[].obs;
 
+  List<Review> get nonEmptyComments {
+    if (reviews.where((review) => review.comment.isNotEmpty).toList().isEmpty) {
+      return reviews.where((review) => review.comment.isEmpty).toList();
+    } else {
+      return reviews.where((reviews) => reviews.comment.isNotEmpty).toList();
+    }
+  }
+
+  List<Review> get emptyComments {
+    return reviews.where((review) => review.comment.isEmpty).toList();
+  }
+
+  int getListValue(List myList) {
+    myList.shuffle();
+    if (myList == null) {
+      return 0;
+    } else if (myList.length > 2) {
+      return 2;
+    } else if (myList.length > 1) {
+      return 1;
+    } else if (myList.length == 0) {
+      return 0;
+    } else {
+      return 0;
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
     getReviewsByVendor(vendor);
     calculateAverageRating(vendor);
-  } 
+  }
 
   @override
   void onReady() {
@@ -41,8 +70,8 @@ class ReviewsController extends GetxController {
   }
 
 // calculates the average rating for each vendor by taking the vendor name
-  void calculateAverageRating(String vendorName) async  {
-     final QuerySnapshot reviewsQuery = 
+  void calculateAverageRating(String vendorName) async {
+    final QuerySnapshot reviewsQuery =
         await reviewsDb.where('vendorName', isEqualTo: vendorName).get();
     totalRating = 0;
     reviewCount = reviewsQuery.docs.length;
@@ -75,50 +104,4 @@ class ReviewsController extends GetxController {
       return []; // Return an empty list in case of an error
     }
   }
-
-
-
-    //currently not used, left for future work
-  // Future<void> updateVendorRating(String vendorName) async {
- 
-  //   //calculating rating of each vendor and updating it in vendors collection
-
-  //   calculateAverageRating(vendorName);
-  
-
-  //   FirebaseFirestore.instance
-  //       .collection("Vendors")
-  //       .where('Name', isEqualTo: vendorName)
-  //       .get()
-  //       .then((querySnapshot) {
-  //     if (querySnapshot.docs.isNotEmpty) {
-  //       var userDoc = querySnapshot.docs.first;
-  //       userDoc.reference.update({
-  //         'reviewCount': reviewCount,
-  //         'averageRating': averageRating,
-  //       });
-  //     }
-  //   });
-  // }
-
-//currently not used, left for future work
-// void getAverageRatingByVendor(String vendorName) async {
-//   try {
-//     final QuerySnapshot vendorsQuery = await FirebaseFirestore.instance
-//         .collection("Vendors")
-//         .where('Name', isEqualTo: vendorName)
-//         .get();
-
-//     if (vendorsQuery.docs.isNotEmpty) {
-//       final vendorDoc = vendorsQuery.docs.first;
-//       final avgRating = vendorDoc['averageRating'] as double;
-//       averageRating = avgRating.obs;
-//     } else {
-//       averageRating.value = 0.0; // If there are no matching vendors, set a default rating of 0.0
-//     }
-//   } catch (e) {
-//     print('Error getting average rating by vendor: $e');
-//     averageRating.value = 0.0; // Set a default rating of 0.0 in case of an error
-//   }
-// }
 }

@@ -70,8 +70,8 @@ class ConfirmWidget extends GetView<ServiceController> {
                           onPressed: () => { bookingController.createBooking(Booking(vendorName: vendorModel.name, date: confirmDate, time: confirmTime, userEmail: "moh@gmail.com", services: controller.cartItemsNames, note: note.value, totalPrice: controller.counter.value ))},
                           child: Text("confirm"),
                         ),
-            priceAndConfirm(
-                controller.counter.value, controller.cartItems.length)
+            priceAndConfirm(controller.counter.value,
+                controller.cartItems.length, () => null)
           ],
         ),
       ),

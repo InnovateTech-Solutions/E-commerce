@@ -17,11 +17,11 @@ class AppointmentsWidget extends StatefulWidget {
 }
 
 class _AppointmentsWidgetState extends State<AppointmentsWidget> {
-    final firebaseServices = Get.put(FirebaseService());
+  final firebaseServices = Get.put(FirebaseService());
     final bookingController = Get.put(BookingController());
 
 
-   @override
+  @override
   void initState() {
     super.initState();
     RxString defaultDate = (DateTime.now()).toString().obs;
@@ -32,8 +32,6 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
     bookingController.generateTimeList("12:00 - 22:00", datePart, widget.vendorModel.name);
 
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +66,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
               headerTextColor: ColorConstants.mainTextColor,
               resetDateColor: ColorConstants.mainTextColor,
               calendarIconColor: ColorConstants.mainTextColor,
-              navigationColor: ColorConstants.mainTextColor
-              ),
+              navigationColor: ColorConstants.mainTextColor),
           onChangeDateTime: (datetime) {
 //            print(datetime.getDate());
             RxString selectedDate1 = (datetime.getDate()).toString().obs;
@@ -104,7 +101,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                             // print(AppConst.timeList[index]),
                             // bookAppointment(
                             //  selectedDate.value, AppConst.timeList[index]),
-                            
+
                             print(seletedTimeStamp.value =
                                 '${selectedDate.value}  ${bookingController.timeList[index]}'),
                             //  addTimestampToDatabase(DateTime.parse(

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:profile_part/src/View/Forms/login_page.dart';
 import 'package:profile_part/src/View/checkout/cart_page.dart';
-import 'package:profile_part/src/View/test/test_version1.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
-import 'package:profile_part/src/helpers/Dialogs/review_dialog.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/product_button.dart';
+import 'package:profile_part/src/widget/partial_widget/confirm_partial/price_and_continue.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/header_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/rating_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/service_select.dart';
@@ -28,14 +30,15 @@ class VendorWidget extends GetView<Appcontroller> {
   Widget build(BuildContext context) {
     final reviewsController = Get.put(ReviewsController(vendor.name));
     final cartController = Get.put(ServiceController());
-    final UserController userController = Get.find<UserController>();
-
+    final userController = Get.put(UserController());
     Get.put(Appcontroller());
     return FutureBuilder(
         future: FirebaseService.instance.fetchServicebyName(vendor.name),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
+              reviewsController.nonEmptyComments.shuffle();
+
               final services = snapshot.data!;
               return Stack(
                 children: [
@@ -52,7 +55,7 @@ class VendorWidget extends GetView<Appcontroller> {
                         )),
                     SliverToBoxAdapter(
                       child: Container(
-                        height: 800.h,
+                        height: 1000.h,
                         width: double.infinity.w,
                         decoration: BoxDecoration(
                             color: ColorConstants.mainScaffoldBackgroundColor,
@@ -118,12 +121,6 @@ class VendorWidget extends GetView<Appcontroller> {
                                     }),
                               ),
                               Builder(builder: (context) {
-                                // Check if a service with a specific name exists in the list
-                                // bool serviceExists = cartController.cartItems
-                                //     .any((service) =>
-                                //         service.serviceModel.name ==
-                                //         service.serviceModel.name);
-
                                 return services.isEmpty
                                     ? Center(
                                         child: mainText('No Service Available'),
@@ -163,126 +160,225 @@ class VendorWidget extends GetView<Appcontroller> {
                                         ),
                                       );
                               }),
-                              AppSizes.largeHeightSizedBox,
+                              AppSizes.smallHeightSizedBox,
                               services.isEmpty
                                   ? Container()
                                   : Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
+                                        mainText('Reviews'),
                                         Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text('Reviews',
-                                              style: GoogleFonts.poppins(
-                                                  textStyle: TextStyle(
-                                                      fontSize: 20.sp,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 30.h),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    reviewsController
+                                                        .averageRating
+                                                        .toString(),
+                                                    style: GoogleFonts.manrope(
                                                       fontWeight:
-                                                          FontWeight.w500,
+                                                          FontWeight.bold,
+                                                      fontSize: 20.sp,
                                                       color: ColorConstants
-                                                          .mainTextColor))),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () => reviewDialog(
-                                              context, vendor.name),
-                                          child: Container(
-                                            width: 100.w,
-                                            height: 50.h,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(15.r)),
-                                                color: ColorConstants
-                                                    .secondaryScaffoldBacground),
-                                            child: Center(
-                                              child: Text(
-                                                'Add review',
-                                                style: GoogleFonts.poppins(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: ColorConstants
-                                                            .mainTextColor)),
+                                                          .mainTextColor,
+                                                    ),
+                                                  ),
+                                                  Icon(Icons.star,
+                                                      color: Colors.yellow)
+                                                ],
                                               ),
-                                            ),
+                                              Container(
+                                                  height: 40.h,
+                                                  width: 120.w,
+                                                  decoration: BoxDecoration(
+                                                      color: ColorConstants
+                                                          .secondaryScaffoldBacground,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            spreadRadius: 2.r,
+                                                            blurRadius: 3.r,
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 2)),
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.r))),
+                                                  child: Center(
+                                                    child: subvendorText(
+                                                        '${reviewsController.reviews.length.toString()}+ reviews'),
+                                                  ))
+                                            ],
                                           ),
                                         )
                                       ],
                                     ),
-                              Expanded(
-                                child: SizedBox(
-                                  height: 690.h,
-                                  child: Obx(
-                                    () => reviewsController.reviews.isEmpty
-                                        ? Center(
-                                            child: mainText(
-                                                'No reviews Available'),
-                                          )
-                                        : ListView.builder(
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: reviewsController
-                                                .reviews.length,
-                                            itemBuilder: ((context, index) =>
-                                                Column(
-                                                  children: [
-                                                    Container(
-                                                      width: double.infinity.w,
-                                                      height: 50.h,
-                                                      margin:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 4.0.h,
-                                                              horizontal:
-                                                                  4.0.w),
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      14.0.r),
-                                                          color: ColorConstants
-                                                              .mainScaffoldBackgroundColor),
-                                                      child: Row(
-                                                        children: [
-                                                          Container(
-                                                            width: 50,
-                                                            height: 50,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.all(Radius
-                                                                            .circular(
-                                                                      50.r,
-                                                                    )),
-                                                                    color: ColorConstants
-                                                                        .secondaryScaffoldBacground),
-                                                          ),
-                                                          AppSizes
-                                                              .smallWidthSizedBox,
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(reviewsController
-                                                                  .reviews[
-                                                                      index]
-                                                                  .userEmail),
-                                                              Text(
+                              Obx(
+                                () => Column(
+                                  children: [
+                                    SizedBox(
+                                        height: 170.h,
+                                        child: reviewsController
+                                                .nonEmptyComments.isEmpty
+                                            ? Center(
+                                                child: mainText(
+                                                    'There is no Reviews '),
+                                              )
+                                            : ListView.separated(
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return AppSizes
+                                                      .xsmallHeightSizedBox;
+                                                },
+                                                shrinkWrap: true,
+                                                itemCount: reviewsController
+                                                    .nonEmptyComments.length,
+                                                itemBuilder: (context, index) {
+                                                  List<String> emailPart =
+                                                      reviewsController
+                                                          .reviews[index]
+                                                          .userEmail
+                                                          .split('@');
+                                                  String email = emailPart[0];
+
+                                                  return Container(
+                                                    width: 330.w,
+                                                    height: 80.h,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.r)),
+                                                      color: ColorConstants
+                                                          .textFiledmColor,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: Colors
+                                                                .grey[200]!
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            spreadRadius: 2.r,
+                                                            blurRadius: 3.r,
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 2)),
+                                                      ],
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              height: 80.h,
+                                                              width: 60.w,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(10
+                                                                              .r)),
+                                                                  color: ColorConstants
+                                                                      .generateRandomColor()),
+                                                              child: Center(
+                                                                child: Text(
                                                                   reviewsController
+                                                                          .nonEmptyComments[
+                                                                              index]
+                                                                          .userEmail
+                                                                          .isEmpty
+                                                                      ? 'No user email'
+                                                                      : reviewsController
+                                                                          .nonEmptyComments[
+                                                                              index]
+                                                                          .userEmail[
+                                                                              0]
+                                                                          .toUpperCase(),
+                                                                  style: GoogleFonts.poppins(
+                                                                      textStyle: TextStyle(
+                                                                          color: ColorConstants
+                                                                              .mainScaffoldBackgroundColor,
+                                                                          fontSize: 22
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w400)),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            AppSizes
+                                                                .smallWidthSizedBox,
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                subvendorText(
+                                                                    email),
+                                                                Text(
+                                                                    reviewsController
+                                                                        .nonEmptyComments[
+                                                                            index]
+                                                                        .comment
+                                                                        .toString(),
+                                                                    style: GoogleFonts.poppins(
+                                                                        textStyle: TextStyle(
+                                                                            fontSize:
+                                                                                10.sp,
+                                                                            fontWeight: FontWeight.w400,
+                                                                            color: ColorConstants.mainTextColor))),
+                                                                RatingBar
+                                                                    .builder(
+                                                                  initialRating: reviewsController
                                                                       .reviews[
                                                                           index]
-                                                                      .comment),
-                                                            ],
-                                                          ),
-                                                          Spacer(),
-                                                          Text(reviewsController
-                                                              .reviews[index]
-                                                              .rating
-                                                              .toString()),
-                                                        ],
-                                                      ),
+                                                                      .rating, // Set the initial rating value
+                                                                  minRating:
+                                                                      1, // Minimum rating value
+                                                                  direction: Axis
+                                                                      .horizontal,
+                                                                  allowHalfRating:
+                                                                      true, // Allow half star rating
+                                                                  itemCount:
+                                                                      5, // Number of stars to display
+                                                                  itemSize:
+                                                                      15.0, // Size of each star
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                              _) =>
+                                                                          Icon(
+                                                                    Icons.star,
+                                                                    color: Colors
+                                                                        .amber,
+                                                                  ),
+                                                                  ignoreGestures:
+                                                                      true, // Disable user interaction
+                                                                  onRatingUpdate:
+                                                                      (rating) {
+                                                                    // This callback is triggered when the rating is updated (not used for static display)
+                                                                    print(
+                                                                        rating);
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ))),
-                                  ),
+                                                  );
+                                                })),
+                                  ],
                                 ),
                               ),
                             ],
@@ -291,76 +387,71 @@ class VendorWidget extends GetView<Appcontroller> {
                       ),
                     )
                   ]),
-                  services.isEmpty
-                      ? Container()
-                      : Builder(builder: (context) {
-                          //   String price = services[controller.currentIndex.value]
-                          //       .price
-                          //      .replaceAll('BD', '');
-                          //  int priceoverall = int.parse(price);
-
-                          return Obx(
-                            () => cartController.cartItems.isEmpty
-                                ? Container()
-                                : Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      width: double.infinity.w,
-                                      height: 75.h,
-                                      decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.5),
-                                                spreadRadius: 2.r,
-                                                blurRadius: 3.r,
-                                                offset: const Offset(0, 2)),
-                                          ],
-                                          color: ColorConstants
-                                              .mainScaffoldBackgroundColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15.r))),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "BD ${cartController.counter.toString()}",
-                                                style: TextStyle(
-                                                  color: ColorConstants
-                                                      .mainTextColor, // Customize text color
-                                                  fontSize: 16.0
-                                                      .sp, // Customize text size
-                                                ),
-                                              ),
-                                              Text(
-                                                '${cartController.cartItems.length} Service',
-                                                style: TextStyle(
-                                                    color: ColorConstants
-                                                        .mainTextColor, // Customize text color
-                                                    fontSize: 10.0.sp,
-                                                    fontWeight: FontWeight.w300
-                                                    // Customize text size
-                                                    ),
-                                              ),
-                                            ],
+                  Builder(builder: (context) {
+                    return Obx(
+                      () => cartController.cartItems.isEmpty
+                          ? Container()
+                          : Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: double.infinity.w,
+                                height: 75.h,
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2.r,
+                                          blurRadius: 3.r,
+                                          offset: const Offset(0, 2)),
+                                    ],
+                                    color: ColorConstants
+                                        .mainScaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.r))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "BD ${cartController.counter.toString()}",
+                                          style: TextStyle(
+                                            color: ColorConstants
+                                                .mainTextColor, // Customize text color
+                                            fontSize:
+                                                16.0.sp, // Customize text size
                                           ),
-                                          ProductButton(
-                                            onTap: () => Get.to(CartPage(
-                                              vendorModel: vendor,
-                                            )),
-                                            title: 'Confrim',
-                                          )
-                                        ],
-                                      ),
+                                        ),
+                                        Text(
+                                          '${cartController.cartItems.length} Service',
+                                          style: TextStyle(
+                                              color: ColorConstants
+                                                  .mainTextColor, // Customize text color
+                                              fontSize: 10.0.sp,
+                                              fontWeight: FontWeight.w300
+                                              // Customize text size
+                                              ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                          );
-                        })
+                                    ProductButton(
+                                      onTap: () =>
+                                          userController.isLoggedIn.value
+                                              ? Get.to(CartPage(
+                                                  vendorModel: vendor,
+                                                ))
+                                              : Get.to(LoginPage()),
+                                      title: 'Confrim',
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                    );
+                  })
                 ],
               );
             } else if (snapshot.hasError) {

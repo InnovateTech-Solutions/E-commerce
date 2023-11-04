@@ -8,14 +8,13 @@ class VendorModel {
   String? coordinates;
   double? averageRating;
 
-  VendorModel({
-    required this.name,
-    required this.description,
-    required this.image,
-    this.address,
-    this.coordinates,
-    this.averageRating
-  });
+  VendorModel(
+      {required this.name,
+      required this.description,
+      required this.image,
+      this.address,
+      this.coordinates,
+      this.averageRating});
 
   factory VendorModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {

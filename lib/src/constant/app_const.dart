@@ -8,6 +8,7 @@ import 'package:profile_part/src/View/setting/profile_page.dart';
 import 'package:profile_part/src/View/setting/setting_page.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/button_model.dart';
 import 'package:profile_part/src/model/drawer_button.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
@@ -35,7 +36,6 @@ class AppConst {
     color: ColorConstants.textFiledmColor,
   );
   //List of profile widgets
-
   static List<Button> profileList = [
     Button(
         title: 'My Appointments',
@@ -75,6 +75,7 @@ class AppConst {
       ),
       onTap: () => {
         AuthenticationRepository().logout(),
+        UserController.instance.clearUserInfo()
       },
     ),
   ];

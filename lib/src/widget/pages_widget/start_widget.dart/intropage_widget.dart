@@ -39,7 +39,7 @@ class IntroWidget extends StatelessWidget {
             ),
             ButtonWidget(
                 onTap: () => Get.to(const RegisterPage()),
-                tilte: AppConst.signUp)
+                tilte: AppConst.signUp),
           ],
         ),
       ),
