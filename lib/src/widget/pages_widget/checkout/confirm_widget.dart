@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/getx/booking_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/booking_model.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/widget/constant_widget/App_Bar/app_bar.dart';
@@ -23,6 +24,7 @@ class ConfirmWidget extends GetView<ServiceController> {
   final String confirmDate;
   final String confirmTime;
   final bookingController = Get.put(BookingController());
+  final userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +68,9 @@ class ConfirmWidget extends GetView<ServiceController> {
                 ],
               ),
             ),
-                      ElevatedButton(
-                          onPressed: () => { bookingController.createBooking(Booking(vendorName: vendorModel.name, date: confirmDate, time: confirmTime, userEmail: "moh@gmail.com", services: controller.cartItemsNames, note: note.value, totalPrice: controller.counter.value ))},
-                          child: Text("confirm"),
-                        ),
+
             priceAndConfirm(controller.counter.value,
-                controller.cartItems.length, () => null)
+                controller.cartItems.length, () => bookingController.createBooking(Booking(vendorName: vendorModel.name, date: confirmDate, time: confirmTime, userEmail: userController.email.value, services: controller.cartItemsNames, note: note.value, totalPrice: controller.counter.value )))
           ],
         ),
       ),
