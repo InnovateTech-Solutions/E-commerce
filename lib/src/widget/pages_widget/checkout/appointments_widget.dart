@@ -4,8 +4,8 @@ import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dar
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/checkout/confirm_page.dart';
-import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/booking_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 
@@ -18,11 +18,18 @@ class AppointmentsWidget extends StatefulWidget {
 
 class _AppointmentsWidgetState extends State<AppointmentsWidget> {
     final firebaseServices = Get.put(FirebaseService());
+    final bookingController = Get.put(BookingController());
+
 
    @override
   void initState() {
     super.initState();
-    firebaseServices.generateTimeList("12:00 - 22:00");
+    RxString defaultDate = (DateTime.now()).toString().obs;
+    List<String> parts = defaultDate.value.split(' ');
+    String datePart = parts[0];
+
+    
+    bookingController.generateTimeList("12:00 - 22:00", datePart, widget.vendorModel.name);
 
   }
 
@@ -32,8 +39,10 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
   Widget build(BuildContext context) {
     RxString selectedDate = (DateTime.now()).toString().obs;
     DateTime parsingDate = DateTime.parse(selectedDate.value);
+    List<String> parts = selectedDate.value.split(' ');
+    String datePart = parts[0];
+    
     RxString seletedTimeStamp = ''.obs;
-    final firebaseServices = Get.put(FirebaseService());
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -63,10 +72,19 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
               ),
           onChangeDateTime: (datetime) {
 //            print(datetime.getDate());
+            RxString selectedDate1 = (datetime.getDate()).toString().obs;
+            List<String> parts1 = selectedDate1.value.split(' ');
+            datePart = parts1[0];
+            print(datePart);
+  
+            bookingController.timeList.clear();
+            bookingController.bookedTimelist.clear();
+            bookingController.generateTimeList("12:00 - 22:00", datePart, widget.vendorModel.name);
 
-            selectedDate.value = datetime.getDate();
+
           },
         ),
+        
         Expanded(
             child: ListView.separated(
                 separatorBuilder: (context, index) => Divider(
@@ -75,7 +93,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                       thickness: 1,
                       color: ColorConstants.textFiledmColor,
                     ),
-                itemCount: AppConst.timeList.length,
+                itemCount: bookingController.timeList.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Row(
@@ -88,17 +106,18 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                             //  selectedDate.value, AppConst.timeList[index]),
                             
                             print(seletedTimeStamp.value =
-                                '${selectedDate.value}  ${AppConst.timeList[index]}'),
+                                '${selectedDate.value}  ${bookingController.timeList[index]}'),
                             //  addTimestampToDatabase(DateTime.parse(
                             //    '${selectedDate.value}${AppConst.timeList[index]}'))
                             print(parsingDate),
+                         
                             Get.to(ConfirmPage(
                               vendorModel: widget.vendorModel,
-                              confirmDate: selectedDate.value,
-                              confirmTime: firebaseServices.timeList[index],
+                              confirmDate: datePart,
+                              confirmTime: bookingController.timeList[index],
                             ))
                           },
-                          child: Text(firebaseServices.timeList[index],
+                          child: Text(bookingController.timeList[index],
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                       fontSize: 14.sp,

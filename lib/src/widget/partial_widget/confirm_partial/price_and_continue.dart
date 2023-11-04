@@ -44,7 +44,7 @@ priceAndConfirm(int totalPrice, int serviceLength) {
             ],
           ),
           ProductButton(
-            onTap: () => {},
+            onTap: () => { },
             title: 'Confrim',
           )
         ],

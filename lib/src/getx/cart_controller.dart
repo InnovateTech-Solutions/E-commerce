@@ -8,12 +8,17 @@ class ServiceController extends GetxController {
   var _cartItems = <ServiceModel>[].obs;
   RxInt total = 0.obs;
   List<ServiceModel> get cartItems => _cartItems;
+  List<String> cartItemsNames = [];
   RxInt counter = 0.obs;
   bool selecteditem = false;
 
-  void addToCart(ServiceModel serviceModel) {
-    _cartItems.add(serviceModel);
+    @override
+  void onInit() {
+    super.onInit();
   }
+
+
+ 
 
   void removeFromCart(ServiceModel serviceModel) {
     String price = serviceModel.price.replaceAll('BD', '');
@@ -46,9 +51,10 @@ class ServiceController extends GetxController {
   void toggleService(ServiceModel service) {
     String price = service.price.replaceAll('BD', '');
     int priceoverall = int.parse(price);
-    if (cartItems.contains(service)) {
+    if (cartItems.contains(service) && cartItemsNames.contains(service.name)) {
       counter = counter - priceoverall;
       _cartItems.remove(service);
+      cartItemsNames.remove(service.name);
       update();
       Fluttertoast.showToast(
           msg: 'You have already selected this service.',
@@ -61,6 +67,7 @@ class ServiceController extends GetxController {
     } else {
       counter = counter + priceoverall;
       _cartItems.add(service);
+      cartItemsNames.add(service.name);
       update();
     }
   }

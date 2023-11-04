@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/getx/booking_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
+import 'package:profile_part/src/model/booking_model.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/widget/constant_widget/App_Bar/app_bar.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -20,12 +22,14 @@ class ConfirmWidget extends GetView<ServiceController> {
   final VendorModel vendorModel;
   final String confirmDate;
   final String confirmTime;
+  final bookingController = Get.put(BookingController());
 
   @override
   Widget build(BuildContext context) {
+
+
     RxString note = 'Add Booking notes'.obs;
     TextEditingController noteController = TextEditingController();
-
     String formatted = DateFormat.yMMMEd().format(DateTime.parse(confirmDate));
     Get.put(ServiceController());
     return SafeArea(
@@ -62,6 +66,10 @@ class ConfirmWidget extends GetView<ServiceController> {
                 ],
               ),
             ),
+                      ElevatedButton(
+                          onPressed: () => { bookingController.createBooking(Booking(vendorName: vendorModel.name, date: confirmDate, time: confirmTime, userEmail: "moh@gmail.com", services: controller.cartItemsNames, note: note.value, totalPrice: controller.counter.value ))},
+                          child: Text("confirm"),
+                        ),
             priceAndConfirm(
                 controller.counter.value, controller.cartItems.length)
           ],
