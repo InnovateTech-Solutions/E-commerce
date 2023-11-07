@@ -9,6 +9,7 @@ import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 
 firstAppBar() {
   return AppBar(
+    scrolledUnderElevation: 0,
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
     actions: [
@@ -29,6 +30,7 @@ firstAppBar() {
 
 secondAppBar() {
   return AppBar(
+    scrolledUnderElevation: 0,
     backgroundColor: ColorConstants.secondaryScaffoldBacground,
     elevation: 0,
     centerTitle: true,
@@ -58,6 +60,7 @@ secondAppBar() {
 
 thirdAppBar() {
   return AppBar(
+    scrolledUnderElevation: 0,
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
     leading: Row(
@@ -139,6 +142,7 @@ appointmentsAppBar() {
 
 confirmAppBar(VendorModel vendorModel) {
   return AppBar(
+    scrolledUnderElevation: 0,
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
     leading: IconButton(

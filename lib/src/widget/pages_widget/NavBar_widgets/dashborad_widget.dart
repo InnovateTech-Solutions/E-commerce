@@ -64,6 +64,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
               return CustomScrollView(
                 slivers: [
                   SliverAppBar(
+                    scrolledUnderElevation: 0,
                     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
                     elevation: 0,
                     pinned: true,

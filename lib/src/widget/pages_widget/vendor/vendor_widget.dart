@@ -8,6 +8,7 @@ import 'package:profile_part/src/View/checkout/cart_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
+import 'package:profile_part/src/getx/similarItems_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
@@ -15,7 +16,6 @@ import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/product_button.dart';
-import 'package:profile_part/src/widget/partial_widget/confirm_partial/price_and_continue.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/header_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/rating_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/service_select.dart';
@@ -31,6 +31,8 @@ class VendorWidget extends GetView<Appcontroller> {
     final reviewsController = Get.put(ReviewsController(vendor.name));
     final cartController = Get.put(ServiceController());
     final userController = Get.put(UserController());
+    final recommendedController = Get.put(VendorController());
+
     Get.put(Appcontroller());
     return FutureBuilder(
         future: FirebaseService.instance.fetchServicebyName(vendor.name),
@@ -44,6 +46,7 @@ class VendorWidget extends GetView<Appcontroller> {
                 children: [
                   CustomScrollView(slivers: [
                     SliverAppBar(
+                        scrolledUnderElevation: 0,
                         backgroundColor:
                             ColorConstants.mainScaffoldBackgroundColor,
                         elevation: 0,
@@ -140,6 +143,8 @@ class VendorWidget extends GetView<Appcontroller> {
                                               children: [
                                                 ProductButton(
                                                   onTap: () => {
+                                                    print(
+                                                        "lenght ${recommendedController.vendors.length}"),
                                                     cartController
                                                         .toggleService(services[
                                                             controller
@@ -246,7 +251,8 @@ class VendorWidget extends GetView<Appcontroller> {
                                                 itemBuilder: (context, index) {
                                                   List<String> emailPart =
                                                       reviewsController
-                                                          .reviews[index]
+                                                          .nonEmptyComments[
+                                                              index]
                                                           .userEmail
                                                           .split('@');
                                                   String email = emailPart[0];
@@ -340,7 +346,7 @@ class VendorWidget extends GetView<Appcontroller> {
                                                                 RatingBar
                                                                     .builder(
                                                                   initialRating: reviewsController
-                                                                      .reviews[
+                                                                      .nonEmptyComments[
                                                                           index]
                                                                       .rating, // Set the initial rating value
                                                                   minRating:
@@ -378,6 +384,13 @@ class VendorWidget extends GetView<Appcontroller> {
                                                     ),
                                                   );
                                                 })),
+                                    recommendedController.vendors.isEmpty
+                                        ? Container()
+                                        : ElevatedButton(
+                                            onPressed: () => print(
+                                                recommendedController
+                                                    .vendors.length),
+                                            child: Text('press me'))
                                   ],
                                 ),
                               ),
@@ -417,7 +430,7 @@ class VendorWidget extends GetView<Appcontroller> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "BD ${cartController.counter.toString()}",
+                                          " ${cartController.counter.toString()} BD",
                                           style: TextStyle(
                                             color: ColorConstants
                                                 .mainTextColor, // Customize text color

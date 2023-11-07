@@ -60,14 +60,11 @@ class UserController extends GetxController {
     await prefs.setString('email', user.email);
     await prefs.setString('phone', user.phone);
     await prefs.setBool('isLoggedIn', true);
-    await prefs.setBool('switchState', false);
 
     username.value = user.name;
     email.value = user.email;
     phone.value = user.phone;
     isLoggedIn.value = true;
-    notification.value = false;
-    isSwitched.value = false;
   }
 
   Future<void> clearUserInfo() async {
@@ -76,6 +73,7 @@ class UserController extends GetxController {
     await prefs.remove('email');
     await prefs.remove('phone');
     await prefs.setBool('isLoggedIn', false);
+    await prefs.setBool('switchState', false);
 
     username.value = '';
     email.value = '';

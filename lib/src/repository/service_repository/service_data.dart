@@ -84,6 +84,22 @@ class FirebaseService extends GetxController {
         .toList();
   }
 
+  Future<List<VendorModel>> fetchCategoriesByVendor(
+      String vendorCategorie) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('Vendors')
+        .where('Category', isEqualTo: vendorCategorie)
+        .get();
+
+    List<DocumentSnapshot<Map<String, dynamic>>> documents = querySnapshot.docs;
+    documents.shuffle();
+
+    List<VendorModel> vendors =
+        documents.map((doc) => VendorModel.fromSnapshot(doc)).take(5).toList();
+
+    return vendors;
+  }
+
 // not used querys
 
   Future<List<Map<String, dynamic>>> getSkinCareSubcollection(
@@ -150,18 +166,6 @@ class FirebaseService extends GetxController {
 
     return querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList();
-  }
-
-  Future<List<Map<String, dynamic>>> fetchCategoriesByVedor(
-      String vendorName) async {
-    final querySnapshot = await _db
-        .collection('Vendors')
-        .where('Vendor_Id', isEqualTo: vendorName)
-        .get();
-
-    return querySnapshot.docs
-        .map((docs) => docs.data() as Map<String, dynamic>)
         .toList();
   }
 }

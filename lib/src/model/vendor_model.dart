@@ -7,6 +7,7 @@ class VendorModel {
   String? address;
   String? coordinates;
   double? averageRating;
+  String? category;
 
   VendorModel(
       {required this.name,
@@ -14,19 +15,20 @@ class VendorModel {
       required this.image,
       this.address,
       this.coordinates,
-      this.averageRating});
+      this.averageRating,
+      this.category});
 
   factory VendorModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     final data = documentSnapshot.data()!;
 
     return VendorModel(
-      name: data['Name'],
-      description: data['Description'],
-      image: data['Image'],
-      address: data['Address'],
-      coordinates: data['Coordinates'],
-      averageRating: data['averageRating'],
-    );
+        name: data['Name'],
+        description: data['Description'],
+        image: data['Image'],
+        address: data['Address'],
+        coordinates: data['Coordinates'],
+        averageRating: data['averageRating'],
+        category: data['Category']);
   }
 }

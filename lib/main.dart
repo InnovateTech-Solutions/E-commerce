@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
             translations: LocalStrings(),
             locale: const Locale('en', 'US'),
-            title: 'E-commerce',
+            title: 'Icare',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 primaryColor: ColorConstants.mainScaffoldBackgroundColor),

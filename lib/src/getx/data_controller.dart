@@ -27,4 +27,9 @@ class DataController extends GetxController {
     //fetch services for vendors
     return FirebaseService.instance.fetchServicebyName(vendorName);
   }
+
+  Future<List<VendorModel>> fetchCategoriesByVendor(String categorie) {
+    // fetch categoires that smeller to vendor categorie
+    return FirebaseService.instance.fetchCategoriesByVendor(categorie);
+  }
 }
