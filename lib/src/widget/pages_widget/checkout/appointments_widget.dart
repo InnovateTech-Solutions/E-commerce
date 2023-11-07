@@ -18,8 +18,7 @@ class AppointmentsWidget extends StatefulWidget {
 
 class _AppointmentsWidgetState extends State<AppointmentsWidget> {
   final firebaseServices = Get.put(FirebaseService());
-    final bookingController = Get.put(BookingController());
-
+  final bookingController = Get.put(BookingController());
 
   @override
   void initState() {
@@ -28,9 +27,8 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
     List<String> parts = defaultDate.value.split(' ');
     String datePart = parts[0];
 
-    
-    bookingController.generateTimeList("12:00 - 22:00", datePart, widget.vendorModel.name);
-
+    bookingController.generateTimeList(
+        "12:00 - 22:00", datePart, widget.vendorModel.name);
   }
 
   @override
@@ -39,7 +37,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
     DateTime parsingDate = DateTime.parse(selectedDate.value);
     List<String> parts = selectedDate.value.split(' ');
     String datePart = parts[0];
-    
+
     RxString seletedTimeStamp = ''.obs;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -73,15 +71,13 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
             List<String> parts1 = selectedDate1.value.split(' ');
             datePart = parts1[0];
             print(datePart);
-  
+
             bookingController.timeList.clear();
             bookingController.bookedTimelist.clear();
-            bookingController.generateTimeList("12:00 - 22:00", datePart, widget.vendorModel.name);
-
-
+            bookingController.generateTimeList(
+                "12:00 - 22:00", datePart, widget.vendorModel.name);
           },
         ),
-        
         Expanded(
             child: ListView.separated(
                 separatorBuilder: (context, index) => Divider(
@@ -107,7 +103,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                             //  addTimestampToDatabase(DateTime.parse(
                             //    '${selectedDate.value}${AppConst.timeList[index]}'))
                             print(parsingDate),
-                         
+
                             Get.to(ConfirmPage(
                               vendorModel: widget.vendorModel,
                               confirmDate: datePart,
