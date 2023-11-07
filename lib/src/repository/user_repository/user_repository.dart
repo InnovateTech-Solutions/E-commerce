@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, body_might_complete_normally_catch_error
 
 import 'dart:io';
 
@@ -10,10 +10,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/user_model.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
+
+  final userController = Get.put(UserController());
 
   final _db = FirebaseFirestore.instance;
 
@@ -32,7 +35,6 @@ class UserRepository extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             colorText: ColorConstants.mainScaffoldBackgroundColor,
             backgroundColor: ColorConstants.snakbarColorsuccessful))
-        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stackTrace) {
       Get.snackbar(error.toString(), "Something went wrong , try agin",
           snackPosition: SnackPosition.BOTTOM,
@@ -50,7 +52,24 @@ class UserRepository extends GetxController {
         await _db.collection("User").where("Email", isEqualTo: email).get();
     final userdata = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     userModel = userdata;
+    userController.saveUserInfo(userdata);
     return userdata;
+  }
+
+// to see if user is Exits to make google , Apple Authentication
+  Future<bool> userExist(String email) async {
+    try {
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
+
+      QuerySnapshot userSnapshot =
+          await users.where('Email', isEqualTo: email).get();
+
+      return userSnapshot.docs.isNotEmpty;
+    } catch (e) {
+      print('Error checking user existence: $e');
+      return false;
+    }
   }
 
   Widget getUserImageUrl() {

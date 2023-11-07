@@ -6,6 +6,7 @@ import 'package:profile_part/src/View/Forms/register_page.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/lang_list.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/button_model.dart';
 import 'package:profile_part/src/model/drawer_button.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
@@ -17,6 +18,23 @@ constDivider() {
     indent: 20,
     endIndent: 30,
   );
+}
+
+class NotificationSwitch extends StatelessWidget {
+  final toggleController = Get.put(UserController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Switch(
+        activeColor: ColorConstants.subTextColor,
+        value: toggleController.isSwitched.value,
+        onChanged: (value) {
+          toggleController.saveSwitchState(value);
+        },
+      ),
+    );
+  }
 }
 
 dontHaveAccountRow() {

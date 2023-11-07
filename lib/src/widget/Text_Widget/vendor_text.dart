@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/user_actions/user_actions.dart';
+import 'package:profile_part/src/helpers/actions/user_actions.dart';
 
 mainVendorText(String title) {
   return Text(title.tr,

@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:profile_part/src/View/test/test.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
+import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/transition/dashboard_transition.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -139,14 +139,17 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                                   })),
                             ),
                             SeeMore(
-                              onTap: () => Get.to(MapSample(),
-                                  transition: Transition.rightToLeft),
-                            ),
-                            SvgPicture.asset(
-                              "assets/Icare.svg",
-                              width: 200.w,
-                              height: 90.h,
-                            ),
+                                onTap: () => {
+                                      //  Get.to(CategoriesPage(),
+                                      //    transition: Transition.rightToLeft),
+                                      /*  print(sharedPreferences
+                                          .getStringValuesSF()
+                                          .toString())*/
+                                      print('============================'),
+                                      AuthenticationRepository.instance
+                                          .logout(),
+                                      UserController.instance.clearUserInfo()
+                                    }),
                           ],
                         ),
                       ),
@@ -160,7 +163,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
               return const Text("somthing went wrong");
             }
           } else if (snpshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: DashboardTransition());
+            return const DashboardTransition();
           } else {
             return const Text("somthing went wrong");
           }

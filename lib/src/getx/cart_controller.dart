@@ -1,4 +1,7 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/service_model.dart';
 
 class ServiceController extends GetxController {
@@ -47,6 +50,14 @@ class ServiceController extends GetxController {
       counter = counter - priceoverall;
       _cartItems.remove(service);
       update();
+      Fluttertoast.showToast(
+          msg: 'You have already selected this service.',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: ColorConstants.backProductButton,
+          textColor: ColorConstants.mainTextColor,
+          fontSize: 16.0.sp);
     } else {
       counter = counter + priceoverall;
       _cartItems.add(service);
