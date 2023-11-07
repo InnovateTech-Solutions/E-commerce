@@ -5,7 +5,7 @@ class Booking {
   String userEmail;
   List<String> services;
   String note;
-  double totalPrice;
+  int totalPrice;
 
   Booking({
     required this.vendorName,
@@ -25,7 +25,7 @@ factory Booking.fromMap(Map<String, dynamic> data) {
     time: data['time'],
     note: data['note'],
     services: (data["services"] as List).map((e) => e.toString()).toList(),
-    totalPrice: (data['totalPrice'] as double),
+    totalPrice: (data['totalPrice'] as int),
   );
 }
 
