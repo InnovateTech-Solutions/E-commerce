@@ -7,12 +7,12 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
-import 'package:profile_part/src/transition/dashboard_transition.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/slider_widget.dart';
 
 import '../../../View/vendor/vendor_display.dart';
+import '../../../transition/dashboard_transition.dart';
 import '../../partial_widget/dashboard_partial.dart/seemore_widget.dart';
 
 class DashBoradWidget extends StatefulWidget {
@@ -66,6 +66,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
               return CustomScrollView(
                 slivers: [
                   SliverAppBar(
+                    scrolledUnderElevation: 0,
                     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
                     elevation: 0,
                     pinned: true,
@@ -164,6 +165,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
             }
           } else if (snpshot.connectionState == ConnectionState.waiting) {
             return const DashboardTransition();
+            ;
           } else {
             return const Text("somthing went wrong");
           }

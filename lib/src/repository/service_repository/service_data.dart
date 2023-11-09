@@ -41,7 +41,6 @@ class FirebaseService extends GetxController {
     final startMinute = int.parse(startTime.split(':')[1]);
     final endHour = int.parse(endTime.split(':')[0]);
     final endMinute = int.parse(endTime.split(':')[1]);
-
     DateTime currentTime = DateTime(2023, 1, 1, startHour, startMinute);
 
     while (currentTime.hour < endHour ||
@@ -51,10 +50,11 @@ class FirebaseService extends GetxController {
       currentTime =
           currentTime.add(Duration(minutes: 30)); // Increment by 30 minutes
     }
+    print(timeList);
   }
 
   Future<List<Categories>> fetchAllCategories() async {
-//that query fetch all categories , that used in Categories widget
+//this query fetch all categories , that used in Categories widget
     final querySnapshot = await _db.collection('Categories').get();
 
     return querySnapshot.docs
@@ -82,6 +82,22 @@ class FirebaseService extends GetxController {
     return querySnapshot.docs
         .map((docs) => ServiceModel.fromSnapshot(docs))
         .toList();
+  }
+
+  Future<List<VendorModel>> fetchCategoriesByVendor(
+      String vendorCategorie) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('Vendors')
+        .where('Category', isEqualTo: vendorCategorie)
+        .get();
+
+    List<DocumentSnapshot<Map<String, dynamic>>> documents = querySnapshot.docs;
+    documents.shuffle();
+
+    List<VendorModel> vendors =
+        documents.map((doc) => VendorModel.fromSnapshot(doc)).take(5).toList();
+
+    return vendors;
   }
 
 // not used querys
