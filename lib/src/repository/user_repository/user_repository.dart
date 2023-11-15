@@ -59,8 +59,7 @@ class UserRepository extends GetxController {
 // to see if user is Exits to make google , Apple Authentication
   Future<bool> userExist(String email) async {
     try {
-      CollectionReference users =
-          FirebaseFirestore.instance.collection('users');
+      CollectionReference users = _db.collection('users');
 
       QuerySnapshot userSnapshot =
           await users.where('Email', isEqualTo: email).get();
@@ -72,10 +71,10 @@ class UserRepository extends GetxController {
     }
   }
 
-  Widget getUserImageUrl() {
+  getUserImageUrl() {
     if (userModel.imageUrl != null) {
       return CircleAvatar(
-          radius: 70, // Adjust the radius as needed
+          radius: 70.r, // Adjust the radius as needed
           backgroundImage: NetworkImage(userModel.imageUrl!));
     } else {
       return SvgPicture.asset(
@@ -120,5 +119,22 @@ class UserRepository extends GetxController {
     } catch (error) {
       Text(error.toString());
     }
+  }
+
+  Future<bool> checkEmailExists(String email) async {
+    bool exists = false;
+
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('User') // Replace with your actual collection name
+          .where('Email', isEqualTo: email)
+          .get();
+
+      exists = querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      print('Error checking email existence: $e');
+    }
+
+    return exists;
   }
 }

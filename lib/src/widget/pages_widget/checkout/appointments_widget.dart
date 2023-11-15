@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:profile_part/src/View/Forms/login_page.dart';
 import 'package:profile_part/src/View/checkout/confirm_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/booking_controller.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 
@@ -19,7 +21,7 @@ class AppointmentsWidget extends StatefulWidget {
 class _AppointmentsWidgetState extends State<AppointmentsWidget> {
   final firebaseServices = Get.put(FirebaseService());
   final bookingController = Get.put(BookingController());
-
+  final userController = Get.put(UserController());
   @override
   void initState() {
     super.initState();
@@ -37,10 +39,8 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
     DateTime parsingDate = DateTime.parse(selectedDate.value);
     List<String> parts = selectedDate.value.split(' ');
     String datePart = parts[0];
-
     RxString seletedTimeStamp = ''.obs;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         TimelineCalendar(
           calendarType: CalendarType.GREGORIAN,
@@ -78,49 +78,58 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                 "12:00 - 22:00", datePart, widget.vendorModel.name);
           },
         ),
-        Expanded(
-            child: ListView.separated(
-                separatorBuilder: (context, index) => Divider(
-                      indent: 20.0,
-                      endIndent: 10.0,
-                      thickness: 1,
-                      color: ColorConstants.textFiledmColor,
-                    ),
-                itemCount: bookingController.timeList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => {
-                            //  print(selectedDate.value),
-                            // print(AppConst.timeList[index]),
-                            // bookAppointment(
-                            //  selectedDate.value, AppConst.timeList[index]),
+        Obx(() => bookingController.timeList.isEmpty
+            ? Container(
+                child: Center(
+                  child: Text('All Day is booked selecet another day'),
+                ),
+              )
+            : Expanded(
+                child: ListView.separated(
+                    separatorBuilder: (context, index) => Divider(
+                          indent: 20.0,
+                          endIndent: 10.0,
+                          thickness: 1,
+                          color: ColorConstants.textFiledmColor,
+                        ),
+                    itemCount: bookingController.timeList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () => {
+                                userController.isLoggedIn.value
+                                    ? Get.to(Get.to(ConfirmPage(
+                                        vendorModel: widget.vendorModel,
+                                        confirmDate: datePart,
+                                        confirmTime:
+                                            bookingController.timeList[index],
+                                      )))
+                                    : Get.to(LoginPage()),
+                                //  print(selectedDate.value),
+                                // print(AppConst.timeList[index]),
+                                // bookAppointment(
+                                //  selectedDate.value, AppConst.timeList[index]),
 
-                            print(seletedTimeStamp.value =
-                                '${selectedDate.value}  ${bookingController.timeList[index]}'),
-                            //  addTimestampToDatabase(DateTime.parse(
-                            //    '${selectedDate.value}${AppConst.timeList[index]}'))
-                            print(parsingDate),
-
-                            Get.to(ConfirmPage(
-                              vendorModel: widget.vendorModel,
-                              confirmDate: datePart,
-                              confirmTime: bookingController.timeList[index],
-                            ))
-                          },
-                          child: Text(bookingController.timeList[index],
-                              style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorConstants.mainTextColor))),
-                        )
-                      ],
-                    ),
-                  );
-                }))
+                                print(seletedTimeStamp.value =
+                                    '${selectedDate.value}  ${bookingController.timeList[index]}'),
+                                //  addTimestampToDatabase(DateTime.parse(
+                                //    '${selectedDate.value}${AppConst.timeList[index]}'))
+                                print(parsingDate),
+                              },
+                              child: Text(bookingController.timeList[index],
+                                  style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color:
+                                              ColorConstants.mainTextColor))),
+                            )
+                          ],
+                        ),
+                      );
+                    })))
       ],
     );
   }

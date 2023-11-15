@@ -67,8 +67,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '684151425038',
     projectId: 'e-commerce-72187',
     storageBucket: 'e-commerce-72187.appspot.com',
-    androidClientId: '684151425038-fubnkncp7695a0fdfdnda6saquvns756.apps.googleusercontent.com',
-    iosClientId: '684151425038-5k575ekdulncb62am6n425bt4rdsssoc.apps.googleusercontent.com',
+    androidClientId:
+        '684151425038-fubnkncp7695a0fdfdnda6saquvns756.apps.googleusercontent.com',
+    iosClientId:
+        '684151425038-5k575ekdulncb62am6n425bt4rdsssoc.apps.googleusercontent.com',
     iosBundleId: 'com.example.ecommerce',
   );
 
@@ -78,8 +80,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '684151425038',
     projectId: 'e-commerce-72187',
     storageBucket: 'e-commerce-72187.appspot.com',
-    androidClientId: '684151425038-fubnkncp7695a0fdfdnda6saquvns756.apps.googleusercontent.com',
-    iosClientId: '684151425038-i32o98c64330vqi2q3vcp0ioc8qe55fi.apps.googleusercontent.com',
+    androidClientId:
+        '684151425038-fubnkncp7695a0fdfdnda6saquvns756.apps.googleusercontent.com',
+    iosClientId:
+        '684151425038-i32o98c64330vqi2q3vcp0ioc8qe55fi.apps.googleusercontent.com',
     iosBundleId: 'com.example.ecommerce.RunnerTests',
   );
 }

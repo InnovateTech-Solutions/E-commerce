@@ -20,7 +20,14 @@ class AppConst {
   static double smallSize = 15;
   static double medium = 35;
   static double largeSize = 45;
+
   // String const
+
+  static String pastlogin = "login or sign up";
+  static String pastloginText =
+      "Create your account and mange your appointments";
+  static String googleContainerText = 'Continue with Google';
+  static String appleCotanierText = 'Continue with apple';
   static String login = "LOGIN";
   static String signUp = "SIGN UP";
   static String email = "Email";
@@ -28,6 +35,7 @@ class AppConst {
   static String username = "User Name";
   static String phoneNumber = "Phone Number";
   static String verificationOTP = "VERIFICATION CODE";
+
   //Divider
   static final pageDivider = Divider(
     indent: 20.0,

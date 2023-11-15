@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/constant/color.dart';
-import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
+import 'package:profile_part/src/repository/user_repository/user_repository.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/slider_widget.dart';
@@ -22,6 +22,21 @@ class DashBoradWidget extends StatefulWidget {
 
 class _DashBoradWidgetState extends State<DashBoradWidget> {
   final firebaseservice = Get.put(FirebaseService());
+  final _authRepo = Get.put(AuthenticationRepository());
+  getUserData() {
+    final email = _authRepo.firebaseUser.value?.email;
+    if (email != null) {
+      return UserRepository.instance.getUserDetails(email);
+    } else {
+      Get.snackbar("Error", "Login to get email");
+    }
+  }
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,15 +154,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                             ),
                             SeeMore(
                                 onTap: () => {
-                                      //  Get.to(CategoriesPage(),
-                                      //    transition: Transition.rightToLeft),
-                                      /*  print(sharedPreferences
-                                          .getStringValuesSF()
-                                          .toString())*/
-                                      print('============================'),
-                                      AuthenticationRepository.instance
-                                          .logout(),
-                                      UserController.instance.clearUserInfo()
+                                      AuthenticationRepository.instance.logout()
                                     }),
                           ],
                         ),

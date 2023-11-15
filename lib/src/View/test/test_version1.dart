@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/data_controller.dart';
-import 'package:profile_part/src/getx/similarItems_controller.dart';
+import 'package:profile_part/src/getx/vendors_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
@@ -79,6 +79,8 @@ class UserInfo extends StatelessWidget {
                         Text('Email: ${userController.isLoggedIn.value}')),
                     Obx(() =>
                         Text('Email: ${userController.notification.value}')),
+                    Obx(() =>
+                        Text('Email: ${userController.notification.value}')),
                   ],
                 ),
               )),
@@ -145,49 +147,47 @@ class _SimmlirCategoryState extends State<SimmlirCategory> {
     final datacontroller = Get.put(DataController());
     return Scaffold(
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FutureBuilder<List<VendorModel>>(
-                future: datacontroller.fetchCategoriesByVendor('Skin care'),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData) {
-                      final similarItem = snapshot.data!;
-                      similarItem.shuffle();
-                      return similarItem.isEmpty
-                          ? Text('data')
-                          : Column(
-                              children: [
-                                SizedBox(
-                                    height: 200,
-                                    child: ListView.builder(
-                                        itemCount: similarItem.length,
-                                        itemBuilder: (context, index) {
-                                          return Text(
-                                            similarItem[index].name,
-                                            style: TextStyle(color: Colors.red),
-                                          );
-                                        }))
-                              ],
-                            );
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    } else {
-                      return Text('Somthing wrong');
-                    }
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FutureBuilder<List<VendorModel>>(
+              future: datacontroller.fetchCategoriesByVendor('Skin care'),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    final similarItem = snapshot.data!;
+                    similarItem.shuffle();
+                    return similarItem.isEmpty
+                        ? Text('data')
+                        : Column(
+                            children: [
+                              SizedBox(
+                                  height: 200,
+                                  child: ListView.builder(
+                                      itemCount: similarItem.length,
+                                      itemBuilder: (context, index) {
+                                        return Text(
+                                          similarItem[index].name,
+                                          style: TextStyle(color: Colors.red),
+                                        );
+                                      }))
+                            ],
+                          );
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
                   } else {
                     return Text('Somthing wrong');
                   }
-                })
-          ],
-        ),
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return Text('Somthing wrong');
+                }
+              })
+        ],
       ),
     );
   }
@@ -199,20 +199,19 @@ class YourWidget extends StatefulWidget {
 }
 
 class _YourWidgetState extends State<YourWidget> {
-  final VendorController vendorController = Get.put(VendorController());
-
+  final VendorController vendorController = Get.put(VendorController('Spa'));
+  String name = 'dental clinic';
   @override
   void initState() {
     super.initState();
-    vendorController.fetchVendorsByCategory(
-        'dental clinic'); // Replace 'your_category' with the desired category
+    vendorController.fetchVendorsByCategory(name);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vendor List'),
+        title: Text(name),
       ),
       body: Column(
         children: [
@@ -220,81 +219,73 @@ class _YourWidgetState extends State<YourWidget> {
             if (vendorController.vendors.isEmpty) {
               return CircularProgressIndicator(); // Show a loading indicator while data is loading.
             } else {
-              return Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: vendorController.vendors.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Container(
-                              width: 350.w,
-                              height: 170.h,
-                              decoration: BoxDecoration(
-                                color:
-                                    ColorConstants.mainScaffoldBackgroundColor,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      spreadRadius: 2.r,
-                                      blurRadius: 3.r,
-                                      offset: const Offset(0, 2))
-                                ],
-                                borderRadius: BorderRadius.circular(10.0.r),
-                              ),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        width: 350.w,
-                                        height: 70.h,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(7.0.r),
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  vendorController
-                                                      .vendors[index].image),
-                                              fit: BoxFit.cover),
-                                        )),
-                                    AppSizes.xsmallHeightSizedBox,
-                                    subvendorText(
-                                        vendorController.vendors[index].name),
-                                    Obx(() => vendorController
-                                                .vendors[index].averageRating
-                                                .toString() ==
-                                            'null'
-                                        ? Container()
-                                        : Row(
-                                            children: [
-                                              secondaryConfirmText(
-                                                vendorController.vendors[index]
-                                                    .averageRating
-                                                    .toString(),
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                                size: 15,
-                                              )
-                                            ],
-                                          )),
-                                    AppSizes.xsmallHeightSizedBox,
-                                    thirdConfirmText(vendorController
-                                        .vendors[index].address),
-                                  ]),
-                            ), // Access VendorModel properties
-                          );
-                        },
+              return SizedBox(
+                height: 205,
+                width: 400,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return AppSizes.smallWidthSizedBox;
+                  },
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: vendorController.vendors.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 350.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        color: ColorConstants.mainScaffoldBackgroundColor,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2.r,
+                              blurRadius: 2.r,
+                              offset: const Offset(0, 2))
+                        ],
+                        borderRadius: BorderRadius.circular(10.0.r),
                       ),
-                    ),
-                  ),
-                ],
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                                width: 350.w,
+                                height: 100.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(7.0.r),
+                                  image: DecorationImage(
+                                      image: NetworkImage(vendorController
+                                          .vendors[index].image),
+                                      fit: BoxFit.cover),
+                                )),
+                            AppSizes.xsmallHeightSizedBox,
+                            subvendorText(vendorController.vendors[index].name),
+                            Obx(() => vendorController
+                                        .vendors[index].averageRating
+                                        .toString() ==
+                                    'null'
+                                ? Container()
+                                : Row(
+                                    children: [
+                                      secondaryConfirmText(
+                                        vendorController
+                                            .vendors[index].averageRating
+                                            .toString(),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                        size: 15,
+                                      )
+                                    ],
+                                  )),
+                            AppSizes.xsmallHeightSizedBox,
+                            thirdConfirmText(
+                                vendorController.vendors[index].address),
+                          ]),
+                    );
+                  },
+                ),
               );
             }
           }),
@@ -303,6 +294,26 @@ class _YourWidgetState extends State<YourWidget> {
     );
   }
 }
+
+class HorizontalListView extends StatelessWidget {
+  final List<String> itemTitles = ['Item 1', 'Item 2', 'Item 3'];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: itemTitles.length,
+      itemBuilder: (context, index) {
+        return Container(
+          width: 150.0,
+          color: Colors.accents[index % Colors.accents.length],
+          child: Center(child: Text(itemTitles[index])),
+        );
+      },
+    );
+  }
+}
+
 
 /*
 import 'package:firebase_auth/firebase_auth.dart';

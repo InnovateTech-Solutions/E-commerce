@@ -3,7 +3,14 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 
 class VendorController extends GetxController {
+  late String vendorCategory;
   RxList<VendorModel> vendors = <VendorModel>[].obs;
+  VendorController(this.vendorCategory);
+  @override
+  void onInit() {
+    super.onInit();
+    fetchVendorsByCategory(vendorCategory);
+  }
 
   Future<void> fetchVendorsByCategory(String vendorCategory) async {
     final querySnapshot = await FirebaseFirestore.instance

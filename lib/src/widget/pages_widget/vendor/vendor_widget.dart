@@ -8,7 +8,6 @@ import 'package:profile_part/src/View/checkout/cart_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
-import 'package:profile_part/src/getx/similarItems_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
@@ -19,6 +18,7 @@ import 'package:profile_part/src/widget/custom_Widget.dart/product_button.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/header_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/rating_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/service_select.dart';
+import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/similar_category.dart';
 
 import '../../../getx/reviews_controller.dart';
 
@@ -31,8 +31,6 @@ class VendorWidget extends GetView<Appcontroller> {
     final reviewsController = Get.put(ReviewsController(vendor.name));
     final cartController = Get.put(ServiceController());
     final userController = Get.put(UserController());
-    final recommendedController = Get.put(VendorController());
-
     Get.put(Appcontroller());
     return FutureBuilder(
         future: FirebaseService.instance.fetchServicebyName(vendor.name),
@@ -58,7 +56,7 @@ class VendorWidget extends GetView<Appcontroller> {
                         )),
                     SliverToBoxAdapter(
                       child: Container(
-                        height: 1000.h,
+                        height: services.isEmpty ? 550.h : 1100.h,
                         width: double.infinity.w,
                         decoration: BoxDecoration(
                             color: ColorConstants.mainScaffoldBackgroundColor,
@@ -109,10 +107,8 @@ class VendorWidget extends GetView<Appcontroller> {
                                         () => Column(
                                           children: [
                                             GestureDetector(
-                                                onTap: () => {
-                                                      controller.currentIndex
-                                                          .value = index,
-                                                    },
+                                                onTap: () => controller
+                                                    .currentIndex.value = index,
                                                 child: serviceSelcet(
                                                     services[index].name,
                                                     index,
@@ -142,17 +138,11 @@ class VendorWidget extends GetView<Appcontroller> {
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 ProductButton(
-                                                  onTap: () => {
-                                                    print(
-                                                        "lenght ${recommendedController.vendors.length}"),
-                                                    cartController
-                                                        .toggleService(services[
-                                                            controller
-                                                                .currentIndex
-                                                                .value]),
-                                                    print(
-                                                        '${services[controller.currentIndex.value].isSelected}  + ${controller.currentIndex.value}'),
-                                                  },
+                                                  onTap: () => cartController
+                                                      .toggleService(services[
+                                                          controller
+                                                              .currentIndex
+                                                              .value]),
                                                   title: 'Book',
                                                 ),
                                                 subvendorText(services[
@@ -266,15 +256,12 @@ class VendorWidget extends GetView<Appcontroller> {
                                                               Radius.circular(
                                                                   20.r)),
                                                       color: ColorConstants
-                                                          .textFiledmColor,
+                                                          .secondaryScaffoldBacground,
                                                       boxShadow: [
                                                         BoxShadow(
-                                                            color: Colors
-                                                                .grey[200]!
+                                                            color: Colors.grey
                                                                 .withOpacity(
                                                                     0.5),
-                                                            spreadRadius: 2.r,
-                                                            blurRadius: 3.r,
                                                             offset:
                                                                 const Offset(
                                                                     0, 2)),
@@ -384,13 +371,11 @@ class VendorWidget extends GetView<Appcontroller> {
                                                     ),
                                                   );
                                                 })),
-                                    recommendedController.vendors.isEmpty
-                                        ? Container()
-                                        : ElevatedButton(
-                                            onPressed: () => print(
-                                                recommendedController
-                                                    .vendors.length),
-                                            child: Text('press me'))
+                                    AppSizes.mediumHeightSizedBox,
+                                    SimilarWidget(
+                                      category: vendor.category ?? '',
+                                      services: services,
+                                    )
                                   ],
                                 ),
                               ),
@@ -400,6 +385,7 @@ class VendorWidget extends GetView<Appcontroller> {
                       ),
                     )
                   ]),
+                  //price and confrim
                   Builder(builder: (context) {
                     return Obx(
                       () => cartController.cartItems.isEmpty
@@ -451,12 +437,9 @@ class VendorWidget extends GetView<Appcontroller> {
                                       ],
                                     ),
                                     ProductButton(
-                                      onTap: () =>
-                                          userController.isLoggedIn.value
-                                              ? Get.to(CartPage(
-                                                  vendorModel: vendor,
-                                                ))
-                                              : Get.to(LoginPage()),
+                                      onTap: () => Get.to(CartPage(
+                                        vendorModel: vendor,
+                                      )),
                                       title: 'Confrim',
                                     )
                                   ],

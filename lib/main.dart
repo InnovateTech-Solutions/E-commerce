@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/firebase_options.dart';
 import 'package:profile_part/src/View/start_pages/intro_page.dart';
@@ -10,6 +11,8 @@ import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/Searchpage_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
+import 'package:profile_part/src/repository/payment_repository.dart/payment_manger%20.dart';
+import 'package:profile_part/src/repository/payment_repository.dart/stripe_keys.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +21,9 @@ void main() async {
   Get.put(Appcontroller());
   Get.put(SearchPageController());
   Get.put(UserController());
+  Get.put(PaymentManger());
+  Stripe.publishableKey = ApiKeys.publishableKey;
+
   runApp(MyApp());
 }
 

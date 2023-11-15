@@ -10,28 +10,15 @@ import 'package:profile_part/src/widget/constant_widget/search_bar/vendor_search
 import 'package:profile_part/src/widget/custom_Widget.dart/location_widget.dart';
 import 'package:profile_part/src/widget/pages_widget/Vendor/vendors_display.dart';
 
-class VendorListSearchWidget extends StatefulWidget {
+class VendorListSearchWidget extends GetView {
   const VendorListSearchWidget({required this.title, super.key});
 
   final String title;
-
-  @override
-  State<VendorListSearchWidget> createState() => _VendorListSearchWidgetState();
-}
-
-class _VendorListSearchWidgetState extends State<VendorListSearchWidget> {
   @override
   Widget build(BuildContext context) {
     final pagecontroller = Get.put(SearchPageController());
 
-    final searchController = Get.put(SearchControllerr(widget.title));
-
-    /* @override
-    void dispose() {
-      pagecontroller.dispose();
-      searchController.dispose();
-      super.dispose();
-    }*/
+    final searchController = Get.put(SearchControllerr(title));
 
     return Scaffold(
       backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
@@ -49,15 +36,16 @@ class _VendorListSearchWidgetState extends State<VendorListSearchWidget> {
                 ))),
         elevation: 0,
         centerTitle: true,
+        scrolledUnderElevation: 0,
         title: Text(
-          widget.title,
+          title,
           style: GoogleFonts.poppins(
               textStyle: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w400,
                   color: ColorConstants.mainTextColor)),
         ),
-        actions: [VendorSearchBar(title: widget.title)],
+        actions: [VendorSearchBar(title: title)],
       ),
       body: Obx(() => pagecontroller.isSearchBarOpen.value
           ? SizedBox(
@@ -85,7 +73,7 @@ class _VendorListSearchWidgetState extends State<VendorListSearchWidget> {
                   }),
             )
           : VendorDisplayWidget(
-              category: widget.title,
+              category: title,
             )),
     );
   }

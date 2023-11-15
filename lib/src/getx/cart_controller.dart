@@ -5,6 +5,7 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/service_model.dart';
 
 class ServiceController extends GetxController {
+  static ServiceController get instance => Get.find();
   var _cartItems = <ServiceModel>[].obs;
   RxInt total = 0.obs;
   List<ServiceModel> get cartItems => _cartItems;
@@ -12,13 +13,10 @@ class ServiceController extends GetxController {
   RxInt counter = 0.obs;
   bool selecteditem = false;
 
-    @override
+  @override
   void onInit() {
     super.onInit();
   }
-
-
- 
 
   void removeFromCart(ServiceModel serviceModel) {
     String price = serviceModel.price.replaceAll('BD', '');
@@ -40,6 +38,7 @@ class ServiceController extends GetxController {
   void clearCart() {
     _cartItems.clear();
     counter = 0.obs;
+    update();
   }
 
   //to select one service
