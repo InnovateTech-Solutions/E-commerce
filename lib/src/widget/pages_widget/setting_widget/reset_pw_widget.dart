@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/reset_password_controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
@@ -94,7 +95,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                       resetPwcontroller.changePassword();
                       clearText();
                     },
-                    tilte: "Submit"),
+                    title: "Submit"),
               ],
             ),
           ),

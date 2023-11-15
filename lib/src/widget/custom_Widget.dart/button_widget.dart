@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/constant/color.dart';
 
 class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({Key? key, required this.onTap, required this.tilte})
+  const ButtonWidget({Key? key, required this.onTap, required this.title})
       : super(key: key);
-  final String tilte;
+  final String title;
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ButtonWidget extends StatelessWidget {
             color: ColorConstants.secondaryScaffoldBacground),
         child: Center(
           child: Text(
-            tilte,
+            title,
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(
                     fontSize: 14,

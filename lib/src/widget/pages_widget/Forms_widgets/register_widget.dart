@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/register_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
@@ -122,7 +123,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             phone: controller.phoneNumber.text.trim(),
                             imageUrl: ''))
                       },
-                  tilte: AppConst.signUp)
+                  title: AppConst.signUp)
             ],
           ),
         ));

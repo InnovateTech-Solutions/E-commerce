@@ -27,7 +27,7 @@ class AppConst {
   static String pastloginText =
       "Create your account and mange your appointments";
   static String googleContainerText = 'Continue with Google';
-  static String appleCotanierText = 'Continue with apple';
+  static String appleCotanierText = 'Continue with Apple';
   static String login = "LOGIN";
   static String signUp = "SIGN UP";
   static String email = "Email";
@@ -35,6 +35,8 @@ class AppConst {
   static String username = "User Name";
   static String phoneNumber = "Phone Number";
   static String verificationOTP = "VERIFICATION CODE";
+  static String googleimg = 'assets/Google.svg';
+  static String appleimg = 'assets/Apple.svg';
 
   //Divider
   static final pageDivider = Divider(

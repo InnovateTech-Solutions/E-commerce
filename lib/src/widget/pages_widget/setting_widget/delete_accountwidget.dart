@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/login_Controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
@@ -86,7 +87,7 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                     dispose(),
                     clearText()
                   },
-                  tilte: 'Delete account',
+                  title: 'Delete account',
                 )
               ],
             ))

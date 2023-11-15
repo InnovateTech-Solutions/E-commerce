@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
@@ -11,7 +12,7 @@ import 'package:profile_part/src/widget/constant_widget/const_widget/constant_wi
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
-import 'package:profile_part/src/widget/partial_widget/forms_partial.dart/login_icon.dart';
+import 'package:profile_part/src/widget/partial_widget/forms_partial.dart/login_external.dart';
 
 import '../../../getx/login_Controller.dart';
 
@@ -94,16 +95,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                           clearText(),
                           UserRepository.instance
                               .getUserDetails(controller.email.text.trim()),
-                          UserController.instance.logIn()
+                          UserController.instance.logIn(),
                         },
-                    tilte: AppConst.login),
+                    title: AppConst.login),
                 dontHaveAccountRow(),
               ],
             ),
           ),
         ),
         AppSizes.mediumHeightSizedBox,
-        LoginIcon(),
+        LoginExternal(),
       ],
     );
   }

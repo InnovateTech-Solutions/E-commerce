@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/helpers/actions/user_actions.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
@@ -123,7 +124,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                   usernameTitle.value = userName.text.trim();
                                   print(usernameTitle.value);
                                 },
-                                tilte: 'UPDATE')
+                                title: 'UPDATE')
                           ],
                         ),
                       ),

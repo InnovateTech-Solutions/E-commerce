@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/forget_controller.dart';
 import 'package:profile_part/src/getx/login_Controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
@@ -58,7 +59,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                 onTap: () => {
                   forgetController.passwordRest(context, email.text.trim()),
                 },
-                tilte: "RESET PASSWORD",
+                title: "RESET PASSWORD",
               ),
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dar
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/Forms/login_page.dart';
+import 'package:profile_part/src/View/Forms/pastlogin_page.dart';
 import 'package:profile_part/src/View/checkout/confirm_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/booking_controller.dart';
@@ -106,7 +107,12 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
                                         confirmTime:
                                             bookingController.timeList[index],
                                       )))
-                                    : Get.to(LoginPage()),
+                                    : Get.to(PastLogin(
+                                        vendorModel: widget.vendorModel,
+                                        confirmDate: datePart,
+                                        confirmTime:
+                                            bookingController.timeList[index],
+                                      )),
                                 //  print(selectedDate.value),
                                 // print(AppConst.timeList[index]),
                                 // bookAppointment(
