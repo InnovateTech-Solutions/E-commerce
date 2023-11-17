@@ -8,17 +8,17 @@ import 'package:profile_part/src/View/start_pages/intro_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/local_strings.dart';
 import 'package:profile_part/src/getx/Searchpage_controller.dart';
+import 'package:profile_part/src/getx/app_controller.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 
 import 'src/repository/payment_reposiory/payment_manger.dart';
 import 'src/repository/payment_reposiory/stripe_keys.dart';
 
 void main() async {
-  
-  await  WidgetsFlutterBinding.ensureInitialized();
+  await WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
-        .then((value) => Get.put(AuthenticationRepository()));
-  await NotificationsController().initNotifications();
+      .then((value) => Get.put(AuthenticationRepository()));
   Get.put(Appcontroller());
   Get.put(SearchPageController());
   Get.put(UserController());
