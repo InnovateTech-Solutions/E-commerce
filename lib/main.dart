@@ -8,12 +8,15 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/local_strings.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/Searchpage_controller.dart';
+import 'package:profile_part/src/getx/notifications_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
-      .then((value) => Get.put(AuthenticationRepository()));
+  
+  await  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
+        .then((value) => Get.put(AuthenticationRepository()));
+  await NotificationsController().initNotifications();
   Get.put(Appcontroller());
   Get.put(SearchPageController());
   runApp(MyApp());
