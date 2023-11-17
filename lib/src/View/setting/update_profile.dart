@@ -11,7 +11,7 @@ class UpdateProfile extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-        appBar: thirdAppBar(),
+        appBar: thirdAppBar(context),
         body: const SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Center(

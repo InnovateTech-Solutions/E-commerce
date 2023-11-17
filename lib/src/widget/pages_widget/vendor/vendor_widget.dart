@@ -371,11 +371,11 @@ class VendorWidget extends GetView<Appcontroller> {
                                                     ),
                                                   );
                                                 })),
-                                    AppSizes.mediumHeightSizedBox,
-                                    SimilarWidget(
-                                      category: vendor.category ?? '',
-                                      services: services,
-                                    )
+                                    // AppSizes.mediumHeightSizedBox,
+                                    // SimilarWidget(
+                                    //   category: vendor.category ?? '',
+                                    //   services: services,
+                                    // )
                                   ],
                                 ),
                               ),

@@ -58,7 +58,7 @@ secondAppBar() {
   );
 }
 
-thirdAppBar() {
+thirdAppBar(BuildContext context) {
   return AppBar(
     scrolledUnderElevation: 0,
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
@@ -68,7 +68,7 @@ thirdAppBar() {
       children: [
         IconButton(
             onPressed: () {
-              Get.back();
+              Navigator.pop(context);
             },
             icon: Icon(
               Icons.arrow_back,

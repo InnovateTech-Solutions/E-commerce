@@ -27,9 +27,7 @@ class VendorListSearchWidget extends GetView {
         leading: Obx(() => pagecontroller.isSearchBarOpen.value
             ? Container()
             : IconButton(
-                onPressed: () => {
-                      Get.back(),
-                    },
+                onPressed: () => {Navigator.pop(context), print('not back')},
                 icon: Icon(
                   Icons.arrow_back_ios,
                   color: ColorConstants.mainTextColor,
