@@ -171,7 +171,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
               return const Text("somthing went wrong");
             }
           } else if (snpshot.connectionState == ConnectionState.waiting) {
-            return DashboardTransition();
+            return const DashboardTransition();
+            ;
           } else {
             return const Text("somthing went wrong");
           }
