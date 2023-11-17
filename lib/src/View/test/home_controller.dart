@@ -1,49 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-class HomeController extends GetxController {
-  final RxInt selectedIndex = 0.obs; // Observable for the selected index
-
-  final List<Map<String, dynamic>> allPlayers = [
-    {"name": "Rohit Sharma", "country": "India"},
-    {"name": "Virat Kohli ", "country": "India"},
-    {"name": "Glenn Maxwell", "country": "Australia"},
-    {"name": "Aaron Finch", "country": "Australia"},
-    {"name": "Martin Guptill", "country": "New Zealand"},
-    {"name": "Trent Boult", "country": "New Zealand"},
-    {"name": "David Miller", "country": "South Africa"},
-    {"name": "Kagiso Rabada", "country": "South Africa"},
-    {"name": "Chris Gayle", "country": "West Indies"},
-    {"name": "Jason Holder", "country": "West Indies"},
-    {"name": "Mohammed r5ess", "country": "Amman naur"},
-  ];
-  Rx<List<Map<String, dynamic>>> foundPlayers =
-      Rx<List<Map<String, dynamic>>>([]);
-
-  @override
-  void onInit() {
-    super.onInit();
-    foundPlayers.value = allPlayers;
-  }
-
-  @override
-  void onClose() {}
-  void filterPlayer(String playerName) {
-    List<Map<String, dynamic>> results = [];
-    if (playerName.isEmpty) {
-      results = allPlayers;
-    } else {
-      results = allPlayers
-          .where((element) => element["name"]
-              .toString()
-              .toLowerCase()
-              .contains(playerName.toLowerCase()))
-          .toList();
-    }
-    foundPlayers.value = results;
-  }
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,83 +10,147 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Firebase Flutter Demo',
-      home: TestHistory(),
+      home: Testpage(),
     );
   }
 }
 
-class TestHistory extends StatefulWidget {
+class Testpage extends StatefulWidget {
   @override
-  _TestHistoryState createState() => _TestHistoryState();
+  _TestpageState createState() => _TestpageState();
 }
 
-class _TestHistoryState extends State<TestHistory> {
-  List<Map<String, dynamic>> futureBookings = [];
+class _TestpageState extends State<Testpage> {
+  List<Booking> futureBookings = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getFutureBookings(UserController.instance.email.value).then((bookings) {
+      setState(() {
+        futureBookings = bookings;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+
+    // Format the current date to match the date format stored in the database
+    String formattedDate = "${now.year}-${now.month}-${now.day}";
+
+    // Format the current time to match the time format stored in the database
+    String formattedTime = "${now.hour}:${now.minute}-${now.minute}";
     return Scaffold(
       appBar: AppBar(
-        title: Text('Firebase Flutter Demo'),
+        title: Text('Future Bookings'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () async {
-                List<Map<String, dynamic>> bookings = await getFutureBookings();
-                setState(() {
-                  futureBookings = bookings;
-                });
-              },
-              child: Text('Get Future Bookings'),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Future Bookings:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: futureBookings.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                      'Booking ID: ${futureBookings[index]['bookingId']}',
-                    ),
-                    subtitle: Text(
-                      'Date and Time: ${futureBookings[index]['dateTime']}',
-                    ),
-                  );
-                },
+      body: FutureBuilder<List<Booking>>(
+        future: getFutureBookings(UserController.instance.email.value),
+        builder: (context, snapshot) {
+          return Column(
+            children: [
+              ElevatedButton(
+                  onPressed: () => {
+                        print(UserController.instance.email.value),
+                        print(futureBookings.length),
+                        print(formattedDate),
+                        print(formattedTime)
+                      },
+                  child: Text('text')),
+              SizedBox(
+                height: 500,
+                width: 200,
+                child: ListView.builder(
+                  itemCount: futureBookings.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text('Date: ${futureBookings[index].date}'),
+                      subtitle: Text('Time: ${futureBookings[index].time}'),
+                      // Add other fields as needed
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Future<List<Map<String, dynamic>>> getFutureBookings() async {
+  Future<List<Booking>> getFutureBookings(String useremail) async {
+    // Get the current date and time
     DateTime now = DateTime.now();
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    QuerySnapshot querySnapshot = await firestore
+    // Format the current date to match the date format stored in the database
+    String formattedDate = "${now.year}-${now.month}-${now.day}";
+
+    // Format the current time to match the time format stored in the database
+    String formattedTime = "${now.hour}:${now.minute}-${now.minute}";
+
+    // Query Firebase to get future bookings
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+        .instance
         .collection('Bookings')
-        .where('date', isGreaterThanOrEqualTo: now)
-        .orderBy('dateTime')
+        .where('date', isGreaterThan: formattedDate)
         .get();
 
-    List<Map<String, dynamic>> bookings = [];
-    querySnapshot.docs.forEach((DocumentSnapshot document) {
-      Map<String, dynamic> bookingData =
-          document.data() as Map<String, dynamic>;
-      bookings.add(bookingData);
-    });
-
-    return bookings;
+    // Process the query results
+    List<Booking> futureBookings = [];
+    for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
+        in querySnapshot.docs) {
+      Booking booking = Booking.fromMap(documentSnapshot.data());
+      futureBookings.add(booking);
+    }
+    return futureBookings;
   }
+}
+
+class Booking {
+  final String date;
+  final String time;
+  // Add other fields as needed
+
+  Booking({
+    required this.date,
+    required this.time,
+    // Add other fields as needed
+  });
+
+  factory Booking.fromMap(Map<String, dynamic> data) {
+    return Booking(
+      date: data['date'],
+      time: data['time'],
+      // Map other fields accordingly
+    );
+  }
+}
+
+Future<List<Booking>> getFutureBookingsMagthe() async {
+  // Get the current date and time
+  DateTime now = DateTime.now();
+
+  // Format the current date to match the date format stored in the database
+  String formattedDate = "${now.year}-${now.month}-${now.day}";
+
+  // Format the current time to match the time format stored in the database
+  String formattedTime = "${now.hour}:${now.minute}-${now.minute}";
+
+  // Query Firebase to get future bookings
+  QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+      .instance
+      .collection('Bookings')
+      .where('date', isGreaterThan: formattedDate)
+      .get();
+
+  // Process the query results
+  List<Booking> futureBookings = [];
+  for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
+      in querySnapshot.docs) {
+    Booking booking = Booking.fromMap(documentSnapshot.data());
+    futureBookings.add(booking);
+  }
+  return futureBookings;
 }
