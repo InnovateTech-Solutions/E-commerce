@@ -85,9 +85,13 @@ class HistoryWidget extends StatelessWidget {
 */
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/widget/Text_Widget/history_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
+import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
 
 class HistoryWidget extends StatelessWidget {
   const HistoryWidget({super.key});
@@ -95,67 +99,25 @@ class HistoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset("assets/booking.svg"),
-          AppSizes.largeHeightSizedBox,
-          historyMainTexrt("No Appointment\nBooked"),
-        ],
+      child: SizedBox(
+        width: 300.w,
+        height: 500.h,
+        child: ListView(
+          children: [
+            SvgPicture.asset("assets/booking.svg"),
+            AppSizes.largeHeightSizedBox,
+            historyMainTexrt("No Appointment\nBooked"),
+            AppSizes.xsmallHeightSizedBox,
+            historyText("You have not booked any\n appointment yet."),
+            AppSizes.smallHeightSizedBox,
+            ButtonWidget(
+                onTap: () {
+                  Get.to(CategoriesPage());
+                },
+                title: "Book Now")
+          ],
+        ),
       ),
-    );
-  }
-}
-
-class BookingService {
-  final CollectionReference bookingsCollection =
-      FirebaseFirestore.instance.collection('Bookings');
-
-  // Get future bookings in real-time
-  Stream<QuerySnapshot> getFutureBookings() {
-    DateTime now = DateTime.now();
-    return bookingsCollection
-        .where('bookingTime', isGreaterThanOrEqualTo: now)
-        .snapshots();
-  }
-}
-
-// Example usage in a Flutter widget
-class BookingWidget extends StatelessWidget {
-  final BookingService _bookingService = BookingService();
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: _bookingService.getFutureBookings(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        }
-
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return Text('No future bookings available.');
-        }
-
-        // Process the snapshot data and display the bookings
-        List<QueryDocumentSnapshot> bookings = snapshot.data!.docs;
-        return ListView.builder(
-          itemCount: bookings.length,
-          itemBuilder: (context, index) {
-            var booking = bookings[index];
-            // Extract and display relevant booking information
-            return ListTile(
-              title: Text(booking['customerName']),
-              subtitle: Text('Booking Time: ${booking['bookingTime']}'),
-              // Add more details as needed
-            );
-          },
-        );
-      },
     );
   }
 }

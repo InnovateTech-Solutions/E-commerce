@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/helpers/actions/user_actions.dart';
+import 'package:profile_part/src/transition/update_transition.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
 import '../../../constant/app_const.dart';
@@ -38,7 +39,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
 
     return FutureBuilder(
         future: Future.delayed(
-          Duration(seconds: 4),
+          Duration(milliseconds: 500),
           () => controller.getUserData(),
         ),
         builder: ((context, snapShot) {
@@ -142,7 +143,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
               return const Text("somthing went wrong");
             }
           } else if (snapShot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const UpdateTransition();
           } else {
             return const Text("somthing went wrong");
           }

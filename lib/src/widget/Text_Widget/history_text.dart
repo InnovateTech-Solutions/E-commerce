@@ -10,12 +10,13 @@ historyMainTexrt(String title) {
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
               fontSize: 24.sp,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w700,
               color: ColorConstants.mainTextColor)));
 }
 
 historyText(String title) {
   return Text(title.tr,
+      textAlign: TextAlign.center,
       style: GoogleFonts.poppins(
           textStyle:
               TextStyle(fontSize: 14.sp, color: ColorConstants.mainTextColor)));
