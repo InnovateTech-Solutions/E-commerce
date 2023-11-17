@@ -26,7 +26,7 @@ class CategoryItem extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 140.h, left: 20.w),
             child: categoriesText(category.title),
-          )
+          ),
         ],
       ),
     );

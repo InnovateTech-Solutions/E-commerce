@@ -43,7 +43,7 @@ class _OTPWidgetState extends State<OTPWidget> {
           ),
           AppSizes.mediumHeightSizedBox,
           ButtonWidget(
-              onTap: () => OTPcontroller().verifyOTP(otp), tilte: "Submit")
+              onTap: () => OTPcontroller().verifyOTP(otp), title: "Submit")
         ],
       ),
     );

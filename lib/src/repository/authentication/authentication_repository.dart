@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:profile_part/src/View/Forms/login_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/main_page.dart';
 import 'package:profile_part/src/View/start_pages/intro_page.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/repository/exceptions/signup_email_password_failure.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
@@ -75,18 +75,18 @@ class AuthenticationRepository extends GetxController {
             .signInWithCredential(credential)
             .catchError((onError) => print(onError));
 
-        bool userExists =
-            await userRepository.userExist(googleSignInAccount.email);
-
-        if (userExists) {
+        bool emailExists =
+            await userRepository.checkEmailExists(googleSignInAccount.email);
+        if (emailExists) {
+        } else {
+          List<String> userName = googleSignInAccount.displayName!.split(' ');
           userRepository.createUser(UserModel(
               email: googleSignInAccount.email,
-              name: googleSignInAccount.displayName!.trim(),
+              name: userName.first,
               password: '',
               phone: '',
-              imageUrl: googleSignInAccount.photoUrl ?? ''));
-        } else {
-          print('welcame back');
+              imageUrl: googleSignInAccount
+                  .photoUrl)); // Add your account creation logic here
         }
       }
     } catch (e) {
@@ -166,7 +166,7 @@ class AuthenticationRepository extends GetxController {
         await querySnapshot.docs.first.reference.delete();
         await user.delete();
         print('User account deleted successfully.');
-        Get.offAll(const LoginPage());
+        //  Get.offAll(const LoginPage());
         Get.snackbar("User account Deleted", "Success");
       } else {
         Get.snackbar("Error", "User with the provided email not found.");
@@ -177,5 +177,9 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  Future<void> logout() async => {await _auth.signOut(), googleSign.signOut()};
+  Future<void> logout() async => {
+        await _auth.signOut(),
+        googleSign.signOut(),
+        UserController.instance.clearUserInfo()
+      };
 }

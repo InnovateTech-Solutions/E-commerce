@@ -6,23 +6,19 @@ import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/transition/vendors_transition.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/location_widget.dart';
 
-class VendorDisplayWidget extends StatefulWidget {
+class VendorDisplayWidget extends GetView {
   const VendorDisplayWidget({Key? key, required this.category})
       : super(key: key);
 
   final String category;
-  @override
-  State<VendorDisplayWidget> createState() => _VendorDisplayWidgetState();
-}
 
-class _VendorDisplayWidgetState extends State<VendorDisplayWidget> {
   @override
   Widget build(BuildContext context) {
     final firebaseservice = Get.put(DataController());
     return FutureBuilder<List<VendorModel>>(
       future: Future.delayed(
-        const Duration(milliseconds: 500),
-        () => firebaseservice.fetchVendorByCategory(widget.category),
+        const Duration(seconds: 1),
+        () => firebaseservice.fetchVendorByCategory(category),
       ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {

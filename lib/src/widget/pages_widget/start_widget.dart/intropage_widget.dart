@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/View/Forms/login_page.dart';
 import 'package:profile_part/src/View/Forms/register_page.dart';
+import 'package:profile_part/src/View/NavBar_pages/main_page.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
@@ -33,13 +34,18 @@ class IntroWidget extends StatelessWidget {
               height: 100.h,
             ),
             ButtonWidget(
-                onTap: () => Get.to(const LoginPage()), tilte: AppConst.login),
+                onTap: () => Get.to(const LoginPage()), title: AppConst.login),
             SizedBox(
               height: AppConst.largeSize.h,
             ),
             ButtonWidget(
                 onTap: () => Get.to(const RegisterPage()),
-                tilte: AppConst.signUp),
+                title: AppConst.signUp),
+            SizedBox(
+              height: AppConst.largeSize.h,
+            ),
+            ButtonWidget(
+                onTap: () => Get.to(const MainPage()), title: AppConst.signUp),
           ],
         ),
       ),

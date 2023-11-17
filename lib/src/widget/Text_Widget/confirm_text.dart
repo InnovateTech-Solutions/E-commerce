@@ -39,7 +39,7 @@ payText(String title) {
   return Text(title,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
-              fontSize: 12.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w300,
-              color: ColorConstants.subTextColor)));
+              color: ColorConstants.mainTextColor)));
 }

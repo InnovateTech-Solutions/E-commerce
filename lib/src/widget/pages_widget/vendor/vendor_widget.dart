@@ -3,15 +3,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:profile_part/src/View/Forms/login_page.dart';
 import 'package:profile_part/src/View/checkout/cart_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/cart_controller.dart';
-import 'package:profile_part/src/getx/similarItems_controller.dart';
-import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
+import 'package:profile_part/src/transition/vendor_transition.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -21,7 +19,6 @@ import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/ratin
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/service_select.dart';
 
 import '../../../getx/reviews_controller.dart';
-import '../../../transition/vendor_transition.dart';
 
 class VendorWidget extends GetView<Appcontroller> {
   const VendorWidget({required this.vendor, super.key});
@@ -31,9 +28,6 @@ class VendorWidget extends GetView<Appcontroller> {
   Widget build(BuildContext context) {
     final reviewsController = Get.put(ReviewsController(vendor.name));
     final cartController = Get.put(ServiceController());
-    final userController = Get.put(UserController());
-    final recommendedController = Get.put(VendorController());
-
     Get.put(Appcontroller());
     return FutureBuilder(
         future: FirebaseService.instance.fetchServicebyName(vendor.name),
@@ -59,7 +53,7 @@ class VendorWidget extends GetView<Appcontroller> {
                         )),
                     SliverToBoxAdapter(
                       child: Container(
-                        height: 1000.h,
+                        height: services.isEmpty ? 550.h : 1100.h,
                         width: double.infinity.w,
                         decoration: BoxDecoration(
                             color: ColorConstants.mainScaffoldBackgroundColor,
@@ -110,10 +104,8 @@ class VendorWidget extends GetView<Appcontroller> {
                                         () => Column(
                                           children: [
                                             GestureDetector(
-                                                onTap: () => {
-                                                      controller.currentIndex
-                                                          .value = index,
-                                                    },
+                                                onTap: () => controller
+                                                    .currentIndex.value = index,
                                                 child: serviceSelcet(
                                                     services[index].name,
                                                     index,
@@ -143,17 +135,11 @@ class VendorWidget extends GetView<Appcontroller> {
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 ProductButton(
-                                                  onTap: () => {
-                                                    print(
-                                                        "lenght ${recommendedController.vendors.length}"),
-                                                    cartController
-                                                        .toggleService(services[
-                                                            controller
-                                                                .currentIndex
-                                                                .value]),
-                                                    print(
-                                                        '${services[controller.currentIndex.value].isSelected}  + ${controller.currentIndex.value}'),
-                                                  },
+                                                  onTap: () => cartController
+                                                      .toggleService(services[
+                                                          controller
+                                                              .currentIndex
+                                                              .value]),
                                                   title: 'Book',
                                                 ),
                                                 subvendorText(services[
@@ -267,15 +253,12 @@ class VendorWidget extends GetView<Appcontroller> {
                                                               Radius.circular(
                                                                   20.r)),
                                                       color: ColorConstants
-                                                          .textFiledmColor,
+                                                          .secondaryScaffoldBacground,
                                                       boxShadow: [
                                                         BoxShadow(
-                                                            color: Colors
-                                                                .grey[200]!
+                                                            color: Colors.grey
                                                                 .withOpacity(
                                                                     0.5),
-                                                            spreadRadius: 2.r,
-                                                            blurRadius: 3.r,
                                                             offset:
                                                                 const Offset(
                                                                     0, 2)),
@@ -385,13 +368,11 @@ class VendorWidget extends GetView<Appcontroller> {
                                                     ),
                                                   );
                                                 })),
-                                    recommendedController.vendors.isEmpty
-                                        ? Container()
-                                        : ElevatedButton(
-                                            onPressed: () => print(
-                                                recommendedController
-                                                    .vendors.length),
-                                            child: Text('press me'))
+                                    AppSizes.mediumHeightSizedBox,
+                                    // SimilarWidget(
+                                    //   category: vendor.category ?? '',
+                                    //   services: services,
+                                    // )
                                   ],
                                 ),
                               ),
@@ -401,6 +382,7 @@ class VendorWidget extends GetView<Appcontroller> {
                       ),
                     )
                   ]),
+                  //price and confrim
                   Builder(builder: (context) {
                     return Obx(
                       () => cartController.cartItems.isEmpty
@@ -452,12 +434,9 @@ class VendorWidget extends GetView<Appcontroller> {
                                       ],
                                     ),
                                     ProductButton(
-                                      onTap: () =>
-                                          userController.isLoggedIn.value
-                                              ? Get.to(CartPage(
-                                                  vendorModel: vendor,
-                                                ))
-                                              : Get.to(LoginPage()),
+                                      onTap: () => Get.to(CartPage(
+                                        vendorModel: vendor,
+                                      )),
                                       title: 'Confrim',
                                     )
                                   ],
@@ -474,7 +453,9 @@ class VendorWidget extends GetView<Appcontroller> {
               return const Text("something went wrong");
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return VendorTransition();
+            return Center(
+              child: VendorTransition(),
+            );
           } else {
             return const Text("something went wrong");
           }
