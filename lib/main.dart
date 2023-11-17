@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/firebase_options.dart';
-import 'package:profile_part/src/View/start_pages/intro_page.dart';
+import 'package:profile_part/src/View/NavBar_pages/main_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/local_strings.dart';
 import 'package:profile_part/src/getx/Searchpage_controller.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 primaryColor: ColorConstants.mainScaffoldBackgroundColor),
-            home: IntroPage());
+            home: MainPage());
       },
     );
   }

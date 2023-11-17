@@ -19,6 +19,7 @@ import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/ratin
 import 'package:profile_part/src/widget/partial_widget/vendor_partial.dart/service_select.dart';
 
 import '../../../getx/reviews_controller.dart';
+import '../../partial_widget/vendor_partial.dart/similar_category.dart';
 
 class VendorWidget extends GetView<Appcontroller> {
   const VendorWidget({required this.vendor, super.key});
@@ -369,10 +370,10 @@ class VendorWidget extends GetView<Appcontroller> {
                                                   );
                                                 })),
                                     AppSizes.mediumHeightSizedBox,
-                                    // SimilarWidget(
-                                    //   category: vendor.category ?? '',
-                                    //   services: services,
-                                    // )
+                                    SimilarWidget(
+                                      category: vendor.category ?? '',
+                                      services: services,
+                                    )
                                   ],
                                 ),
                               ),
