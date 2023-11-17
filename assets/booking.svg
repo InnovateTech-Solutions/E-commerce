@@ -1,0 +1,15 @@
+<svg width="193" height="191" viewBox="0 0 193 191" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M65.6666 15.9167V39.7917" stroke="#020953" stroke-width="11.9375" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M129.333 15.9167V39.7917" stroke="#020953" stroke-width="11.9375" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.8541 72.341H165.146" stroke="#020953" stroke-width="11.9375" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M145.25 183.042C162.831 183.042 177.083 168.789 177.083 151.208C177.083 133.627 162.831 119.375 145.25 119.375C127.669 119.375 113.417 133.627 113.417 151.208C113.417 168.789 127.669 183.042 145.25 183.042Z" stroke="#020953" stroke-width="11.9375" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M153.765 160.042L136.893 143.25" stroke="#020953" stroke-width="11.9375" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M153.606 143.409L136.734 160.281" stroke="#020953" stroke-width="11.9375" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M169.125 67.6459V130.198C163.315 123.593 154.8 119.375 145.25 119.375C127.662 119.375 113.417 133.62 113.417 151.208C113.417 157.177 115.088 162.828 118.033 167.603C119.704 170.468 121.852 173.014 124.32 175.083H65.6667C37.8125 175.083 25.875 159.167 25.875 135.292V67.6459C25.875 43.7709 37.8125 27.8542 65.6667 27.8542H129.333C157.188 27.8542 169.125 43.7709 169.125 67.6459Z" stroke="#020953" stroke-width="11.9375" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M97.464 109.029H97.5355" stroke="#020953" stroke-width="15.9167" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M68.0089 109.029H68.0804" stroke="#020953" stroke-width="15.9167" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M68.0089 132.904H68.0804" stroke="#020953" stroke-width="15.9167" stroke-linecap="round" stroke-linejoin="round"/>
+<g style="mix-blend-mode:multiply">
+<path d="M0 39C0 22.4315 13.4315 9 30 9H113C129.569 9 143 22.4315 143 39V80H0V39Z" fill="#F9F5F0"/>
+</g>
+</svg>

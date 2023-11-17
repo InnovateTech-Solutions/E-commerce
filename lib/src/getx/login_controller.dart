@@ -6,6 +6,7 @@ import 'package:profile_part/src/repository/authentication/authentication_reposi
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
   final formkey = GlobalKey<FormState>();
+  final rmkey = GlobalKey<FormState>();
   final email = TextEditingController();
   final password = TextEditingController();
 

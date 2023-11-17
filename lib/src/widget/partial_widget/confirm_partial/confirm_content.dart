@@ -35,22 +35,17 @@ class Confirm {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: secondaryConfirmText(vendorName),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              vendorAdress ?? 'There is no address',
-              style: TextStyle(
-                  color: ColorConstants.mainTextColor, // Customize text color
-                  fontSize: 10.0.sp,
-                  fontWeight: FontWeight.w300
-                  // Customize text size
-                  ),
-            ),
+          secondaryConfirmText(vendorName),
+          Text(
+            vendorAdress ?? 'There is no address',
+            style: TextStyle(
+                color: ColorConstants.mainTextColor, // Customize text color
+                fontSize: 10.0.sp,
+                fontWeight: FontWeight.w300
+                // Customize text size
+                ),
           )
         ],
       ),
@@ -69,12 +64,10 @@ class Confirm {
           ),
           AppSizes.smallWidthSizedBox,
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               secondaryConfirmText(formatted),
-              Padding(
-                padding: EdgeInsets.only(right: 60.w),
-                child: secondaryConfirmText(confirmTime),
-              )
+              secondaryConfirmText(confirmTime)
             ],
           )
         ],
@@ -139,6 +132,7 @@ class Confirm {
           ),
           AppSizes.smallWidthSizedBox,
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               secondaryConfirmText('Booking notes'),
               Container(

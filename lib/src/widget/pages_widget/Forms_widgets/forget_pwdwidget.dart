@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/forget_controller.dart';
 import 'package:profile_part/src/getx/login_Controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
@@ -42,23 +43,25 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
               AppSizes.mediumHeightSizedBox,
               textFieldLabel(AppConst.email),
               FormWidget(
-                  login: Login(
-                enableText: false,
-                controller: email,
-                hintText: AppConst.email,
-                icon: const Icon(Icons.email),
-                invisible: false,
-                validator: (email) => controller.validateEmail(email),
-                type: TextInputType.emailAddress,
-                onChange: null,
-                inputFormat: null,
-              )),
+                login: Login(
+                  enableText: false,
+                  controller: email,
+                  hintText: AppConst.email,
+                  icon: const Icon(Icons.email),
+                  invisible: false,
+                  validator: (email) => controller.validateEmail(email),
+                  type: TextInputType.emailAddress,
+                  onChange: null,
+                  inputFormat: null,
+                ),
+                color: ColorConstants.secondaryScaffoldBacground,
+              ),
               AppSizes.mediumHeightSizedBox,
               ButtonWidget(
                 onTap: () => {
                   forgetController.passwordRest(context, email.text.trim()),
                 },
-                tilte: "RESET PASSWORD",
+                title: "RESET PASSWORD",
               ),
             ],
           ),

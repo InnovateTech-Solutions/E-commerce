@@ -47,16 +47,18 @@ reviewDialog(BuildContext context, String vendorName) {
                   const Text("Write a Feedback"),
                   AppSizes.smallHeightSizedBox,
                   FormWidget(
-                      login: Login(
-                          controller: reviewsController.comment,
-                          hintText: 'Review',
-                          icon: const Icon(Icons.reviews),
-                          invisible: false,
-                          validator: null,
-                          type: TextInputType.emailAddress,
-                          onChange: null,
-                          inputFormat: [],
-                          enableText: false)),
+                    login: Login(
+                        controller: reviewsController.comment,
+                        hintText: 'Review',
+                        icon: const Icon(Icons.reviews),
+                        invisible: false,
+                        validator: null,
+                        type: TextInputType.emailAddress,
+                        onChange: null,
+                        inputFormat: [],
+                        enableText: false),
+                    color: ColorConstants.secondaryScaffoldBacground,
+                  ),
                   AppSizes.largeHeightSizedBox,
                   GestureDetector(
                     onTap: () => {

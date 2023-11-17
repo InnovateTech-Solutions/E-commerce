@@ -11,6 +11,8 @@ import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/form_widget.dart';
 
+import '../../../constant/color.dart';
+
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key? key}) : super(key: key);
 
@@ -51,59 +53,67 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               AppSizes.smallHeightSizedBox,
               textFieldLabel(AppConst.email),
               FormWidget(
-                  login: Login(
-                enableText: false,
-                controller: controller.email,
-                hintText: AppConst.email,
-                icon: const Icon(Icons.email),
-                invisible: false,
-                validator: (email) => controller.validateEmail(email),
-                type: TextInputType.emailAddress,
-                onChange: null,
-                inputFormat: null,
-              )),
+                login: Login(
+                  enableText: false,
+                  controller: controller.email,
+                  hintText: AppConst.email,
+                  icon: const Icon(Icons.email),
+                  invisible: false,
+                  validator: (email) => controller.validateEmail(email),
+                  type: TextInputType.emailAddress,
+                  onChange: null,
+                  inputFormat: null,
+                ),
+                color: ColorConstants.secondaryScaffoldBacground,
+              ),
               AppSizes.smallHeightSizedBox,
               textFieldLabel(AppConst.username),
               FormWidget(
-                  login: Login(
-                enableText: false,
-                controller: controller.userName,
-                hintText: AppConst.username,
-                icon: const Icon(Icons.abc),
-                invisible: false,
-                validator: (email) => controller.vaildateUserName(email),
-                type: TextInputType.name,
-                onChange: null,
-                inputFormat: null,
-              )),
+                login: Login(
+                  enableText: false,
+                  controller: controller.userName,
+                  hintText: AppConst.username,
+                  icon: const Icon(Icons.abc),
+                  invisible: false,
+                  validator: (email) => controller.vaildateUserName(email),
+                  type: TextInputType.name,
+                  onChange: null,
+                  inputFormat: null,
+                ),
+                color: ColorConstants.secondaryScaffoldBacground,
+              ),
               AppSizes.smallHeightSizedBox,
               textFieldLabel(AppConst.password),
               FormWidget(
-                  login: Login(
-                enableText: false,
-                controller: controller.password,
-                hintText: AppConst.password,
-                icon: const Icon(Icons.password),
-                invisible: true,
-                validator: (email) => controller.vaildatePassword(email),
-                type: TextInputType.visiblePassword,
-                onChange: null,
-                inputFormat: null,
-              )),
+                login: Login(
+                  enableText: false,
+                  controller: controller.password,
+                  hintText: AppConst.password,
+                  icon: const Icon(Icons.password),
+                  invisible: true,
+                  validator: (email) => controller.vaildatePassword(email),
+                  type: TextInputType.visiblePassword,
+                  onChange: null,
+                  inputFormat: null,
+                ),
+                color: ColorConstants.secondaryScaffoldBacground,
+              ),
               AppSizes.smallHeightSizedBox,
               textFieldLabel(AppConst.phoneNumber),
               FormWidget(
-                  login: Login(
-                enableText: false,
-                controller: controller.phoneNumber,
-                hintText: AppConst.phoneNumber,
-                icon: const Icon(Icons.phone),
-                invisible: false,
-                validator: (email) => controller.vaildPhoneNumber(email),
-                type: TextInputType.number,
-                onChange: null,
-                inputFormat: null,
-              )),
+                login: Login(
+                  enableText: false,
+                  controller: controller.phoneNumber,
+                  hintText: AppConst.phoneNumber,
+                  icon: const Icon(Icons.phone),
+                  invisible: false,
+                  validator: (email) => controller.vaildPhoneNumber(email),
+                  type: TextInputType.number,
+                  onChange: null,
+                  inputFormat: null,
+                ),
+                color: ColorConstants.secondaryScaffoldBacground,
+              ),
               AppSizes.smallHeightSizedBox,
               ButtonWidget(
                   onTap: () => {
@@ -122,7 +132,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             phone: controller.phoneNumber.text.trim(),
                             imageUrl: ''))
                       },
-                  tilte: AppConst.signUp)
+                  title: AppConst.signUp)
             ],
           ),
         ));

@@ -3,13 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/Forms/register_page.dart';
-import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/lang_list.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/button_model.dart';
 import 'package:profile_part/src/model/drawer_button.dart';
+import 'package:profile_part/src/model/history_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
+import 'package:profile_part/src/widget/Text_Widget/history_text.dart';
+import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
 constDivider() {
   return Divider(
@@ -88,9 +90,7 @@ drawerWidget(AppDrawerButton drawer) {
     child: Row(
       children: [
         drawer.icon,
-        SizedBox(
-          width: AppConst.medium,
-        ),
+        AppSizes.mediumWidthSizedBox,
         textFieldLabel(drawer.title)
       ],
     ),
@@ -151,4 +151,42 @@ buildDialog(BuildContext context) {
 updateLanguage(Locale locale) {
   Get.back();
   Get.updateLocale(locale);
+}
+
+historyContainer(HistoryModel historyModel) {
+  return GestureDetector(
+    onTap: () {},
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Container(
+                  height: 70.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                      color: ColorConstants.secondaryScaffoldBacground,
+                      image: DecorationImage(
+                          image: NetworkImage(historyModel.image)))),
+              AppSizes.smallWidthSizedBox,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  historyText(historyModel.vendor),
+                  historyText(historyModel.time),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Icon(
+          Icons.arrow_forward_ios,
+          color: ColorConstants.mainTextColor,
+        )
+      ],
+    ),
+  );
 }

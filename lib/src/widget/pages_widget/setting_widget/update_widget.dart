@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/helpers/actions/user_actions.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
@@ -66,45 +67,51 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                           children: [
                             textFieldLabel(AppConst.email),
                             FormWidget(
-                                login: Login(
-                                    enableText: true,
-                                    controller: email,
-                                    hintText: 'Email',
-                                    icon: const Icon(Icons.email_rounded),
-                                    invisible: false,
-                                    validator: (email) =>
-                                        validator.validateEmail(email),
-                                    type: TextInputType.emailAddress,
-                                    onChange: null,
-                                    inputFormat: [])),
+                              login: Login(
+                                  enableText: true,
+                                  controller: email,
+                                  hintText: 'Email',
+                                  icon: const Icon(Icons.email_rounded),
+                                  invisible: false,
+                                  validator: (email) =>
+                                      validator.validateEmail(email),
+                                  type: TextInputType.emailAddress,
+                                  onChange: null,
+                                  inputFormat: []),
+                              color: ColorConstants.secondaryScaffoldBacground,
+                            ),
                             AppSizes.smallHeightSizedBox,
                             textFieldLabel(AppConst.username),
                             FormWidget(
-                                login: Login(
-                                    enableText: false,
-                                    controller: userName,
-                                    hintText: 'Username',
-                                    icon: const Icon(Icons.person),
-                                    invisible: false,
-                                    validator: (userName) =>
-                                        validator.vaildateUserName(userName),
-                                    type: TextInputType.name,
-                                    onChange: null,
-                                    inputFormat: [])),
+                              login: Login(
+                                  enableText: false,
+                                  controller: userName,
+                                  hintText: 'Username',
+                                  icon: const Icon(Icons.person),
+                                  invisible: false,
+                                  validator: (userName) =>
+                                      validator.vaildateUserName(userName),
+                                  type: TextInputType.name,
+                                  onChange: null,
+                                  inputFormat: []),
+                              color: ColorConstants.secondaryScaffoldBacground,
+                            ),
                             AppSizes.smallHeightSizedBox,
                             textFieldLabel(AppConst.phoneNumber),
                             FormWidget(
-                                login: Login(
-                                    enableText: false,
-                                    controller: phoneNumber,
-                                    hintText: 'Phone Number',
-                                    icon: const Icon(Icons.phone),
-                                    invisible: false,
-                                    validator: (phoneNumber) =>
-                                        validator.vaildPhoneNumber(phoneNumber),
-                                    type: TextInputType.number,
-                                    onChange: null,
-                                    inputFormat: [])),
+                              login: Login(
+                                  enableText: false,
+                                  controller: phoneNumber,
+                                  hintText: 'Phone Number',
+                                  icon: const Icon(Icons.phone),
+                                  invisible: false,
+                                  validator: (phoneNumber) =>
+                                      validator.vaildPhoneNumber(phoneNumber),
+                                  type: TextInputType.number,
+                                  onChange: null,
+                                  inputFormat: []),
+                              color: ColorConstants.secondaryScaffoldBacground,
+                            ),
                             AppSizes.mediumHeightSizedBox,
                             ButtonWidget(
                                 onTap: () async {
@@ -123,7 +130,7 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                   usernameTitle.value = userName.text.trim();
                                   print(usernameTitle.value);
                                 },
-                                tilte: 'UPDATE')
+                                title: 'UPDATE')
                           ],
                         ),
                       ),

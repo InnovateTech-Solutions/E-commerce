@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/app_const.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/login_Controller.dart';
 import 'package:profile_part/src/model/login_model.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
@@ -41,44 +42,47 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
     return Form(
       key: logincontroller.formkey,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30.w),
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 100.h),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
                 child: ListView(
               children: [
-                AppSizes.mediumHeightSizedBox,
                 mainText("Delete my account"),
                 divder(150.w, 0, 0),
                 AppSizes.largeHeightSizedBox,
                 textFieldLabel(AppConst.email),
                 FormWidget(
-                    login: Login(
-                        enableText: true,
-                        controller: email,
-                        hintText: "Email",
-                        icon: const Icon(Icons.email_rounded),
-                        invisible: false,
-                        validator: (email) =>
-                            logincontroller.validateEmail(email),
-                        type: TextInputType.emailAddress,
-                        onChange: null,
-                        inputFormat: [])),
+                  login: Login(
+                      enableText: true,
+                      controller: email,
+                      hintText: "Email",
+                      icon: const Icon(Icons.email_rounded),
+                      invisible: false,
+                      validator: (email) =>
+                          logincontroller.validateEmail(email),
+                      type: TextInputType.emailAddress,
+                      onChange: null,
+                      inputFormat: []),
+                  color: ColorConstants.secondaryScaffoldBacground,
+                ),
                 AppSizes.smallHeightSizedBox,
                 textFieldLabel(AppConst.password),
                 FormWidget(
-                    login: Login(
-                        enableText: false,
-                        controller: password,
-                        hintText: AppConst.password,
-                        icon: const Icon(Icons.lock),
-                        invisible: true,
-                        validator: (password) =>
-                            logincontroller.vaildatePassword(password),
-                        type: TextInputType.visiblePassword,
-                        onChange: null,
-                        inputFormat: null)),
+                  login: Login(
+                      enableText: false,
+                      controller: password,
+                      hintText: AppConst.password,
+                      icon: const Icon(Icons.lock),
+                      invisible: true,
+                      validator: (password) =>
+                          logincontroller.vaildatePassword(password),
+                      type: TextInputType.visiblePassword,
+                      onChange: null,
+                      inputFormat: null),
+                  color: ColorConstants.secondaryScaffoldBacground,
+                ),
                 AppSizes.smallHeightSizedBox,
                 ButtonWidget(
                   onTap: () => {
@@ -87,10 +91,10 @@ class _DeleteAccountWidgetState extends State<DeleteAccountWidget> {
                     dispose(),
                     clearText()
                   },
-                  tilte: 'Delete account',
+                  title: 'Delete account',
                 )
               ],
-            )),
+            ))
           ],
         ),
       ),

@@ -13,6 +13,7 @@ class Login {
   TextInputType type;
   void Function(String?)? onChange;
   List<TextInputFormatter>? inputFormat;
+
   Login(
       {required this.controller,
       required this.enableText,

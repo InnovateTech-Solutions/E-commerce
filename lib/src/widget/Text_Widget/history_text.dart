@@ -6,6 +6,7 @@ import 'package:profile_part/src/constant/color.dart';
 
 historyMainTexrt(String title) {
   return Text(title.tr,
+      textAlign: TextAlign.center,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
               fontSize: 24.sp,

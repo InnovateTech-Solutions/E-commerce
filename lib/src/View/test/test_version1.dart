@@ -1,186 +1,358 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_timeline_calendar/timeline/flutter_timeline_calendar.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/data_controller.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
+import 'package:profile_part/src/getx/vendors_controller.dart';
+import 'package:profile_part/src/model/user_model.dart';
+import 'package:profile_part/src/model/vendor_model.dart';
+import 'package:profile_part/src/widget/Text_Widget/confirm_text.dart';
+import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
+import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
-class TestVersion extends StatelessWidget {
-  const TestVersion({super.key});
+class UserInfo extends StatelessWidget {
+  final UserController userController = Get.put(UserController());
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    RxString selectedDate = (DateTime.now()).toString().obs;
-    DateTime parsingDate = DateTime.parse(selectedDate.value);
-    RxString seletedTimeStamp = ''.obs;
     return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 70,
-        ),
-        TimelineCalendar(
-          calendarType: CalendarType.GREGORIAN,
-          calendarLanguage: "en",
-          calendarOptions: CalendarOptions(
-            viewType: ViewType.DAILY,
-            toggleViewType: true,
-            headerMonthElevation: 10,
-            headerMonthShadowColor: Colors.black26,
-            headerMonthBackColor: Colors.transparent,
-          ),
-          dayOptions: DayOptions(
-              selectedBackgroundColor: ColorConstants.mainTextColor,
-              compactMode: true,
-              weekDaySelectedColor: ColorConstants.mainTextColor,
-              disableDaysBeforeNow: true),
-          headerOptions: HeaderOptions(
-              weekDayStringType: WeekDayStringTypes.SHORT,
-              monthStringType: MonthStringTypes.FULL,
-              backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-              headerTextColor: ColorConstants.mainTextColor,
-              resetDateColor: ColorConstants.mainTextColor,
-              calendarIconColor: ColorConstants.mainTextColor,
-              navigationColor: ColorConstants.mainTextColor),
-          onChangeDateTime: (datetime) {
-//            print(datetime.getDate());
-
-            selectedDate.value = datetime.getDate();
-          },
-        ),
-        Expanded(
-            child: ListView.separated(
-                separatorBuilder: (context, index) => Divider(
-                      indent: 20.0,
-                      endIndent: 10.0,
-                      thickness: 1,
-                      color: ColorConstants.textFiledmColor,
-                    ),
-                itemCount: AppConst.timeList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => {
-                            //  print(selectedDate.value),
-                            // print(AppConst.timeList[index]),
-                            // bookAppointment(
-                            //  selectedDate.value, AppConst.timeList[index]),
-
-                            print(seletedTimeStamp.value =
-                                '${selectedDate.value}  ${AppConst.timeList[index]}'),
-                            //  addTimestampToDatabase(DateTime.parse(
-                            //    '${selectedDate.value}${AppConst.timeList[index]}'))
-                            print(parsingDate)
-                          },
-                          child: Text(AppConst.timeList[index],
-                              style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: ColorConstants.mainTextColor))),
-                        )
-                      ],
-                    ),
-                  );
-                }))
-      ],
-    ));
-  }
-}
-
-void addTimestampToDatabase(DateTime timestamp) {
-  // Create a DateTime object representing the timestamp
-  timestamp = DateTime.now();
-
-  // Convert the DateTime to Firebase Timestamp
-  Timestamp timestampFirestore = Timestamp.fromDate(timestamp);
-
-  // Add the timestamp to Firebase Firestore
-  FirebaseFirestore.instance.collection('timestamps').add({
-    'timestamp': timestampFirestore,
-  }).then((DocumentReference document) {
-    print('Timestamp added to Firestore with ID: ${document.id}');
-  }).catchError((error) {
-    print('Error adding timestamp to Firestore: $error');
-  });
-}
-
-void bookAppointment(String selectedDate, String selectedTime) {
-  FirebaseFirestore.instance.collection('appointments').add({
-    'date': selectedDate,
-    'time': selectedTime,
-  }).then((value) {
-    return Get.snackbar('Success', '${selectedDate} the appointments is Booked',
-        snackPosition: SnackPosition.TOP,
-        colorText: ColorConstants.mainScaffoldBackgroundColor,
-        backgroundColor: ColorConstants.snakbarColorsuccessful);
-  }).catchError((error) {
-    // Handle errors
-    return Get.snackbar('Filed', '${selectedDate} the appointments is Booked',
-        snackPosition: SnackPosition.TOP,
-        colorText: ColorConstants.mainScaffoldBackgroundColor,
-        backgroundColor: ColorConstants.snakbarColorError);
-  });
-}
-
-TimeOfDay stringToTimeOfDay(String tod) {
-  final format = DateFormat.jm(); //"6:00 AM"
-  return TimeOfDay.fromDateTime(format.parse(tod));
-}
-
-/*
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
+      appBar: AppBar(
+        title: Text('Getx SharedPreferences Example'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Obx(() => userController.isLoggedIn.value
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Obx(() => Text('Username: ${userController.username.value}')),
+                  Obx(() => Text('Email: ${userController.email.value}')),
+                  Obx(() => Text('Email: ${userController.phone.value}')),
+                  Obx(() =>
+                      Text('islogeedin: ${userController.isLoggedIn.value}')),
+                  Obx(() => Text('Email: ${userController.notification}')),
+                  Obx(() => Text('IS TOGGLE: ${userController.isSwitched}')),
+                  TextField(
+                    controller: usernameController,
+                    decoration: InputDecoration(labelText: 'Username'),
+                  ),
+                  TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(labelText: 'Email'),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          userController.saveUserInfo(UserModel(
+                              email: emailController.text,
+                              name: usernameController.text,
+                              password: 'password',
+                              phone: 'phone',
+                              imageUrl: 'imageUrl'));
+                        },
+                        child: Text('Save User Info'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          userController.clearUserInfo();
+                        },
+                        child: Text('Clear User Info'),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            : Container(
+                child: Column(
+                  children: [
+                    Obx(() =>
+                        Text('Username: ${userController.username.value}')),
+                    Obx(() => Text('Email: ${userController.email.value}')),
+                    Obx(() => Text('Email: ${userController.phone.value}')),
+                    Obx(() =>
+                        Text('Email: ${userController.isLoggedIn.value}')),
+                    Obx(() =>
+                        Text('Email: ${userController.notification.value}')),
+                    Obx(() =>
+                        Text('Email: ${userController.notification.value}')),
+                  ],
+                ),
+              )),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String time2 = '2023-11-21 10:11:49';
+/// Flutter code sample for [PageView].
+
+class PageViewExampleApp extends StatelessWidget {
+  const PageViewExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Convert the DateTime to a Firebase Timestamp
-    Timestamp firebaseTimestamp = Timestamp.fromDate(DateTime.parse(time2));
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('PageView Sample')),
+        body: const PageViewExample(),
+      ),
+    );
+  }
+}
 
-    // Now, you can send `firebaseTimestamp` to Firebase database
-    // For example, assuming you have a Firestore collection reference:
+class PageViewExample extends StatelessWidget {
+  const PageViewExample({super.key});
 
-    FirebaseFirestore.instance.collection('your_collection_name').add({
-      'timestampField': firebaseTimestamp,
-    });
+  @override
+  Widget build(BuildContext context) {
+    final PageController controller = PageController();
+    return PageView(
+      /// [PageView.scrollDirection] defaults to [Axis.horizontal].
+      /// Use [Axis.vertical] to scroll vertically.
+      ///
+      ///
+      ///
 
+      controller: controller,
+      children: const <Widget>[
+        Center(
+          child: Text('First Page'),
+        ),
+        Center(
+          child: Text('Second Page'),
+        ),
+        Center(
+          child: Text('Third Page'),
+        ),
+      ],
+    );
+  }
+}
+
+class SimmlirCategory extends StatefulWidget {
+  const SimmlirCategory({super.key});
+
+  @override
+  State<SimmlirCategory> createState() => _SimmlirCategoryState();
+}
+
+class _SimmlirCategoryState extends State<SimmlirCategory> {
+  @override
+  Widget build(BuildContext context) {
+    final datacontroller = Get.put(DataController());
+    return Scaffold(
+      backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FutureBuilder<List<VendorModel>>(
+              future: datacontroller.fetchCategoriesByVendor('Skin care'),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    final similarItem = snapshot.data!;
+                    similarItem.shuffle();
+                    return similarItem.isEmpty
+                        ? Text('data')
+                        : Column(
+                            children: [
+                              SizedBox(
+                                  height: 200,
+                                  child: ListView.builder(
+                                      itemCount: similarItem.length,
+                                      itemBuilder: (context, index) {
+                                        return Text(
+                                          similarItem[index].name,
+                                          style: TextStyle(color: Colors.red),
+                                        );
+                                      }))
+                            ],
+                          );
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  } else {
+                    return Text('Somthing wrong');
+                  }
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return Text('Somthing wrong');
+                }
+              })
+        ],
+      ),
+    );
+  }
+}
+
+class YourWidget extends StatefulWidget {
+  @override
+  State<YourWidget> createState() => _YourWidgetState();
+}
+
+class _YourWidgetState extends State<YourWidget> {
+  final VendorController vendorController = Get.put(VendorController('Spa'));
+  String name = 'dental clinic';
+  @override
+  void initState() {
+    super.initState();
+    vendorController.fetchVendorsByCategory(name);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Firebase Timestamp Example'),
+        title: Text(name),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Concatenated String: $time2'),
-            Text('Firebase Timestamp: ${firebaseTimestamp.toDate()}'),
-            ElevatedButton(
-                onPressed: () => FirebaseFirestore.instance
-                        .collection('your_collection_name')
-                        .add({
-                      'timestampField': firebaseTimestamp,
-                    }),
-                child: Text('a'))
-          ],
-        ),
+      body: Column(
+        children: [
+          Obx(() {
+            if (vendorController.vendors.isEmpty) {
+              return CircularProgressIndicator(); // Show a loading indicator while data is loading.
+            } else {
+              return SizedBox(
+                height: 205,
+                width: 400,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return AppSizes.smallWidthSizedBox;
+                  },
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: vendorController.vendors.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 350.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        color: ColorConstants.mainScaffoldBackgroundColor,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2.r,
+                              blurRadius: 2.r,
+                              offset: const Offset(0, 2))
+                        ],
+                        borderRadius: BorderRadius.circular(10.0.r),
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                                width: 350.w,
+                                height: 100.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(7.0.r),
+                                  image: DecorationImage(
+                                      image: NetworkImage(vendorController
+                                          .vendors[index].image),
+                                      fit: BoxFit.cover),
+                                )),
+                            AppSizes.xsmallHeightSizedBox,
+                            subvendorText(vendorController.vendors[index].name),
+                            Obx(() => vendorController
+                                        .vendors[index].averageRating
+                                        .toString() ==
+                                    'null'
+                                ? Container()
+                                : Row(
+                                    children: [
+                                      secondaryConfirmText(
+                                        vendorController
+                                            .vendors[index].averageRating
+                                            .toString(),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                        size: 15,
+                                      )
+                                    ],
+                                  )),
+                            AppSizes.xsmallHeightSizedBox,
+                            thirdConfirmText(
+                                vendorController.vendors[index].address),
+                          ]),
+                    );
+                  },
+                ),
+              );
+            }
+          }),
+        ],
       ),
+    );
+  }
+}
+
+class HorizontalListView extends StatelessWidget {
+  final List<String> itemTitles = ['Item 1', 'Item 2', 'Item 3'];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: itemTitles.length,
+      itemBuilder: (context, index) {
+        return Container(
+          width: 150.0,
+          color: Colors.accents[index % Colors.accents.length],
+          child: Center(child: Text(itemTitles[index])),
+        );
+      },
+    );
+  }
+}
+
+
+/*
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+class UserInfo extends StatefulWidget {
+  const UserInfo({super.key});
+
+  @override
+  State<UserInfo> createState() => _UserInfoState();
+}
+
+class _UserInfoState extends State<UserInfo> {
+  @override
+  Widget build(BuildContext context) {
+    Future otpFunction() async {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '+962 787781174',
+        verificationCompleted: (PhoneAuthCredential credential) {},
+        verificationFailed: (FirebaseAuthException e) {},
+        codeSent: (String verificationId, int? resendToken) {},
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+    }
+
+    Future testOtp() async {
+      FirebaseAuth auth = FirebaseAuth.instance;
+
+// Wait for the user to complete the reCAPTCHA & for an SMS code to be sent.
+      ConfirmationResult confirmationResult =
+          await auth.signInWithPhoneNumber('+962 7877 81174');
+      UserCredential userCredential =
+          await confirmationResult.confirm('123456');
+    }
+
+    return Column(
+      children: [
+        ElevatedButton(onPressed: () => testOtp(), child: Text('data'))
+      ],
     );
   }
 }
