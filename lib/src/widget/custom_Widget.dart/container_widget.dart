@@ -13,23 +13,20 @@ class AppContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Stack(
-        children: [
-          Container(
-              margin: EdgeInsets.symmetric(vertical: 6.0.h, horizontal: 6.0.w),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0.r),
-                image: DecorationImage(
-                    image: NetworkImage(imgName), fit: BoxFit.cover),
-              )),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 6.0.h, horizontal: 6.0.w),
-            decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.3),
-                borderRadius: BorderRadius.all(Radius.circular(14.r))),
-          ),
-        ],
-      ),
+      child: Container(
+          margin: EdgeInsets.symmetric(vertical: 6.0.h, horizontal: 6.0.w),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2.r,
+                  blurRadius: 3.r,
+                  offset: const Offset(0, 2)),
+            ],
+            borderRadius: BorderRadius.circular(16.0.r),
+            image: DecorationImage(
+                image: NetworkImage(imgName), fit: BoxFit.cover),
+          )),
     );
   }
 }

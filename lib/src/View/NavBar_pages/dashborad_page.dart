@@ -15,9 +15,9 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: firstAppBar(),
+        appBar: HomeAppBar(),
         backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-        body: const DashBoradWidget(),
+        body: DashBoradWidget(),
       ),
     );
   }

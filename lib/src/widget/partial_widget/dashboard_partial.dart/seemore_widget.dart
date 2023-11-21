@@ -22,17 +22,9 @@ class _SeeMoreState extends State<SeeMore> {
           Text('see more',
               style: GoogleFonts.poppins(
                   textStyle: TextStyle(
-                      decoration: TextDecoration.underline,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       color: ColorConstants.mainTextColor))),
-          IconButton(
-              onPressed: widget.onTap,
-              icon: Icon(
-                Icons.arrow_forward,
-                size: 20,
-                color: ColorConstants.mainTextColor,
-              ))
         ],
       ),
     );
