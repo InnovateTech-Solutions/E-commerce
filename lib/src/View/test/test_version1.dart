@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,10 +8,14 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/data_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/getx/vendors_controller.dart';
+import 'package:profile_part/src/model/booking_model.dart';
 import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
+import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
+import 'package:profile_part/src/repository/user_repository/user_repository.dart';
 import 'package:profile_part/src/widget/Text_Widget/confirm_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
+import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
 class UserInfo extends StatelessWidget {
@@ -313,6 +320,8 @@ class HorizontalListView extends StatelessWidget {
     );
   }
 }
+
+
 
 
 /*

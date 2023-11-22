@@ -9,7 +9,7 @@ historyMainTexrt(String title) {
       textAlign: TextAlign.center,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
-              fontSize: 24.sp,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w700,
               color: ColorConstants.mainTextColor)));
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 
 void main() {
@@ -22,11 +23,11 @@ class Testpage extends StatefulWidget {
 
 class _TestpageState extends State<Testpage> {
   List<Booking> futureBookings = [];
-
+  final userController = Get.put(UserController());
   @override
   void initState() {
     super.initState();
-    getFutureBookings(UserController.instance.email.value).then((bookings) {
+    getFutureBookingsMagthe().then((bookings) {
       setState(() {
         futureBookings = bookings;
       });
@@ -47,7 +48,7 @@ class _TestpageState extends State<Testpage> {
         title: Text('Future Bookings'),
       ),
       body: FutureBuilder<List<Booking>>(
-        future: getFutureBookings(UserController.instance.email.value),
+        future: getFutureBookingsMagthe(),
         builder: (context, snapshot) {
           return Column(
             children: [
@@ -88,7 +89,7 @@ class _TestpageState extends State<Testpage> {
     String formattedDate = "${now.year}-${now.month}-${now.day}";
 
     // Format the current time to match the time format stored in the database
-    String formattedTime = "${now.hour}:${now.minute}-${now.minute}";
+    String formattedTime = "${now.hour}:${now.minute}:${now.minute}";
 
     // Query Firebase to get future bookings
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
@@ -141,8 +142,8 @@ Future<List<Booking>> getFutureBookingsMagthe() async {
   // Query Firebase to get future bookings
   QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
       .instance
-      .collection('Bookings')
-      .where('date', isGreaterThan: formattedDate)
+      .collection("Bookings")
+      .where('time', isGreaterThan: formattedTime)
       .get();
 
   // Process the query results

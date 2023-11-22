@@ -6,9 +6,9 @@ import 'package:profile_part/src/View/Forms/register_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/constant/lang_list.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
+import 'package:profile_part/src/model/booking_model.dart';
 import 'package:profile_part/src/model/button_model.dart';
 import 'package:profile_part/src/model/drawer_button.dart';
-import 'package:profile_part/src/model/history_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/history_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -153,7 +153,7 @@ updateLanguage(Locale locale) {
   Get.updateLocale(locale);
 }
 
-historyContainer(HistoryModel historyModel) {
+historyContainer(Booking historyModel) {
   return GestureDetector(
     onTap: () {},
     child: Row(
@@ -170,12 +170,12 @@ historyContainer(HistoryModel historyModel) {
                       borderRadius: BorderRadius.all(Radius.circular(10.r)),
                       color: ColorConstants.secondaryScaffoldBacground,
                       image: DecorationImage(
-                          image: NetworkImage(historyModel.image)))),
+                          image: NetworkImage('historyModel.image')))),
               AppSizes.smallWidthSizedBox,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  historyText(historyModel.vendor),
+                  historyText(historyModel.vendorName),
                   historyText(historyModel.time),
                 ],
               ),
