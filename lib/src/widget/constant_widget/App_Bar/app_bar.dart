@@ -1,11 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/vendor/vendor_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
+import 'package:profile_part/src/widget/Text_Widget/dashboard_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
+import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/appbar_partial.dart';
+
+HomeAppBar() {
+  return AppBar(
+    scrolledUnderElevation: 0,
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    elevation: 0,
+    leading: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 20.w,
+          height: 20.h,
+          child: SvgPicture.asset(
+            "assets/location.svg",
+            width: 5.w,
+            height: 5.h,
+          ),
+        ),
+      ],
+    ),
+    title: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        appBarText("Current Locatio"),
+        Obx(() => currentLocation()),
+      ],
+    ),
+    actions: [
+      Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Container(
+              width: 25,
+              height: 25,
+              child: SvgPicture.asset("assets/notification.svg")))
+    ],
+  );
+}
 
 firstAppBar() {
   return AppBar(

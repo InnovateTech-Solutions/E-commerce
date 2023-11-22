@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:profile_part/src/constant/color.dart';
 
 class SliderWidget extends StatefulWidget {
@@ -29,7 +28,7 @@ class _SliderWidgetState extends State<SliderWidget> {
             enableInfiniteScroll: true,
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
             viewportFraction: 0.8,
-            height: 250.0.h,
+            height: 200.0.h,
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
