@@ -17,7 +17,7 @@ class HistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getFutureBookings('test@test.com');
+    getFutureBookings('abood.al7amed@gmail.com');
   }
 
   Future<void> getFutureBookings(String userId) async {
@@ -28,10 +28,7 @@ class HistoryController extends GetxController {
         .where('userEmail', isEqualTo: userId);
 
     subscription = bookingsCollection
-        .where(
-          'date',
-          isGreaterThan: now.toLocal().toString().split(' ')[0],
-        )
+        .where('date', isGreaterThan: now.toLocal().toString().split(' ')[0])
         .snapshots()
         .listen((QuerySnapshot querySnapshot) {
       snapshots = querySnapshot.docs;
@@ -81,7 +78,7 @@ class UpBookingController extends GetxController {
   void onReady() {
     super.onReady();
 
-    getFutureBookings(UserController.instance.email.value);
+    getFutureBookings('abood.al7amed@gmail.com');
   }
 
   @override

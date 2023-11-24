@@ -150,7 +150,7 @@ class ConfirmWidget extends GetView<ServiceController> {
                         ),
                         SizedBox(height: 10.0),
                         secondaryConfirmText("Payment Successful!"),
-                        payText('Tap to get the main pahe'),
+                        payText('Tap to get the main page'),
                       ],
                     ),
                   ),

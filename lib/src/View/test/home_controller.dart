@@ -68,7 +68,8 @@ class _TestpageState extends State<Testpage> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text('Date: ${futureBookings[index].date}'),
-                      subtitle: Text('Time: ${futureBookings[index].time}'),
+                      subtitle:
+                          Text('Time: ${futureBookings[index].useremail}'),
                       // Add other fields as needed
                     );
                   },
@@ -112,20 +113,19 @@ class _TestpageState extends State<Testpage> {
 class Booking {
   final String date;
   final String time;
+  final String useremail;
+
   // Add other fields as needed
 
-  Booking({
-    required this.date,
-    required this.time,
-    // Add other fields as needed
-  });
+  Booking({required this.date, required this.time, required this.useremail
+      // Add other fields as needed
+      });
 
   factory Booking.fromMap(Map<String, dynamic> data) {
     return Booking(
-      date: data['date'],
-      time: data['time'],
-      // Map other fields accordingly
-    );
+        date: data['date'], time: data['time'], useremail: data['userEmail']
+        // Map other fields accordingly
+        );
   }
 }
 
@@ -143,7 +143,7 @@ Future<List<Booking>> getFutureBookingsMagthe() async {
   QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
       .instance
       .collection("Bookings")
-      .where('time', isGreaterThan: formattedTime)
+      .where('date', isGreaterThan: formattedDate)
       .get();
 
   // Process the query results
