@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:profile_part/src/constant/color.dart';
 
 class VendorImage extends StatelessWidget {
   const VendorImage({required this.image, super.key});
@@ -31,25 +33,27 @@ class VendorImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Image URL Example'),
-      ),
-      body: FutureBuilder<String>(
-        future: getImageUrl(image),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else if (snapshot.data == null) {
-            return Text('No image URL found');
-          } else {
-            // Use the retrieved image URL as needed
-            return Image.network(snapshot.data!);
-          }
-        },
-      ),
+    return FutureBuilder<String>(
+      future: getImageUrl(image),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (snapshot.data == null) {
+          return Text('No image URL found');
+        } else {
+          // Use the retrieved image URL as needed
+          return Container(
+            height: 70.h,
+            width: 75.w,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                color: ColorConstants.secondaryScaffoldBacground,
+                image: DecorationImage(image: NetworkImage(snapshot.data!))),
+          );
+        }
+      },
     );
   }
 }

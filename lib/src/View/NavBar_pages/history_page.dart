@@ -8,11 +8,13 @@ class HistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: profileAppBar(),
-        drawer: Drawer(
-          child: DrawerWidget(),
-        ),
-        body: HistoryWidget());
+    return SafeArea(
+      child: Scaffold(
+          drawer: Drawer(
+            child: DrawerWidget(),
+          ),
+          body: SingleChildScrollView(
+              scrollDirection: Axis.vertical, child: HistoryWidget())),
+    );
   }
 }

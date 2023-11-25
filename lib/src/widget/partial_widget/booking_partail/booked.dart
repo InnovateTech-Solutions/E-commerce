@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:profile_part/src/getx/history_controller1.dart';
+import 'package:profile_part/src/getx/history_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
@@ -15,14 +15,14 @@ import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
 import '../../../helpers/actions/get_vendor_image.dart';
 
-class HistoryAvailable extends GetView<HistoryController> {
+class HistoryAvailable extends GetView<BookingControllerAboutDate> {
   const HistoryAvailable({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HistoryController());
+    Get.put(BookingControllerAboutDate());
     return Obx(
-      () => controller.snapshots.isEmpty
+      () => controller.bookings.isEmpty
           ? Center(
               child: CircularProgressIndicator(),
             )
@@ -41,12 +41,12 @@ class HistoryAvailable extends GetView<HistoryController> {
                   width: 350.w,
                   child: ListView.separated(
                     itemBuilder: ((context, index) {
-                      return Text(controller.allApointment[index].date);
+                      return Text(controller.bookings[index]['date']);
                     }),
                     separatorBuilder: (BuildContext context, int index) {
                       return AppSizes.mediumHeightSizedBox;
                     },
-                    itemCount: controller.allApointment.length,
+                    itemCount: controller.bookings.length,
                   ),
                 )
               ],

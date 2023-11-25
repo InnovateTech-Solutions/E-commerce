@@ -122,7 +122,7 @@ class ContentView extends StatelessWidget {
     );
   }
 }
-*//*
+*/ /*
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -283,3 +283,87 @@ void pastLoginDialoge(String confirmTime, String confirmDate,
   );
 }
 */
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class BookingControllerTest extends GetxController {
+  late RxList<DocumentSnapshot<Map<String, dynamic>>> bookingsToday;
+
+  @override
+  void onInit() {
+    super.onInit();
+    bookingsToday = <DocumentSnapshot<Map<String, dynamic>>>[].obs;
+    fetchBookings();
+  }
+
+  void fetchBookings() async {
+    try {
+      DateTime currentDate = DateTime.now();
+
+      var result = await FirebaseFirestore.instance
+          .collection('Bookings')
+          .where('userEmail',
+              isEqualTo:
+                  'abood.al7amed@gmail.com') // replace with your username
+          .get();
+
+      var filteredBookings = result.docs.where((booking) {
+        // Convert the Firestore string date to a DateTime object
+        DateTime bookingDate = DateTime.parse(booking['date']);
+
+        // Compare only the year, month, and day components
+        return bookingDate.year == currentDate.year &&
+            bookingDate.month == currentDate.month &&
+            bookingDate.day == currentDate.day;
+      }).toList();
+
+      bookingsToday.assignAll(filteredBookings);
+    } catch (error) {
+      print('Error fetching bookings: $error');
+    }
+  }
+}
+
+class BookingScreenTest extends StatelessWidget {
+  final BookingControllerTest controller = Get.put(BookingControllerTest());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bookings'),
+      ),
+      body: Obx(() {
+        if (controller.bookingsToday.isEmpty) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        return ListView.builder(
+          itemCount: controller.bookingsToday.length,
+          itemBuilder: (context, index) {
+            var bookingData =
+                controller.bookingsToday[index].data() as Map<String, dynamic>;
+
+            return ListTile(
+              title: Text('Booking ID: ${controller.bookingsToday[index].id}'),
+              subtitle: Text('Booking Date: ${bookingData['date']}'),
+              // Add more details as needed
+            );
+          },
+        );
+      }),
+    );
+  }
+}
+
+void main() {
+  runApp(
+    GetMaterialApp(
+      home: BookingScreenTest(),
+    ),
+  );
+}
