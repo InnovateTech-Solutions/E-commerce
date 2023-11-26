@@ -13,6 +13,8 @@ import 'package:profile_part/src/getx/payment_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/booking_model.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
+import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
+import 'package:profile_part/src/repository/user_repository/user_repository.dart';
 import 'package:profile_part/src/widget/Text_Widget/confirm_text.dart';
 import 'package:profile_part/src/widget/constant_widget/App_Bar/app_bar.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -150,7 +152,7 @@ class ConfirmWidget extends GetView<ServiceController> {
                         ),
                         SizedBox(height: 10.0),
                         secondaryConfirmText("Payment Successful!"),
-                        payText('Tap to get the main pahe'),
+                        payText('Tap to get the main page'),
                       ],
                     ),
                   ),

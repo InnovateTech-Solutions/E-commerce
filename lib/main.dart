@@ -16,7 +16,7 @@ import 'src/repository/payment_reposiory/payment_manger.dart';
 import 'src/repository/payment_reposiory/stripe_keys.dart';
 
 void main() async {
-  await WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
   Get.put(Appcontroller());

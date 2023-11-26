@@ -27,10 +27,10 @@ class DashBoradWidget extends StatefulWidget {
 class _DashBoradWidgetState extends State<DashBoradWidget> {
   final firebaseservice = Get.put(FirebaseService());
   final _authRepo = Get.put(AuthenticationRepository());
-  getUserData() {
-    final email = _authRepo.firebaseUser.value?.email;
+  getUserData() async {
+    late final email = _authRepo.firebaseUser.value?.email;
     if (email != null) {
-      return UserRepository.instance.getUserDetails(email);
+      return await UserRepository.instance.getUserDetails(email);
     } else {
       Get.snackbar("Error", "Login to get email");
     }
@@ -40,7 +40,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
 
   @override
   void initState() {
-    //getUserData();
+    getUserData();
     super.initState();
     controller.getLocation();
   }

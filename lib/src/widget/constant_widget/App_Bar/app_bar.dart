@@ -35,7 +35,8 @@ HomeAppBar() {
     title: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        appBarText("Current Locatio"),
+        Obx(() =>
+            appBarText('Hello ${UserController.instance.username.value} 👋')),
         Obx(() => currentLocation()),
         Text(dashboardController.llocation.value)
       ],
