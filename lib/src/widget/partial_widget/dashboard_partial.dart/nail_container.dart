@@ -36,6 +36,8 @@ class NailWidget extends GetView<DashboardController> {
                     final vendorName = vendors[index]['Name'];
                     final vendorImageURL = vendors[index]['Image'];
                     final vendorDescription = vendors[index]['Description'];
+                    final vendorAddress = vendors[index]['Address'];
+
                     //final vendorRate = vendors[index]['averageRating'];
 
                     return GestureDetector(
@@ -61,6 +63,7 @@ class NailWidget extends GetView<DashboardController> {
                                         Get.to(VendorPage(
                                           vendor: VendorModel(
                                               name: vendorName,
+                                              address: vendorAddress,
                                               description: vendorDescription,
                                               image: vendorImageURL),
                                         ));

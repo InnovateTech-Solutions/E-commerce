@@ -109,11 +109,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/history_controller1.dart';
-import 'package:profile_part/src/helpers/actions/get_vendor_image.dart';
-
 import 'package:profile_part/src/widget/Text_Widget/history_text.dart';
 import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
+import 'package:profile_part/src/widget/pages_widget/checkout/bookdetail_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/booking_partail/not_booked.dart';
 
 class HistoryWidget extends StatelessWidget {
@@ -156,7 +155,9 @@ class HistoryWidget extends StatelessWidget {
                           String first10CharsWithEllipsis =
                               first10Chars + ellipsis;
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              showBookingInfo(context, index);
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -164,40 +165,40 @@ class HistoryWidget extends StatelessWidget {
                                   padding: EdgeInsets.all(10),
                                   child: Row(
                                     children: [
-                                      // Container(
-                                      //     height: 70.h,
-                                      //     width: 75.w,
-                                      //     decoration: BoxDecoration(
-                                      //         borderRadius: BorderRadius.all(
-                                      //             Radius.circular(10.r)),
-                                      //         color: ColorConstants
-                                      //             .secondaryScaffoldBacground,
-                                      //         image: DecorationImage(
-                                      //             image: NetworkImage('')))),
-                                      // AppSizes.smallWidthSizedBox,
-                                      // Column(
-                                      //   crossAxisAlignment:
-                                      //       CrossAxisAlignment.start,
-                                      //   children: [
-                                      //     historyText(first10CharsWithEllipsis),
-                                      //     Row(
-                                      //       children: [
-                                      //         historyText(bookingData['time']),
-                                      //         const SizedBox(
-                                      //           width: 50,
-                                      //         ),
-                                      //         historyText(bookingData['date']),
-                                      //       ],
-                                      //     )
-                                      //   ],
-                                      // ),
                                       Container(
-                                        color: Colors.black,
-                                        width: 150,
-                                        height: 100,
-                                        child: VendorImage(
-                                            image: bookingData['vendorName']),
-                                      )
+                                          height: 70.h,
+                                          width: 75.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.r)),
+                                              color: ColorConstants
+                                                  .secondaryScaffoldBacground,
+                                              image: DecorationImage(
+                                                  image: NetworkImage('')))),
+                                      AppSizes.smallWidthSizedBox,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          historyText(first10CharsWithEllipsis),
+                                          Row(
+                                            children: [
+                                              historyText(bookingData['time']),
+                                              const SizedBox(
+                                                width: 50,
+                                              ),
+                                              historyText(bookingData['date']),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      // Container(
+                                      //   color: Colors.black,
+                                      //   width: 150,
+                                      //   height: 100,
+                                      //   child: VendorImage(
+                                      //       image: bookingData['vendorName']),
+                                      // )
                                     ],
                                   ),
                                 ),

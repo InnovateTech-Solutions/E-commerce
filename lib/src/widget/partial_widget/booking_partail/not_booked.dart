@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/widget/Text_Widget/history_text.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
-import 'package:profile_part/src/widget/custom_Widget.dart/button_widget.dart';
+import 'package:profile_part/src/widget/partial_widget/forms_partial.dart/pastLogin_partial/continue_login.dart';
 
 class NohistoryWidget extends StatelessWidget {
   const NohistoryWidget({super.key});
@@ -24,7 +24,7 @@ class NohistoryWidget extends StatelessWidget {
             AppSizes.xsmallHeightSizedBox,
             historyText("You have not booked any\n appointment yet."),
             AppSizes.smallHeightSizedBox,
-            ButtonWidget(
+            onLoginContainer(
                 onTap: () {
                   Get.to(CategoriesPage());
                 },

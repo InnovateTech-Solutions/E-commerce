@@ -84,6 +84,8 @@ class AuthenticationRepository extends GetxController {
               name: userName.first,
               password: '',
               phone: '',
+              age: "",
+              gander: "",
               imageUrl: googleSignInAccount
                   .photoUrl)); // Add your account creation logic here
         }

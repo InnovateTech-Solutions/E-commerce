@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
   DashboardController get instance => Get.find();
   RxString selectedItem = "Jordan".obs;
   List location = ["Jordan", "Bahrian"];
+  RxString llocation = 'Fetching location...'.obs;
 
   void upDateSelectedItem(String value) {
     selectedItem.value = value;
@@ -36,5 +38,19 @@ class DashboardController extends GetxController {
       vendors.add(doc.data() as Map<String, dynamic>);
     });
     return vendors;
+  }
+
+  Future<void> getLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+
+      llocation.value =
+          'Latitude: ${position.latitude}, Longitude: ${position.longitude}';
+    } catch (e) {
+      print(e);
+
+      llocation.value = 'Error fetching location';
+    }
   }
 }

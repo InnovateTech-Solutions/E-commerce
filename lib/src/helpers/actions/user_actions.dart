@@ -14,7 +14,7 @@ GestureDetector imagepicker() {
     },
     child: Container(
       width: 150.w,
-      height: 150.h,
+      height: 100.h,
       alignment: Alignment.center,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(50))),

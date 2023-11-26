@@ -1,25 +1,16 @@
-/*import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:profile_part/src/model/vendor_model.dart';
-import 'package:profile_part/src/widget/pages_widget/Forms_widgets/pastlogin_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:profile_part/src/View/Forms/pastlogin_widget.dart';
+import 'package:profile_part/src/constant/color.dart';
 
-class PastLogin extends GetView {
-  const PastLogin(
-      {required this.vendorModel,
-      required this.confirmDate,
-      required this.confirmTime,
-      super.key});
+class PastLoginPage extends StatelessWidget {
+  const PastLoginPage({super.key});
 
-  final VendorModel vendorModel;
-  final String confirmDate;
-  final String confirmTime;
   @override
   Widget build(BuildContext context) {
-    return Pastloginwidget(
-      vendorModel: vendorModel,
-      confirmDate: confirmDate,
-      confirmTime: confirmTime,
-    );
+    return SafeArea(
+        child: Scaffold(
+      backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+      body: PastLoginWidget(),
+    ));
   }
 }
-*/

@@ -7,6 +7,8 @@ class UserModel {
   late String email;
   late String phone;
   late String? imageUrl;
+  late String age;
+  late String gander;
 
   UserModel(
       {this.id,
@@ -14,7 +16,9 @@ class UserModel {
       required this.name,
       required this.password,
       required this.phone,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.age,
+      required this.gander});
 
   tojason() {
     return {
@@ -22,6 +26,8 @@ class UserModel {
       "Password": password,
       "PhoneNumber": phone,
       "UserName": name,
+      "Age": age,
+      "Gander": gander,
     };
   }
 
@@ -35,6 +41,8 @@ class UserModel {
       password: data["Password"],
       phone: data["PhoneNumber"],
       imageUrl: data["imageUrl"],
+      age: data["Age"],
+      gander: data["Gander"],
     );
   }
 }

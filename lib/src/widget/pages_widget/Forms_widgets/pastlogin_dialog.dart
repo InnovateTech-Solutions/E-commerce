@@ -58,74 +58,61 @@ void pastLoginDialoge(String confirmTime, String confirmDate,
                     key: controller.formkey,
                     child: Column(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.r)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2.r,
-                                  blurRadius: 3.r,
-                                  offset: const Offset(0, 2)),
-                            ],
+                        FormWidget(
+                          login: Login(
+                            enableText: false,
+                            controller: controller.email,
+                            hintText: AppConst.email,
+                            icon: const Icon(Icons.email),
+                            invisible: false,
+                            validator: (email) =>
+                                controller.validateEmail(email),
+                            type: TextInputType.emailAddress,
+                            onChange: null,
+                            inputFormat: null,
+                            onTap: () {},
                           ),
-                          child: FormWidget(
-                            login: Login(
-                              enableText: false,
-                              controller: controller.email,
-                              hintText: AppConst.email,
-                              icon: const Icon(Icons.email),
-                              invisible: false,
-                              validator: (email) =>
-                                  controller.validateEmail(email),
-                              type: TextInputType.emailAddress,
-                              onChange: null,
-                              inputFormat: null,
-                            ),
-                            color: ColorConstants.mainScaffoldBackgroundColor,
-                          ),
+                          color: ColorConstants.mainScaffoldBackgroundColor,
                         ),
                         AppSizes.smallHeightSizedBox,
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.r)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 2.r,
-                                  blurRadius: 3.r,
-                                  offset: const Offset(0, 2)),
-                            ],
+                        FormWidget(
+                          login: Login(
+                            enableText: false,
+                            controller: controller.password,
+                            hintText: AppConst.password,
+                            icon: const Icon(Icons.lock),
+                            invisible: false,
+                            validator: (password) =>
+                                controller.vaildatePassword(password),
+                            type: TextInputType.visiblePassword,
+                            onChange: null,
+                            inputFormat: null,
+                            onTap: () {},
                           ),
-                          child: FormWidget(
-                            login: Login(
-                              enableText: false,
-                              controller: controller.password,
-                              hintText: AppConst.password,
-                              icon: const Icon(Icons.lock),
-                              invisible: false,
-                              validator: (password) =>
-                                  controller.vaildatePassword(password),
-                              type: TextInputType.visiblePassword,
-                              onChange: null,
-                              inputFormat: null,
-                            ),
-                            color: ColorConstants.mainScaffoldBackgroundColor,
-                          ),
+                          color: ColorConstants.mainScaffoldBackgroundColor,
                         ),
                         AppSizes.mediumHeightSizedBox,
+                        ElevatedButton(
+                            onPressed: () {
+                              controller.onLogin;
+                              _usercontroller.logIn();
+                              Get.to(ConfirmPage(
+                                  vendorModel: vendorModel,
+                                  confirmDate: confirmDate,
+                                  confirmTime: confirmTime));
+                            },
+                            child: Text("ss")),
                         onLoginContainer(
                             title: AppConst.login,
-                            onTap: () => {
-                                  controller.onLogin,
-                                  _usercontroller.logIn(),
-                                  Get.to(ConfirmPage(
-                                      vendorModel: vendorModel,
-                                      confirmDate: confirmDate,
-                                      confirmTime: confirmTime))
-                                })
+                            onTap: () {
+                              print("object");
+                              controller.onLogin;
+                              _usercontroller.logIn();
+                              Get.to(ConfirmPage(
+                                  vendorModel: vendorModel,
+                                  confirmDate: confirmDate,
+                                  confirmTime: confirmTime));
+                            })
                       ],
                     )),
               ],
