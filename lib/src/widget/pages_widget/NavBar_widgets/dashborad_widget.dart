@@ -11,7 +11,7 @@ import 'package:profile_part/src/transition/dashboard_transition.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
 import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/category_partial.dart';
-import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/nail_container.dart';
+import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/random_container.dart';
 import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/search_partial.dart';
 
 import '../../partial_widget/dashboard_partial.dart/slider_widget.dart';
@@ -42,7 +42,6 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
   void initState() {
     getUserData();
     super.initState();
-    controller.getLocation();
   }
 
   @override
@@ -103,7 +102,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                     ),
                     AppSizes.smallHeightSizedBox,
                     TopCategory(),
-                    NailWidget(),
+                    RandomWidget(),
                     TopRated()
                   ],
                 ),

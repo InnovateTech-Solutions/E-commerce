@@ -7,8 +7,8 @@ class UserModel {
   late String email;
   late String phone;
   late String? imageUrl;
-  late String age;
-  late String gander;
+  late String? age;
+  late String? gander;
 
   UserModel(
       {this.id,
