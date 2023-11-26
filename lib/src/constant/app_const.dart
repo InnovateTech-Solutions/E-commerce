@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/dashborad_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/map_page.dart';
+import 'package:profile_part/src/View/setting/my_apponitment.dart';
 import 'package:profile_part/src/View/setting/profile_page.dart';
 import 'package:profile_part/src/View/setting/setting_page.dart';
 import 'package:get/get.dart';
@@ -55,7 +56,8 @@ class AppConst {
           width: 15.w,
           height: 15.h,
         ),
-        onTap: () => null),
+        onTap: () =>
+            Get.to(MyAppointment(), transition: Transition.rightToLeft)),
     Button(
         title: 'Setting',
         icon: SvgPicture.asset(
@@ -66,6 +68,24 @@ class AppConst {
         ),
         onTap: () =>
             Get.to(const SettingPage(), transition: Transition.rightToLeft)),
+    // Button(
+    //     title: 'Vouchers',
+    //     icon: SvgPicture.asset(
+    //       'assets/arrow.svg',
+    //       matchTextDirection: true,
+    //       width: 15.w,
+    //       height: 15.h,
+    //     ),
+    //     onTap: () {}),
+    Button(
+        title: 'Favourites',
+        icon: SvgPicture.asset(
+          'assets/arrow.svg',
+          matchTextDirection: true,
+          width: 15.w,
+          height: 15.h,
+        ),
+        onTap: () {}),
     Button(
         title: 'About',
         icon: SvgPicture.asset(
