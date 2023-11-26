@@ -18,10 +18,19 @@ class _FormWidgetState extends State<FormWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Theme(
-        data: Theme.of(context)
-            .copyWith(inputDecorationTheme: InputDecorationTheme()),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2.r,
+                blurRadius: 3.r,
+                offset: const Offset(0, 2)),
+          ],
+        ),
         child: TextFormField(
+            onTap: widget.login.onTap,
             readOnly: widget.login.enableText,
             inputFormatters: widget.login.inputFormat,
             keyboardType: widget.login.type,

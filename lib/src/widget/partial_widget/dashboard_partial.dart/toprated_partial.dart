@@ -34,9 +34,10 @@ class TopRated extends StatelessWidget {
                 height: 250.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4,
+                  itemCount: 2,
                   itemBuilder: (context, index) {
                     final vendorName = vendors[index]['Name'];
+                    final vendorAddress = vendors[index]['Address'];
                     final vendorImageURL = vendors[index]['Image'];
                     final vendorCategory = vendors[index]['Category'];
                     final vendorDescription = vendors[index]['Description'];
@@ -64,6 +65,7 @@ class TopRated extends StatelessWidget {
                                       onTap: () {
                                         Get.to(VendorPage(
                                           vendor: VendorModel(
+                                              address: vendorAddress,
                                               name: vendorName,
                                               description: vendorDescription,
                                               image: vendorImageURL),
@@ -92,10 +94,14 @@ class TopRated extends StatelessWidget {
                               //           )
                               //         ],
                               //       ))
-
-                              dashoboardSecText(
-                                vendorCategory,
-                              ),
+                              Row(
+                                children: [
+                                  AppSizes.smallWidthSizedBox,
+                                  dashoboardSecText(
+                                    vendorCategory,
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),

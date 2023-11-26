@@ -5,6 +5,7 @@ import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/helpers/actions/user_actions.dart';
 import 'package:profile_part/src/transition/update_transition.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
+import 'package:profile_part/src/widget/partial_widget/forms_partial.dart/pastLogin_partial/continue_login.dart';
 
 import '../../../constant/app_const.dart';
 import '../../../getx/profile_controller.dart';
@@ -13,7 +14,6 @@ import '../../../model/login_model.dart';
 import '../../../model/user_model.dart';
 import '../../../repository/user_repository/user_repository.dart';
 import '../../Text_Widget/form_text.dart';
-import '../../custom_Widget.dart/button_widget.dart';
 import '../../custom_Widget.dart/form_widget.dart';
 
 class UpdateProfileWidget extends StatefulWidget {
@@ -25,11 +25,10 @@ class UpdateProfileWidget extends StatefulWidget {
 
 class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
   final usercontroller = Get.put(UserRepository());
+  final controller = Get.put(ProfileController());
+  final validator = Get.put(RegisterController());
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProfileController());
-    final validator = Get.put(RegisterController());
-
     @override
     dispose() {
       super.dispose();
@@ -57,14 +56,26 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: ColorConstants.mainTextColor,
+                              ))
+                        ],
+                      ),
                       imagepicker(),
-                      Obx(() => mainText(usernameTitle.value)),
                       SizedBox(
-                        height: 650.h,
+                        height: 500.h,
                         width: double.infinity,
                         child: ListView(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 30.w, vertical: 30.h),
+                          physics: FixedExtentScrollPhysics(),
+                          padding: EdgeInsets.symmetric(horizontal: 30.w),
                           children: [
                             textFieldLabel(AppConst.email),
                             FormWidget(
@@ -78,8 +89,9 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                       validator.validateEmail(email),
                                   type: TextInputType.emailAddress,
                                   onChange: null,
-                                  inputFormat: []),
-                              color: ColorConstants.secondaryScaffoldBacground,
+                                  inputFormat: [],
+                                  onTap: () {}),
+                              color: ColorConstants.mainScaffoldBackgroundColor,
                             ),
                             AppSizes.smallHeightSizedBox,
                             textFieldLabel(AppConst.username),
@@ -94,8 +106,9 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                       validator.vaildateUserName(userName),
                                   type: TextInputType.name,
                                   onChange: null,
-                                  inputFormat: []),
-                              color: ColorConstants.secondaryScaffoldBacground,
+                                  inputFormat: [],
+                                  onTap: () {}),
+                              color: ColorConstants.mainScaffoldBackgroundColor,
                             ),
                             AppSizes.smallHeightSizedBox,
                             textFieldLabel(AppConst.phoneNumber),
@@ -110,11 +123,36 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                       validator.vaildPhoneNumber(phoneNumber),
                                   type: TextInputType.number,
                                   onChange: null,
-                                  inputFormat: []),
-                              color: ColorConstants.secondaryScaffoldBacground,
+                                  inputFormat: [],
+                                  onTap: () {}),
+                              color: ColorConstants.mainScaffoldBackgroundColor,
                             ),
-                            AppSizes.mediumHeightSizedBox,
-                            ButtonWidget(
+                            AppSizes.smallHeightSizedBox,
+                            textFieldLabel(AppConst.gander),
+                            Obx(
+                              () => dropDown(),
+                            ),
+                            AppSizes.smallHeightSizedBox,
+                            textFieldLabel(AppConst.age),
+                            FormWidget(
+                              login: Login(
+                                enableText: true,
+                                controller: validator.age,
+                                hintText: AppConst.age,
+                                icon: const Icon(Icons.person),
+                                invisible: false,
+                                validator: (age) => validator.validateAge(age),
+                                type: TextInputType.datetime,
+                                onChange: null,
+                                inputFormat: null,
+                                onTap: () {
+                                  validator.selectDate(context);
+                                },
+                              ),
+                              color: ColorConstants.mainScaffoldBackgroundColor,
+                            ),
+                            AppSizes.smallHeightSizedBox,
+                            onLoginContainer(
                                 onTap: () async {
                                   if ((controller.fromkey.currentState!
                                       .validate())) {
@@ -124,7 +162,9 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                                         name: userName.text.trim(),
                                         password: password.text.trim(),
                                         phone: phoneNumber.text.trim(),
-                                        imageUrl: "");
+                                        imageUrl: "",
+                                        age: "",
+                                        gander: "");
                                     await controller.updateRecord(userData);
                                   }
                                   dispose();
@@ -148,5 +188,44 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
             return const Text("somthing went wrong");
           }
         }));
+  }
+
+  dropDown() {
+    return Container(
+      height: 50.h,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2.r,
+              blurRadius: 3.r,
+              offset: const Offset(0, 2)),
+        ],
+        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+        color: ColorConstants.mainScaffoldBackgroundColor,
+      ),
+      child: DropdownButton<String>(
+        hint: Text("Gender"),
+        underline: Container(
+          color: ColorConstants.mainScaffoldBackgroundColor,
+        ),
+        isExpanded: true,
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.r),
+        value: validator.selectedItem.value == ""
+            ? null
+            : validator.selectedItem.value,
+        onChanged: (newValue) {
+          validator.upDateSelectedItem(newValue.toString());
+        },
+        items: AppConst.dropDownList.map<DropdownMenuItem<String>>((value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: textFieldLabel(
+              value,
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 }

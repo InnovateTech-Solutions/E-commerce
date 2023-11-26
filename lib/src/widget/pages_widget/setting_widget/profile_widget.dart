@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/View/Forms/pastlogin_page.dart';
 import 'package:profile_part/src/View/setting/update_profile.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/getx/profile_controller.dart';
@@ -8,16 +9,8 @@ import 'package:profile_part/src/model/user_model.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
 import 'package:profile_part/src/transition/profile_transition.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
-import 'package:profile_part/src/widget/Text_Widget/pastlogin_text.dart';
 import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
-import 'package:profile_part/src/widget/pages_widget/Forms_widgets/pastlogin_widget.dart';
-
-import '../../../constant/color.dart';
-import '../../../model/login_model.dart';
-import '../../../repository/authentication/authentication_repository.dart';
-import '../../custom_Widget.dart/form_widget.dart';
-import '../../partial_widget/forms_partial.dart/pastLogin_partial/continue_login.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
@@ -28,7 +21,6 @@ class ProfileWidget extends StatefulWidget {
 
 class _ProfileWidgetState extends State<ProfileWidget> {
   final userController = Get.put(UserRepository());
-  final _authcontroller = Get.put(AuthenticationRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -85,102 +77,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           } else if (snapShot.hasError) {
             return Center(child: Text('Error${snapShot.error}'));
           } else {
-            return Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    mainPastLoginText(AppConst.pastlogin),
-                    AppSizes.smallHeightSizedBox,
-                    secondaryPastLoginText(AppConst.pastloginText),
-                    AppSizes.smallHeightSizedBox,
-                    continueContainer(
-                        title: AppConst.googleContainerText,
-                        imgname: AppConst.googleimg,
-                        callback: _authcontroller.signInWithGoogle),
-                    AppSizes.smallHeightSizedBox,
-                    continueContainer(
-                        title: AppConst.appleCotanierText,
-                        imgname: AppConst.appleimg,
-                        callback: () => _authcontroller.signInWithGoogle),
-                    AppSizes.smallHeightSizedBox,
-                    AppConst.pageDivider,
-                    AppSizes.smallHeightSizedBox,
-                    Form(
-                        key: controller.formkey,
-                        child: Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.r)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 2.r,
-                                      blurRadius: 3.r,
-                                      offset: const Offset(0, 2)),
-                                ],
-                              ),
-                              child: FormWidget(
-                                login: Login(
-                                  enableText: false,
-                                  controller: controller.email,
-                                  hintText: AppConst.email,
-                                  icon: const Icon(Icons.email),
-                                  invisible: false,
-                                  validator: (email) =>
-                                      controller.validateEmail(email),
-                                  type: TextInputType.emailAddress,
-                                  onChange: null,
-                                  inputFormat: null,
-                                ),
-                                color:
-                                    ColorConstants.mainScaffoldBackgroundColor,
-                              ),
-                            ),
-                            AppSizes.smallHeightSizedBox,
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.r)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 2.r,
-                                      blurRadius: 3.r,
-                                      offset: const Offset(0, 2)),
-                                ],
-                              ),
-                              child: FormWidget(
-                                login: Login(
-                                  enableText: false,
-                                  controller: controller.password,
-                                  hintText: AppConst.password,
-                                  icon: const Icon(Icons.lock),
-                                  invisible: false,
-                                  validator: (password) =>
-                                      controller.vaildatePassword(password),
-                                  type: TextInputType.visiblePassword,
-                                  onChange: null,
-                                  inputFormat: null,
-                                ),
-                                color:
-                                    ColorConstants.mainScaffoldBackgroundColor,
-                              ),
-                            ),
-                            AppSizes.mediumHeightSizedBox,
-                            onLoginContainer(
-                                title: AppConst.login, onTap: () => {})
-                          ],
-                        )),
-                  ],
-                ),
-              ),
-            );
+            return PastLoginPage();
           }
         } else if (snapShot.connectionState == ConnectionState.waiting) {
           return ProfileTransition();

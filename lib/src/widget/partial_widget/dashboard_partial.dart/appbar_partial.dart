@@ -24,8 +24,7 @@ currentLocation() {
       onChanged: (newValue) {
         controller.upDateSelectedItem(newValue.toString());
       },
-      underline:
-          Container(), // Set underline to an empty container to remove it
+      underline: Container(),
       items: controller.location.map<DropdownMenuItem<String>>((value) {
         return DropdownMenuItem<String>(
           value: value,
