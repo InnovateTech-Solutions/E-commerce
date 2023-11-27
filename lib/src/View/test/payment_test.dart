@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/getx/vendorimage_controller.dart';
-import 'package:profile_part/src/getx/vendors_controller.dart';
 
 class VendorImageScreen extends StatelessWidget {
   final VendorImage vendorController = Get.put(VendorImage());

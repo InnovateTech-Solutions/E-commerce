@@ -90,7 +90,6 @@ class _TestpageState extends State<Testpage> {
     String formattedDate = "${now.year}-${now.month}-${now.day}";
 
     // Format the current time to match the time format stored in the database
-    String formattedTime = "${now.hour}:${now.minute}:${now.minute}";
 
     // Query Firebase to get future bookings
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
@@ -137,7 +136,6 @@ Future<List<Booking>> getFutureBookingsMagthe() async {
   String formattedDate = "${now.year}-${now.month}-${now.day}";
 
   // Format the current time to match the time format stored in the database
-  String formattedTime = "${now.hour}:${now.minute}-${now.minute}";
 
   // Query Firebase to get future bookings
   QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore

@@ -321,9 +321,6 @@
 //   }
 // }
 
-
-
-
 // /*
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/material.dart';
@@ -366,3 +363,134 @@
 //   }
 // }
 // */
+
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:profile_part/src/getx/data_controller.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class CategoryShuffler {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<List<String>> shuffleCategories(String gender, String category) async {
+    List<String> categories = [];
+
+    if (gender == '') {
+      // If gender is not specified, retrieve all categories for the given category name
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('categories')
+          .where('category', isEqualTo: category)
+          .get();
+      List<DocumentSnapshot> documents = querySnapshot.docs;
+      categories = documents.map((doc) => doc['name'] as String).toList();
+    } else {
+      // Query categories based on both gender and category name
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('categories')
+          .where('gender', isEqualTo: gender)
+          .where('category', isEqualTo: category)
+          .get();
+      List<DocumentSnapshot> documents = querySnapshot.docs;
+      categories = documents.map((doc) => doc['name'] as String).toList();
+    }
+
+    // Shuffle the categories
+    categories.shuffle();
+
+    // Return the shuffled categories
+    return categories;
+  }
+}
+
+class MyApp extends StatelessWidget {
+  final CategoryShuffler _categoryShuffler = CategoryShuffler();
+
+  int shuffleIndex(List<String> strings) {
+    if (strings.isEmpty) {
+      throw ArgumentError('The list of strings must not be empty');
+    }
+
+    // Generate a random index within the range of the list length
+    Random random = Random();
+    int randomIndex = random.nextInt(strings.length);
+
+    return randomIndex;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseservice = Get.put(DataController());
+    Future<List<Map<String, dynamic>>> getNailVendors(String category) async {
+      List<Map<String, dynamic>> vendors = [];
+
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Vendors')
+          .where('Category', isEqualTo: category)
+          .get();
+
+      querySnapshot.docs.forEach((doc) {
+        vendors.add(doc.data() as Map<String, dynamic>);
+      });
+      return vendors;
+    }
+
+    List<String> myStrings = [
+      "dental clinic",
+      "Wellness",
+      "Therapy",
+      "Spa",
+      "Skin care",
+      "Nutrition",
+      "Nail Salon",
+      "Hair Services"
+    ];
+
+    // Get a shuffled index
+    int randomIndex = shuffleIndex(myStrings);
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Category Shuffler'),
+        ),
+        body: Center(
+          child: FutureBuilder(
+            future: getNailVendors(myStrings[randomIndex]),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                final category = snapshot.data!;
+
+                // Display the shuffled categories
+                return SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: ListView.builder(
+                    itemCount: category.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [Text(category[index]['Name'])],
+                      );
+                    },
+                  ),
+                );
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}

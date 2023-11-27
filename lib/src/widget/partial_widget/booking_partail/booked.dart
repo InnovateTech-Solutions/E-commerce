@@ -13,8 +13,6 @@ import 'package:profile_part/src/widget/Text_Widget/history_text.dart';
 import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 
-import '../../../helpers/actions/get_vendor_image.dart';
-
 class HistoryAvailable extends GetView<BookingControllerAboutDate> {
   const HistoryAvailable({super.key});
 
@@ -90,8 +88,6 @@ class _TestBookState extends State<TestBook> {
 
   Future<void> getFutureBookings(String userId) async {
     DateTime now = DateTime.now();
-    String formattedNow =
-        "${now.year}-${now.month}-${now.day} ${now.hour}:${now.minute}:${now.second}";
 
     final bookingsCollection = await FirebaseFirestore.instance
         .collection('Bookings')

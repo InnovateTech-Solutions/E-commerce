@@ -315,16 +315,46 @@
 //       });
 //     }
 //   }
-import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 
-class GeolocatorTest extends StatefulWidget {
-  @override
-  _GeolocatorTestState createState() => _GeolocatorTestState();
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+void main() {
+  runApp(MyApp());
 }
 
-class _GeolocatorTestState extends State<GeolocatorTest> {
-  String? location;
+class DatePickerController extends GetxController {
+  var dateInput = "".obs;
+
+  Future<void> selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1950),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+      dateInput.value = formattedDate;
+      print(pickedDate);
+    }
+  }
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Date Picker",
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  final DatePickerController controller = Get.put(DatePickerController());
 
   @override
   Widget build(BuildContext context) {

@@ -58,8 +58,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     AppSizes.smallHeightSizedBox,
                     SizedBox(
                       height: 300.h,
-                      width: 350.w,
+                      width: double.infinity.w,
                       child: ListView.separated(
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: AppConst.profileList.length,
                         itemBuilder: ((context, index) {
                           return profileWidget(AppConst.profileList[index]);

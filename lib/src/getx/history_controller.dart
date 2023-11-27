@@ -5,13 +5,28 @@ import 'package:profile_part/src/getx/user_controller.dart';
 class BookingControllerAboutDate extends GetxController {
   late RxList<DocumentSnapshot<Map<String, dynamic>>> bookings;
   late RxList<DocumentSnapshot<Map<String, dynamic>>> bookingsToday;
-
+  late RxList<DocumentSnapshot<Map<String, dynamic>>> allbookings;
   @override
   void onInit() {
     super.onInit();
     bookings = <DocumentSnapshot<Map<String, dynamic>>>[].obs;
     fetchBookings(UserController.instance.email.value);
+    fetchBookingsForUser(UserController.instance.email.value);
     bookingsToday = <DocumentSnapshot<Map<String, dynamic>>>[].obs;
+    allbookings = <DocumentSnapshot<Map<String, dynamic>>>[].obs;
+  }
+
+  void fetchBookingsForUser(String userEmail) async {
+    try {
+      var result = await FirebaseFirestore.instance
+          .collection('Bookings')
+          .where('userEmail', isEqualTo: userEmail)
+          .get();
+
+      allbookings.assignAll(result.docs);
+    } catch (error) {
+      print('Error fetching bookings: $error');
+    }
   }
 
   void fetchBookingsUpcomming(String userEmail) async {
@@ -20,7 +35,6 @@ class BookingControllerAboutDate extends GetxController {
 
       var result = await FirebaseFirestore.instance
           .collection('Bookings')
-          .orderBy('date', descending: true)
           .where('userEmail',
               isEqualTo: userEmail) // replace with your username
           .get();

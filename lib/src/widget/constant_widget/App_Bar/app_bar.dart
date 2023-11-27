@@ -159,6 +159,7 @@ productsAppBar(String title) {
 
 profileAppBar() {
   return AppBar(
+    scrolledUnderElevation: 0,
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
     iconTheme: IconThemeData(color: ColorConstants.mainTextColor),

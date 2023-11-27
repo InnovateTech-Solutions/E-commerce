@@ -11,11 +11,13 @@ import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart
 
 import '../../custom_Widget.dart/dashboard_title.dart';
 
-class NailWidget extends GetView<DashboardController> {
+class RandomWidget extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
+    int randomIndex = controller.shuffleIndex(controller.categoryNames);
     return FutureBuilder<List<Map<String, dynamic>>>(
-      future: controller.getNailVendors(),
+      future:
+          controller.getRandomVendors(controller.categoryNames[randomIndex]),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container();
@@ -25,15 +27,16 @@ class NailWidget extends GetView<DashboardController> {
           final vendors = snapshot.data!;
           return Column(
             children: [
-              DashboardTitle("Nail Salons", () {}),
+              DashboardTitle(controller.categoryNames[randomIndex], () {}),
               SizedBox(
-                width: 350.w,
+                width: double.infinity.w,
                 height: 200.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4,
+                  itemCount: vendors.length,
                   itemBuilder: (context, index) {
                     final vendorName = vendors[index]['Name'];
+
                     final vendorImageURL = vendors[index]['Image'];
                     final vendorDescription = vendors[index]['Description'];
                     final vendorAddress = vendors[index]['Address'];
@@ -72,9 +75,7 @@ class NailWidget extends GetView<DashboardController> {
                               Row(
                                 children: [
                                   AppSizes.smallWidthSizedBox,
-                                  textFieldLabel(
-                                    vendorName,
-                                  ),
+                                  textFieldLabel(vendorName),
                                 ],
                               )
 

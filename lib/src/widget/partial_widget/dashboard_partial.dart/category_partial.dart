@@ -99,7 +99,7 @@ class TopCategory extends StatelessWidget {
                                           ),
                                           child: Center(
                                               child: SvgPicture.network(
-                                                  categories![index]['Icon'])),
+                                                  categories[index]['Icon'])),
                                         ),
                                       )),
                                     ),
@@ -136,7 +136,7 @@ class TopCategory extends StatelessWidget {
                                               Radius.circular(14.r))),
                                       child: Center(
                                         child: CategoryContainer(
-                                          imgName: categories![index]['Icon'],
+                                          imgName: categories[index]['Icon'],
                                           onTap: () => Get.to(
                                               VendorDisplaypage(
                                                   title: categories[index]

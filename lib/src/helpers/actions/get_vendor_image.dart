@@ -37,7 +37,7 @@ class VendorImage extends StatelessWidget {
       future: getImageUrl(image),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Container();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.data == null) {
@@ -50,7 +50,8 @@ class VendorImage extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10.r)),
                 color: ColorConstants.secondaryScaffoldBacground,
-                image: DecorationImage(image: NetworkImage(snapshot.data!))),
+                image: DecorationImage(
+                    image: NetworkImage(snapshot.data!), fit: BoxFit.fill)),
           );
         }
       },
