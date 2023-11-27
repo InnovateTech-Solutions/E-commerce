@@ -47,7 +47,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             children: [
               RegisterButton(
                 color: ColorConstants.secondaryScaffoldBacground,
-                onTap: () => controller.continued(),
+                onTap: () => {
+                  controller.continued(),
+                },
                 tilte: 'Next',
               ),
               RegisterButton(
