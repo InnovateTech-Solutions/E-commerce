@@ -40,9 +40,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
 
   @override
   void initState() {
-    getUserData();
     super.initState();
-    controller.getLocation();
+    getUserData();
   }
 
   @override
@@ -104,7 +103,11 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                     AppSizes.smallHeightSizedBox,
                     TopCategory(),
                     NailWidget(),
-                    TopRated()
+                    TopRated(),
+                    ElevatedButton(
+                        onPressed: () =>
+                            AuthenticationRepository.instance.logout(),
+                        child: Text('data'))
                   ],
                 ),
               );

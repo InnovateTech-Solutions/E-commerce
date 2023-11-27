@@ -315,70 +315,72 @@
 //       });
 //     }
 //   }
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:geolocator/geolocator.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class DatePickerController extends GetxController {
-  var dateInput = "".obs;
-
-  Future<void> selectDate(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1950),
-      lastDate: DateTime(2100),
-    );
-
-    if (pickedDate != null) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-      dateInput.value = formattedDate;
-      print(pickedDate);
-    }
-  }
-}
-
-class MyApp extends StatelessWidget {
+class GeolocatorTest extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Date Picker",
-      home: HomePage(),
-    );
-  }
+  _GeolocatorTestState createState() => _GeolocatorTestState();
 }
 
-class HomePage extends StatelessWidget {
-  final DatePickerController controller = Get.put(DatePickerController());
+class _GeolocatorTestState extends State<GeolocatorTest> {
+  String? location;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("DatePicker in Flutter"),
-        backgroundColor: Colors.redAccent,
+        title: Text('Location App'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(15),
-        height: MediaQuery.of(context).size.width / 3,
-        child: Center(
-          child: TextField(
-            readOnly: true,
-            controller: TextEditingController()
-              ..text = controller.dateInput.value,
-            decoration: InputDecoration(
-              icon: Icon(Icons.calendar_today),
-              labelText: "Enter Date",
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                determinePosition().then((result) {
+                  setState(() {
+                    location = result;
+                  });
+                }).catchError((error) {
+                  setState(() {
+                    location = 'Error: $error';
+                  });
+                });
+              },
+              child: Text('Get Location'),
             ),
-            onTap: () => controller.selectDate(context),
-          ),
+            SizedBox(height: 20),
+            Text(
+              'Location: ${location ?? "N/A"}',
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  Future<String?> determinePosition() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        return Future.error('Location Not Available');
+      }
+    } else {
+      throw Exception('Error');
+    }
+
+    // Get the current position
+    Position position = await Geolocator.getCurrentPosition();
+
+    // Convert the position to a string
+    String locationString =
+        'Latitude: ${position.latitude}, Longitude: ${position.longitude}';
+
+    // Return the location string
+    return locationString;
   }
 }
