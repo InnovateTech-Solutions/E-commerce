@@ -108,14 +108,7 @@ class ConfirmWidget extends GetView<ServiceController> {
 
       //STEP 3: Display Payment sheet
       displayPaymentSheet(context);
-      bookingController.createBooking(Booking(
-          vendorName: vendorModel.name,
-          date: confirmDate,
-          time: confirmTime,
-          userEmail: userController.email.value,
-          services: controller.cartItemsNames,
-          note: note.value,
-          totalPrice: controller.counter.value));
+      
     } catch (err) {
       throw Exception(err);
     }
@@ -131,38 +124,52 @@ class ConfirmWidget extends GetView<ServiceController> {
     return roundedAmount;
   }
 
-  displayPaymentSheet(BuildContext context) async {
-    try {
-      await Stripe.instance.presentPaymentSheet().then((value) {
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                  content: GestureDetector(
-                    onTap: () =>
-                        {Get.offAll(MainPage()), controller.clearCart()},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
-                          size: 100.0,
-                        ),
-                        SizedBox(height: 10.0),
-                        secondaryConfirmText("Payment Successful!"),
-                        payText('Tap to get the main pahe'),
-                      ],
-                    ),
-                  ),
-                ));
+displayPaymentSheet(BuildContext context) async {
+  try {
+    await Stripe.instance.presentPaymentSheet().then((value) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: GestureDetector(
+            onTap: () {
+              Get.offAll(MainPage());
+              controller.clearCart();
+              bookingController.createBooking(Booking(
+                vendorName: vendorModel.name,
+                date: confirmDate,
+                time: confirmTime,
+                userEmail: userController.email.value,
+                services: controller.cartItemsNames,
+                note: note.value,
+                totalPrice: controller.counter.value,
+              ));
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                  size: 100.0,
+                ),
+                SizedBox(height: 10.0),
+                secondaryConfirmText("Payment Successful!"),
+                payText('Tap to get the main page'),
+              ],
+            ),
+          ),
+        ),
+      );
 
-        paymentIntent = null;
-      }).onError((error, stackTrace) {
-        throw Exception(error);
-      });
-    } on StripeException catch (e) {
-      print('Error is:---> $e');
-      AlertDialog(
+      paymentIntent = null;
+    }).onError((error, stackTrace) {
+      throw Exception(error);
+    });
+  } on StripeException catch (e) {
+    print('Error is:---> $e');
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -177,11 +184,12 @@ class ConfirmWidget extends GetView<ServiceController> {
             ),
           ],
         ),
-      );
-    } catch (e) {
-      print('$e');
-    }
+      ),
+    );
+  } catch (e) {
+    print('$e');
   }
+}
 
   createPaymentIntent(String amount, String currency) async {
     try {
