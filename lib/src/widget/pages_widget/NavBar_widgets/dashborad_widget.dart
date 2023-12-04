@@ -45,6 +45,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
 
   @override
   void initState() {
+    getUserData();
     super.initState();
   }
 
