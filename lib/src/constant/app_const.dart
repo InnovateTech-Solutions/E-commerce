@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:profile_part/src/View/NavBar_pages/categories_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/dashborad_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/map_page.dart';
+import 'package:profile_part/src/View/setting/my_apponitment.dart';
 import 'package:profile_part/src/View/setting/profile_page.dart';
 import 'package:profile_part/src/View/setting/setting_page.dart';
-import 'package:get/get.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/button_model.dart';
@@ -32,6 +33,9 @@ class AppConst {
   static String signUp = "SIGN UP";
   static String email = "Email";
   static String password = "Password";
+  static String confirmPassword = "Confirm Password";
+  static String gander = "Gander";
+  static String age = "Date of birth";
   static String username = "User Name";
   static String phoneNumber = "Phone Number";
   static String verificationOTP = "VERIFICATION CODE";
@@ -55,7 +59,8 @@ class AppConst {
           width: 15.w,
           height: 15.h,
         ),
-        onTap: () => null),
+        onTap: () =>
+            Get.to(MyAppointment(), transition: Transition.rightToLeft)),
     Button(
         title: 'Setting',
         icon: SvgPicture.asset(
@@ -66,6 +71,24 @@ class AppConst {
         ),
         onTap: () =>
             Get.to(const SettingPage(), transition: Transition.rightToLeft)),
+    // Button(
+    //     title: 'Vouchers',
+    //     icon: SvgPicture.asset(
+    //       'assets/arrow.svg',
+    //       matchTextDirection: true,
+    //       width: 15.w,
+    //       height: 15.h,
+    //     ),
+    //     onTap: () {}),
+    Button(
+        title: 'Favourites',
+        icon: SvgPicture.asset(
+          'assets/arrow.svg',
+          matchTextDirection: true,
+          width: 15.w,
+          height: 15.h,
+        ),
+        onTap: () {}),
     Button(
         title: 'About',
         icon: SvgPicture.asset(
@@ -151,4 +174,6 @@ class AppConst {
     '10:00 PM',
     '11:00 PM',
   ];
+
+  static List dropDownList = ["Male", "Female"];
 }

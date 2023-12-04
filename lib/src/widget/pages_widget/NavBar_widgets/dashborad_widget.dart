@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/dashboard_controller.dart';
+import 'package:profile_part/src/model/search_model.dart';
 import 'package:profile_part/src/getx/notifications_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
@@ -11,10 +11,12 @@ import 'package:profile_part/src/repository/user_repository/user_repository.dart
 import 'package:profile_part/src/transition/dashboard_transition.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
 import 'package:profile_part/src/widget/custom_Widget.dart/container_widget.dart';
-import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/slider_widget.dart';
+import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/category_partial.dart';
+import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/random_container.dart';
+import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/search_partial.dart';
 
-import '../../../View/vendor/vendor_display.dart';
-import '../../partial_widget/dashboard_partial.dart/seemore_widget.dart';
+import '../../partial_widget/dashboard_partial.dart/slider_widget.dart';
+import '../../partial_widget/dashboard_partial.dart/toprated_partial.dart';
 
 class DashBoradWidget extends StatefulWidget {
   const DashBoradWidget({Key? key}) : super(key: key);
@@ -29,19 +31,20 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
   final notificationsController = Get.put(NotificationsController());
 
   getUserData() async {
-    final email = _authRepo.firebaseUser.value?.email;
+    late final email = _authRepo.firebaseUser.value?.email;
     await notificationsController.updateFCMToken(email);
     // print("fcmToken ${}");
     if (email != null) {
-      return UserRepository.instance.getUserDetails(email);
+      return await UserRepository.instance.getUserDetails(email);
     } else {
       Get.snackbar("Error", "Login to get email");
     }
   }
 
+  final controller = Get.put(DashboardController());
+
   @override
   void initState() {
-    getUserData();
     super.initState();
   }
 
@@ -65,9 +68,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                 if (documentSnapshots != null) {
                   for (DocumentSnapshot<Object?> snapshot
                       in documentSnapshots) {
-                    // Extract data from the snapshot and create a widget.
-                    var data = snapshot.data() as Map<String,
-                        dynamic>?; // Adjust data type as per your document structure.
+                    var data = snapshot.data() as Map<String, dynamic>?;
 
                     if (data != null) {
                       Widget documentWidget = AppContainer(
@@ -83,92 +84,32 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
                 return widgetsList;
               }
 
-              return CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    scrolledUnderElevation: 0,
-                    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
-                    elevation: 0,
-                    pinned: true,
-                    centerTitle: false,
-                    expandedHeight: 300.h,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: SliderWidget(
-                        item: convertSnapshotsToWidgets(ads),
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Container(
-                        height: 450.h,
-                        width: double.infinity.w,
-                        decoration: BoxDecoration(
-                            color: ColorConstants.mainScaffoldBackgroundColor,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.r),
-                                topRight: Radius.circular(20.r))),
-                        child: Column(
-                          children: [
-                            AppSizes.mediumHeightSizedBox,
-                            Expanded(
-                              child: GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: categories?.length,
-                                  gridDelegate:
-                                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 200,
-                                    crossAxisSpacing: 2,
-                                  ),
-                                  itemBuilder: ((context, index) {
-                                    return Container(
-                                      width: 150.w,
-                                      height: 100.h,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(14.r))),
-                                      child: Stack(
-                                        children: [
-                                          AppContainer(
-                                            imgName: categories?[index]
-                                                ['image'],
-                                            onTap: () => Get.to(
-                                                VendorDisplaypage(
-                                                    title: categories?[index]
-                                                        ['Title']),
-                                                transition:
-                                                    Transition.rightToLeft),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                top: 140.h, left: 20.w),
-                                            child: Text(
-                                                categories?[index]['Title'],
-                                                style: GoogleFonts.poppins(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: ColorConstants
-                                                            .mainScaffoldBackgroundColor))),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  })),
-                            ),
-                            SeeMore(
-                                onTap: () => {
-                                      AuthenticationRepository.instance.logout()
-                                    }),
-                          ],
+              return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 320.w,
+                      child: SearchWidget(
+                        search: SearchFormEntitiy(
+                          hintText: "Search",
+                          searchController: null,
+                          icon: Icon(Icons.search, color: Colors.grey),
+                          type: TextInputType.text,
+                          onChange: (String) {},
                         ),
                       ),
                     ),
-                  )
-                ],
+                    AppSizes.smallHeightSizedBox,
+                    SliderWidget(
+                      item: convertSnapshotsToWidgets(ads),
+                    ),
+                    AppSizes.smallHeightSizedBox,
+                    TopCategory(),
+                    RandomWidget(),
+                    TopRated()
+                  ],
+                ),
               );
             } else if (snpshot.hasError) {
               return Text('Erorr${snpshot.error}');
@@ -177,7 +118,8 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
             }
           } else if (snpshot.connectionState == ConnectionState.waiting) {
             return const DashboardTransition();
-            ;
+          } else if (snpshot.connectionState == ConnectionState.none) {
+            return CircularProgressIndicator();
           } else {
             return const Text("somthing went wrong");
           }

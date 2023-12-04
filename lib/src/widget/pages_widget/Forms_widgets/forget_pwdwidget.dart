@@ -53,6 +53,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                   type: TextInputType.emailAddress,
                   onChange: null,
                   inputFormat: null,
+                  onTap: () {},
                 ),
                 color: ColorConstants.secondaryScaffoldBacground,
               ),

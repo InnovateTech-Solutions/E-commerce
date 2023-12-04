@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/View/Forms/pastlogin_page.dart';
 import 'package:profile_part/src/View/setting/update_profile.dart';
 import 'package:profile_part/src/constant/app_const.dart';
 import 'package:profile_part/src/getx/profile_controller.dart';
@@ -57,8 +58,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     AppSizes.smallHeightSizedBox,
                     SizedBox(
                       height: 300.h,
-                      width: 350.w,
+                      width: double.infinity.w,
                       child: ListView.separated(
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: AppConst.profileList.length,
                         itemBuilder: ((context, index) {
                           return profileWidget(AppConst.profileList[index]);
@@ -75,7 +77,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           } else if (snapShot.hasError) {
             return Center(child: Text('Error${snapShot.error}'));
           } else {
-            return const Text("something went wrong");
+            return PastLoginPage();
           }
         } else if (snapShot.connectionState == ConnectionState.waiting) {
           return ProfileTransition();

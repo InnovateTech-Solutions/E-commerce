@@ -9,7 +9,7 @@ import 'package:profile_part/src/getx/booking_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
-import 'package:profile_part/src/widget/pages_widget/Forms_widgets/pastlogin_widget.dart';
+import 'package:profile_part/src/widget/pages_widget/Forms_widgets/pastlogin_dialog.dart';
 
 class AppointmentsWidget extends StatefulWidget {
   const AppointmentsWidget({required this.vendorModel, super.key});

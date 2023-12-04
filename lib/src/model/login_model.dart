@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 class Login {
   TextEditingController controller = TextEditingController();
@@ -8,6 +7,7 @@ class Login {
   Icon icon;
   bool invisible;
   bool enableText;
+  VoidCallback? onTap;
 
   final String? Function(String?)? validator;
   TextInputType type;
@@ -23,5 +23,6 @@ class Login {
       required this.validator,
       required this.type,
       required this.onChange,
-      required this.inputFormat});
+      required this.inputFormat,
+      required this.onTap});
 }

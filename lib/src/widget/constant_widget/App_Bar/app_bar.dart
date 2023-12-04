@@ -1,11 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/vendor/vendor_page.dart';
 import 'package:profile_part/src/constant/color.dart';
+import 'package:profile_part/src/getx/dashboard_controller.dart';
+import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
+import 'package:profile_part/src/widget/Text_Widget/dashboard_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
+
+final dashboardController = Get.put(DashboardController());
+
+HomeAppBar() {
+  return AppBar(
+    scrolledUnderElevation: 0,
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    elevation: 0,
+    leading: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 20.w,
+          height: 20.h,
+          child: SvgPicture.asset(
+            "assets/location.svg",
+            width: 5.w,
+            height: 5.h,
+          ),
+        ),
+      ],
+    ),
+    title: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Obx(() =>
+            appBarText('Hello ${UserController.instance.username.value} 👋')),
+      ],
+    ),
+    actions: [
+      Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Container(
+              width: 25,
+              height: 25,
+              child: SvgPicture.asset("assets/notification.svg")))
+    ],
+  );
+}
 
 firstAppBar() {
   return AppBar(
@@ -116,6 +159,7 @@ productsAppBar(String title) {
 
 profileAppBar() {
   return AppBar(
+    scrolledUnderElevation: 0,
     backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
     elevation: 0,
     iconTheme: IconThemeData(color: ColorConstants.mainTextColor),
@@ -154,5 +198,20 @@ confirmAppBar(VendorModel vendorModel) {
           color: ColorConstants.mainTextColor,
         )),
     title: mainVendorText('Review and Confirm'),
+  );
+}
+
+signupAppBar() {
+  return AppBar(
+    scrolledUnderElevation: 0,
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    elevation: 0,
+    centerTitle: true,
+    leading: IconButton(
+        onPressed: () => {Get.back()},
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: ColorConstants.mainTextColor,
+        )),
   );
 }

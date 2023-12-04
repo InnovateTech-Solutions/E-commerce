@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:profile_part/src/View/NavBar_pages/main_page.dart';
-import 'package:profile_part/src/View/start_pages/intro_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/user_model.dart';
@@ -36,12 +35,12 @@ class AuthenticationRepository extends GetxController {
   }
 
   _setInitialScreen(User? user) {
-    user == null ? Get.offAll(const IntroPage()) : Get.offAll(const MainPage());
+    user == null ? Get.offAll(const MainPage()) : Get.offAll(const MainPage());
   }
 
   _setScreenGoogle(GoogleSignInAccount? googleSignInAccount) {
     googleSignInAccount == null
-        ? Get.offAll(const IntroPage())
+        ? Get.offAll(const MainPage())
         : Get.offAll(const MainPage());
   }
 
@@ -85,6 +84,8 @@ class AuthenticationRepository extends GetxController {
               name: userName.first,
               password: '',
               phone: '',
+              age: "",
+              gander: "",
               imageUrl: googleSignInAccount
                   .photoUrl)); // Add your account creation logic here
         }

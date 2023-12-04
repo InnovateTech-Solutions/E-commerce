@@ -14,7 +14,7 @@ class FirebaseService extends GetxController {
   Future<Map<String, List<DocumentSnapshot>>> fetchAdsAndCategories() async {
     ////that query fetch all categories , that used in Dashboard widget
     final adsQuery = _db.collection('Ads').get();
-    final categoriesQuery = _db.collection('Categories').limit(4).get();
+    final categoriesQuery = _db.collection('Categories').get();
 
     final results = await Future.wait([adsQuery, categoriesQuery]);
 
