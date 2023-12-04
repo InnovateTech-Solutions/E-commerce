@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:profile_part/src/getx/dashboard_controller.dart';
 import 'package:profile_part/src/model/search_model.dart';
+import 'package:profile_part/src/getx/notifications_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
 import 'package:profile_part/src/repository/service_repository/service_data.dart';
 import 'package:profile_part/src/repository/user_repository/user_repository.dart';
@@ -27,8 +28,12 @@ class DashBoradWidget extends StatefulWidget {
 class _DashBoradWidgetState extends State<DashBoradWidget> {
   final firebaseservice = Get.put(FirebaseService());
   final _authRepo = Get.put(AuthenticationRepository());
+  final notificationsController = Get.put(NotificationsController());
+
   getUserData() async {
     late final email = _authRepo.firebaseUser.value?.email;
+    await notificationsController.updateFCMToken(email);
+    // print("fcmToken ${}");
     if (email != null) {
       return await UserRepository.instance.getUserDetails(email);
     } else {
@@ -40,6 +45,7 @@ class _DashBoradWidgetState extends State<DashBoradWidget> {
 
   @override
   void initState() {
+    getUserData();
     super.initState();
   }
 

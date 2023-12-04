@@ -30,7 +30,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
     String datePart = parts[0];
 
     bookingController.generateTimeList(
-        "12:00 - 22:00", datePart, widget.vendorModel.name);
+        "00:00 - 22:00", datePart, widget.vendorModel.name);
   }
 
   @override
@@ -75,7 +75,7 @@ class _AppointmentsWidgetState extends State<AppointmentsWidget> {
             bookingController.timeList.clear();
             bookingController.bookedTimelist.clear();
             bookingController.generateTimeList(
-                "12:00 - 22:00", datePart, widget.vendorModel.name);
+                "00:00 - 22:00", datePart, widget.vendorModel.name);
           },
         ),
         Obx(() => bookingController.timeList.isEmpty
