@@ -11,7 +11,6 @@ import 'package:profile_part/src/getx/Searchpage_controller.dart';
 import 'package:profile_part/src/getx/app_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/repository/authentication/authentication_repository.dart';
-
 import 'src/repository/payment_reposiory/payment_manger.dart';
 import 'src/repository/payment_reposiory/stripe_keys.dart';
 

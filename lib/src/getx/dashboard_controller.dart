@@ -58,7 +58,6 @@ class DashboardController extends GetxController {
 
   List<String> categoryNames = [
     "dental clinic",
-    "Wellness",
     "Therapy",
     "Spa",
     "Skin care",
