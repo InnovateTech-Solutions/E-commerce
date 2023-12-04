@@ -7,6 +7,8 @@ import 'package:profile_part/src/helpers/actions/get_vendor_image.dart';
 import 'package:profile_part/src/widget/Text_Widget/history_text.dart';
 import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
+import 'package:profile_part/src/widget/pages_widget/checkout/bookdetail_widget.dart';
+import 'package:profile_part/src/widget/partial_widget/booking_partail/not_booked.dart';
 
 class HistoryWidget extends StatefulWidget {
   const HistoryWidget({super.key});
@@ -30,7 +32,7 @@ class _HistoryWidgetState extends State<HistoryWidget> {
     return Obx(() {
       return controller.bookingsToday.isEmpty && controller.bookings.isEmpty
           ? Center(
-              child: CircularProgressIndicator(),
+              child: Center(child: NohistoryWidget()),
             )
           : Container(
               margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
@@ -64,7 +66,14 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                                   String first10CharsWithEllipsis =
                                       first10Chars + ellipsis;
                                   return GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      showBookingInfo(
+                                          context,
+                                          bookingData['vendorName'],
+                                          bookingData['date'],
+                                          bookingData['time'],
+                                          bookingData['price']);
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,

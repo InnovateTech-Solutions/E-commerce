@@ -10,7 +10,6 @@ import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/dashboard_text.dart';
 import 'package:profile_part/src/widget/Text_Widget/vendor_text.dart';
-import 'package:profile_part/src/widget/partial_widget/dashboard_partial.dart/appbar_partial.dart';
 
 final dashboardController = Get.put(DashboardController());
 
@@ -38,7 +37,6 @@ HomeAppBar() {
       children: [
         Obx(() =>
             appBarText('Hello ${UserController.instance.username.value} 👋')),
-        Obx(() => currentLocation()),
       ],
     ),
     actions: [
