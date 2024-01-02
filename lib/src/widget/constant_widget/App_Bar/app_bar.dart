@@ -157,6 +157,41 @@ productsAppBar(String title) {
   );
 }
 
+topRatedAppBar(String title) {
+  return AppBar(
+    leading: IconButton(
+        onPressed: () => Get.back(),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: ColorConstants.mainTextColor,
+        )),
+    backgroundColor: ColorConstants.mainScaffoldBackgroundColor,
+    elevation: 0,
+    centerTitle: true,
+    title: Text(
+      title,
+      style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+              fontSize: 24.sp,
+              fontWeight: FontWeight.w400,
+              color: ColorConstants.mainTextColor)),
+    ),
+    actions: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.search_outlined,
+                color: ColorConstants.mainTextColor,
+              ))
+        ],
+      )
+    ],
+  );
+}
+
 profileAppBar() {
   return AppBar(
     scrolledUnderElevation: 0,

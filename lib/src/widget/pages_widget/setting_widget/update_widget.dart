@@ -129,42 +129,21 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
                             ),
                             AppSizes.smallHeightSizedBox,
                             textFieldLabel(AppConst.gander),
-                            Obx(
-                              () => dropDown(),
-                            ),
                             AppSizes.smallHeightSizedBox,
                             textFieldLabel(AppConst.age),
-                            FormWidget(
-                              login: Login(
-                                enableText: true,
-                                controller: validator.age,
-                                hintText: AppConst.age,
-                                icon: const Icon(Icons.person),
-                                invisible: false,
-                                validator: (age) => validator.validateAge(age),
-                                type: TextInputType.datetime,
-                                onChange: null,
-                                inputFormat: null,
-                                onTap: () {
-                                  validator.selectDate(context);
-                                },
-                              ),
-                              color: ColorConstants.mainScaffoldBackgroundColor,
-                            ),
                             AppSizes.smallHeightSizedBox,
                             onLoginContainer(
                                 onTap: () async {
                                   if ((controller.fromkey.currentState!
                                       .validate())) {
                                     final userData = UserModel(
-                                        id: id.text.trim(),
-                                        email: email.text.trim(),
-                                        name: userName.text.trim(),
-                                        password: password.text.trim(),
-                                        phone: phoneNumber.text.trim(),
-                                        imageUrl: "",
-                                        age: "",
-                                        gander: "");
+                                      id: id.text.trim(),
+                                      email: email.text.trim(),
+                                      name: userName.text.trim(),
+                                      password: password.text.trim(),
+                                      phone: phoneNumber.text.trim(),
+                                      imageUrl: "",
+                                    );
                                     await controller.updateRecord(userData);
                                   }
                                   dispose();
@@ -188,44 +167,5 @@ class _UpdateProfileWidgetState extends State<UpdateProfileWidget> {
             return const Text("somthing went wrong");
           }
         }));
-  }
-
-  dropDown() {
-    return Container(
-      height: 50.h,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2.r,
-              blurRadius: 3.r,
-              offset: const Offset(0, 2)),
-        ],
-        borderRadius: BorderRadius.all(Radius.circular(10.r)),
-        color: ColorConstants.mainScaffoldBackgroundColor,
-      ),
-      child: DropdownButton<String>(
-        hint: Text("Gender"),
-        underline: Container(
-          color: ColorConstants.mainScaffoldBackgroundColor,
-        ),
-        isExpanded: true,
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.r),
-        value: validator.selectedItem.value == ""
-            ? null
-            : validator.selectedItem.value,
-        onChanged: (newValue) {
-          validator.upDateSelectedItem(newValue.toString());
-        },
-        items: AppConst.dropDownList.map<DropdownMenuItem<String>>((value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: textFieldLabel(
-              value,
-            ),
-          );
-        }).toList(),
-      ),
-    );
   }
 }

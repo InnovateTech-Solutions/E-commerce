@@ -18,32 +18,41 @@ class PastLoginWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final logController = Get.put(LoginController());
     final _authcontroller = Get.put(AuthenticationRepository());
-    return Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            mainPastLoginText(AppConst.pastlogin),
-            AppSizes.smallHeightSizedBox,
-            secondaryPastLoginText(AppConst.pastloginText),
-            AppSizes.smallHeightSizedBox,
-            continueContainer(
-                title: AppConst.googleContainerText,
-                imgname: AppConst.googleimg,
-                callback: _authcontroller.signInWithGoogle),
-            AppSizes.smallHeightSizedBox,
-            continueContainer(
-                title: AppConst.appleCotanierText,
-                imgname: AppConst.appleimg,
-                callback: () => _authcontroller.signInWithGoogle),
-            AppSizes.smallHeightSizedBox,
-            AppConst.pageDivider,
-            AppSizes.smallHeightSizedBox,
-            Form(
-                key: logController.formkey,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                mainPastLoginText(AppConst.pastlogin),
+                AppSizes.smallHeightSizedBox,
+                secondaryPastLoginText(AppConst.pastloginText),
+                AppSizes.smallHeightSizedBox,
+                continueContainer(
+                    title: AppConst.googleContainerText,
+                    imgname: AppConst.googleimg,
+                    callback: _authcontroller.signInWithGoogle),
+                AppSizes.smallHeightSizedBox,
+                continueContainer(
+                    title: AppConst.appleCotanierText,
+                    imgname: AppConst.appleimg,
+                    callback: () => _authcontroller.signInWithGoogle),
+                AppSizes.smallHeightSizedBox,
+                AppConst.pageDivider,
+                AppSizes.smallHeightSizedBox,
+              ],
+            ),
+          ),
+          Form(
+              key: logController.formkey,
+              child: Container(
+                margin: EdgeInsets.all(10),
                 child: Column(
                   children: [
                     FormWidget(
@@ -85,9 +94,9 @@ class PastLoginWidget extends StatelessWidget {
                         onTap: () => {logController.onLogin()}),
                     dontHaveAccountRow(),
                   ],
-                )),
-          ],
-        ),
+                ),
+              )),
+        ],
       ),
     );
   }

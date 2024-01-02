@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:profile_part/src/View/vendor/vendor_display.dart';
+import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/widget/Text_Widget/form_text.dart';
-import 'package:profile_part/src/widget/custom_Widget.dart/dashboard_title.dart';
 
 import '../../../repository/service_repository/service_data.dart';
+import '../../Text_Widget/dashboard_text.dart';
 
 class CategoryContainer extends StatelessWidget {
   const CategoryContainer(
@@ -53,7 +55,7 @@ class TopCategory extends StatelessWidget {
 
               return Column(
                 children: [
-                  DashboardTitle("Trending Categories", () {
+                  trendingCategoriesHeader(seeMore, () {
                     seeMore.toggle();
                     if (seeMore.isTrue) {
                       itemCont(categories.length);
@@ -173,5 +175,28 @@ class TopCategory extends StatelessWidget {
             return const Text("somthing went wrong");
           }
         });
+  }
+
+  trendingCategoriesHeader(RxBool seeMore, VoidCallback onTap) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          dashoboardMainText("Trending Categories"),
+          TextButton(
+            onPressed: onTap,
+            child: Obx(
+              () => Text(seeMore.isTrue ? "see less" : "see more",
+                  style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: ColorConstants.mainTextColor))),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

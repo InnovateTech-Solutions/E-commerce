@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:profile_part/src/View/Forms/secregister_page.dart';
 import 'package:profile_part/src/View/NavBar_pages/main_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/user_model.dart';
@@ -17,13 +15,11 @@ class RegisterController extends GetxController {
   final TextEditingController confirmPassword = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController userName = TextEditingController();
-  final TextEditingController gander = TextEditingController();
-  final TextEditingController age = TextEditingController();
-  final firstFormkey = GlobalKey<FormState>();
-  final secondFormkey = GlobalKey<FormState>();
+  final Formkey = GlobalKey<FormState>();
+  final size = false.obs;
+
   late UserModel user;
   final userRepository = Get.put(UserRepository);
-  RxString selectedItem = "".obs;
 
   var maskFormatterPhone = MaskTextInputFormatter(
       mask: '### ### ####',
@@ -44,13 +40,6 @@ class RegisterController extends GetxController {
       return null;
     }
     return 'Email is not vaild';
-  }
-
-  validateAge(String? age) {
-    if (age!.isNotEmpty) {
-      return null;
-    }
-    return 'Date of Birth is not vaild';
   }
 
   vaildatePassword(String? password) {
@@ -101,13 +90,8 @@ class RegisterController extends GetxController {
     }
   }
 
-  void upDateSelectedItem(String value) {
-    selectedItem.value = value;
-    gander.text = selectedItem.value;
-  }
-
   Future<void> onSignup(UserModel user) async {
-    if (secondFormkey.currentState!.validate() && gander.text != "") {
+    if (Formkey.currentState!.validate()) {
       bool usernameCheck = await isUsernameTaken(user.name);
       if (!usernameCheck) {
         Future<bool> code = AuthenticationRepository()
@@ -130,46 +114,8 @@ class RegisterController extends GetxController {
             colorText: ColorConstants.mainScaffoldBackgroundColor,
             backgroundColor: ColorConstants.snakbarColorError);
       }
-    }
-  }
-
-  Future<void> secondScreenNavigate() async {
-    if (firstFormkey.currentState!.validate()) {
-      Get.to(SecRegisterPage());
     } else {
-      Get.snackbar("ERROR", "Invalid Data",
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: ColorConstants.mainScaffoldBackgroundColor,
-          backgroundColor: ColorConstants.snakbarColorError);
-    }
-  }
-
-  var dateInput = "".obs;
-
-  Future<void> selectDate(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1950),
-      lastDate: DateTime(2100),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            primaryColor: ColorConstants.secondaryScaffoldBacground,
-            colorScheme:
-                ColorScheme.light(primary: ColorConstants.mainTextColor),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
-          ),
-          child: child!,
-        );
-      },
-    );
-
-    if (pickedDate != null) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-      dateInput.value = formattedDate;
-      age.text = dateInput.value;
-      print(age.text);
+      size.value = true;
     }
   }
 }

@@ -8,7 +8,7 @@ bookingMainText(String title) {
       textAlign: TextAlign.start,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 25.sp,
               fontWeight: FontWeight.w500,
               color: ColorConstants.greyColor)));
 }
@@ -27,9 +27,8 @@ phoneText(VoidCallback ontap, String title) {
   );
 }
 
-dateText(String title) {
+serviceText(String title) {
   return Text(title,
-      textAlign: TextAlign.center,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
               fontSize: 18.sp,
@@ -37,12 +36,20 @@ dateText(String title) {
               color: ColorConstants.mainTextColor)));
 }
 
-timeText(String title) {
+dateText(String title) {
   return Text(title,
-      textAlign: TextAlign.center,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(
-              fontSize: 14.sp,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
+              color: ColorConstants.mainTextColor)));
+}
+
+noteText(String title) {
+  return Text(title,
+      style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+              fontSize: 18.sp,
               fontWeight: FontWeight.w400,
               color: ColorConstants.greyColor)));
 }

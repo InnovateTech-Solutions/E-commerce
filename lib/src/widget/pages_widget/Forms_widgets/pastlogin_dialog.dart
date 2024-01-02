@@ -28,7 +28,8 @@ void pastLoginDialoge(String confirmTime, String confirmDate,
     builder: (
       context,
     ) {
-      return SizedBox(
+      return Container(
+        margin: EdgeInsets.all(10),
         height: 500.h,
         child: Padding(
           padding: const EdgeInsets.all(18.0),

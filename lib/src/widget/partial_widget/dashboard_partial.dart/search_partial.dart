@@ -24,7 +24,7 @@ class _SearchWidgetState extends State<SearchWidget> {
         )),
         child: TextFormField(
             style: GoogleFonts.poppins(
-              textStyle: TextStyle(color: ColorConstants.buttonColor),
+              textStyle: TextStyle(color: ColorConstants.mainTextColor),
             ),
             cursorColor: Colors.grey[700],
             keyboardType: widget.search.type,

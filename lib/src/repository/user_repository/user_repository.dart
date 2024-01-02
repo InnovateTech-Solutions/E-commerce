@@ -94,8 +94,10 @@ class UserRepository extends GetxController {
       if (querySnapshot.docs.isNotEmpty) {
         var userDoc = querySnapshot.docs.first;
         userDoc.reference.update({'imageUrl': userModel.imageUrl});
+        update();
       }
     });
+    update();
   }
 
   void pickUpImage() async {
@@ -114,8 +116,10 @@ class UserRepository extends GetxController {
       await referenceImageToUpload.putFile(File(file.path));
 
       userModel.imageUrl = await referenceImageToUpload.getDownloadURL();
+      update();
 
       addImage();
+      update();
     } catch (error) {
       Text(error.toString());
     }

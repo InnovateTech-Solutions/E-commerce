@@ -61,16 +61,12 @@ class UserController extends GetxController {
     await prefs.setString('username', user.name);
     await prefs.setString('email', user.email);
     await prefs.setString('phone', user.phone);
-    await prefs.setString('gender', user.gander ?? '');
 
-    await prefs.setString('age', user.age ?? '');
     await prefs.setBool('isLoggedIn', true);
 
     username.value = user.name;
     email.value = user.email;
     phone.value = user.phone;
-    age.value = user.age ?? '';
-    gender.value = user.gander ?? '';
     isLoggedIn.value = true;
   }
 

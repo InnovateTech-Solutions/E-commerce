@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/login_model.dart';
 
 // ignore: must_be_immutable
@@ -22,11 +21,11 @@ class _FormWidgetState extends State<FormWidget> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10.r)),
           boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2.r,
-                blurRadius: 3.r,
-                offset: const Offset(0, 2)),
+            // BoxShadow(
+            //     color: Colors.grey.withOpacity(0.2),
+            //     spreadRadius: 2.r,
+            //     blurRadius: 3.r,
+            //     offset: const Offset(0, 2)),
           ],
         ),
         child: TextFormField(
@@ -40,15 +39,13 @@ class _FormWidgetState extends State<FormWidget> {
             controller: widget.login.controller,
             decoration: InputDecoration(
               filled: true,
-              fillColor: widget.color,
+              fillColor: Colors.black.withOpacity(0.09),
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorConstants.secondaryScaffoldBacground),
+                  borderSide: BorderSide(color: Colors.black.withOpacity(0.1)),
                   borderRadius: BorderRadius.all(Radius.circular(7.r))),
               border: const OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorConstants.secondaryScaffoldBacground),
+                  borderSide: BorderSide(color: Colors.black.withOpacity(0.1)),
                   borderRadius: BorderRadius.all(Radius.circular(7.r))),
               hintText: widget.login.hintText,
             )),

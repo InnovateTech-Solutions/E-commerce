@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/View/vendor/top_rated_page.dart';
 import 'package:profile_part/src/View/vendor/vendor_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/model/vendor_model.dart';
@@ -28,7 +29,9 @@ class TopRated extends StatelessWidget {
           final vendors = snapshot.data!;
           return Column(
             children: [
-              DashboardTitle("Top Rated", () {}),
+              DashboardTitle("Top Rated", () {
+                Get.to(TopRatedPage());
+              }),
               SizedBox(
                 width: 350.w,
                 height: 250.h,

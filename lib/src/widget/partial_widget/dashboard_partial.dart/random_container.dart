@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:profile_part/src/View/vendor/vendor_display.dart';
 import 'package:profile_part/src/View/vendor/vendor_page.dart';
 import 'package:profile_part/src/constant/color.dart';
 import 'package:profile_part/src/getx/dashboard_controller.dart';
@@ -27,7 +28,10 @@ class RandomWidget extends GetView<DashboardController> {
           final vendors = snapshot.data!;
           return Column(
             children: [
-              DashboardTitle(controller.categoryNames[randomIndex], () {}),
+              DashboardTitle(controller.categoryNames[randomIndex], () {
+                Get.to(VendorDisplaypage(
+                    title: controller.categoryNames[randomIndex]));
+              }),
               SizedBox(
                 width: double.infinity.w,
                 height: 200.h,

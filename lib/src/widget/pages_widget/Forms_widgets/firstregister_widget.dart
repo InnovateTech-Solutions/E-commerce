@@ -27,16 +27,11 @@ class _FirstRegisterWidgetState extends State<FirstRegisterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    @override
-    void dispose() {
-      super.dispose();
-      controller.dispose();
-    }
-
     void clearText() {
+      controller.email.clear();
+      controller.userName.clear();
+      controller.password.clear();
       controller.phoneNumber.clear();
-      controller.age.clear();
-      controller.gander.clear();
     }
 
     return SingleChildScrollView(
@@ -45,10 +40,10 @@ class _FirstRegisterWidgetState extends State<FirstRegisterWidget> {
         children: [
           Center(
             child: Form(
-                key: controller.firstFormkey,
+                key: controller.Formkey,
                 child: SizedBox(
                   height: 520.h,
-                  width: 320.w,
+                  width: 330.w,
                   child: ListView(
                     children: [
                       mainText("Register Your Account"),
@@ -106,48 +101,52 @@ class _FirstRegisterWidgetState extends State<FirstRegisterWidget> {
                         color: ColorConstants.mainScaffoldBackgroundColor,
                       ),
                       AppSizes.smallHeightSizedBox,
-                      textFieldLabel(AppConst.confirmPassword),
+                      textFieldLabel(AppConst.phoneNumber),
                       FormWidget(
                         login: Login(
                           enableText: false,
-                          controller: controller.confirmPassword,
-                          hintText: AppConst.confirmPassword,
-                          icon: const Icon(Icons.password),
-                          invisible: true,
-                          validator: (password) =>
-                              controller.validConfirmPassword(password),
-                          type: TextInputType.visiblePassword,
+                          controller: controller.phoneNumber,
+                          hintText: AppConst.phoneNumber,
+                          icon: const Icon(Icons.phone),
+                          invisible: false,
+                          validator: (email) =>
+                              controller.vaildPhoneNumber(email),
+                          type: TextInputType.number,
                           onChange: null,
-                          inputFormat: null,
+                          inputFormat: [controller.maskFormatterPhone],
                           onTap: () {},
                         ),
                         color: ColorConstants.mainScaffoldBackgroundColor,
                       ),
-                      AppSizes.mediumHeightSizedBox,
+                      Obx(
+                        () => controller.size.value == false
+                            ? AppSizes.mediumHeightSizedBox
+                            : Container(),
+                      ),
                       Container(
+                        margin: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2.r,
-                                blurRadius: 10.r,
-                                offset: const Offset(0, 2)),
-                          ],
                         ),
                         child: onLoginContainer(
                             onTap: () => {
-                                  controller.secondScreenNavigate(),
+                                  controller.onSignup(UserModel(
+                                    email: controller.email.text.trim(),
+                                    name: controller.userName.text.trim(),
+                                    password: controller.password.text.trim(),
+                                    phone: controller.phoneNumber.text.trim(),
+                                    imageUrl: '',
+                                  )),
                                   userController.saveUserInfo(UserModel(
-                                      email: controller.email.text.trim(),
-                                      name: controller.userName.text.trim(),
-                                      password: controller.password.text.trim(),
-                                      phone: controller.phoneNumber.text.trim(),
-                                      imageUrl: '',
-                                      age: controller.age.text.trim(),
-                                      gander: controller.gander.text.trim()))
+                                    email: controller.email.text.trim(),
+                                    name: controller.userName.text.trim(),
+                                    password: controller.password.text.trim(),
+                                    phone: controller.phoneNumber.text.trim(),
+                                    imageUrl: '',
+                                  )),
+                                  clearText()
                                 },
-                            title: "Next"),
+                            title: "Create Account"),
                       )
                     ],
                   ),

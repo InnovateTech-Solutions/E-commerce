@@ -21,7 +21,9 @@ class SimilarWidget extends GetView {
     return GestureDetector(
       onTap: () {},
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // dashoboardMainText("Similer ${vendorController.vendorCategory}"),
           Obx(() {
             if (vendorController.vendors.isEmpty) {
               return Container(); // Show a loading indicator while data is loading.

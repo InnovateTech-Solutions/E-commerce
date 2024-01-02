@@ -31,7 +31,8 @@ class VendorWidget extends GetView<Appcontroller> {
     final cartController = Get.put(ServiceController());
     Get.put(Appcontroller());
     return FutureBuilder(
-        future: FirebaseService.instance.fetchServicebyName(vendor.name),
+        future: Future.delayed(Duration(milliseconds: 500),
+            () => FirebaseService.instance.fetchServicebyName(vendor.name)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:profile_part/src/getx/history_controller.dart';
 import 'package:profile_part/src/getx/user_controller.dart';
 import 'package:profile_part/src/helpers/actions/get_vendor_image.dart';
+import 'package:profile_part/src/model/booking_model.dart';
 import 'package:profile_part/src/widget/Text_Widget/history_text.dart';
 import 'package:profile_part/src/widget/constant_widget/const_widget/constant_widget.dart';
 import 'package:profile_part/src/widget/constant_widget/sizes/sized_box.dart';
@@ -67,12 +68,18 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                                       first10Chars + ellipsis;
                                   return GestureDetector(
                                     onTap: () {
-                                      showBookingInfo(
-                                          context,
-                                          bookingData['vendorName'],
-                                          bookingData['date'],
-                                          bookingData['time'],
-                                          bookingData['price']);
+                                      Get.to(ShowBookingInfo(
+                                        booking: Booking(
+                                          vendorName: bookingData['vendorName'],
+                                          time: bookingData['time'],
+                                          date: bookingData['date'],
+                                          note: bookingData['note'],
+                                          totalPrice: 44,
+                                          userEmail: '',
+                                          services: List<String>.from(
+                                              bookingData['services']),
+                                        ),
+                                      ));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -83,6 +90,8 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                                           child: Row(
                                             children: [
                                               VendorImage(
+                                                  height: 70.h,
+                                                  width: 75.w,
                                                   image: bookingData[
                                                       'vendorName']),
                                               AppSizes.smallWidthSizedBox,
@@ -134,7 +143,20 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                             String first10CharsWithEllipsis =
                                 first10Chars + ellipsis;
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Get.to(ShowBookingInfo(
+                                  booking: Booking(
+                                    vendorName: bookingData['vendorName'],
+                                    time: bookingData['time'],
+                                    date: bookingData['date'],
+                                    note: bookingData['note'],
+                                    totalPrice: 44,
+                                    userEmail: '',
+                                    services: List<String>.from(
+                                        bookingData['services']),
+                                  ),
+                                ));
+                              },
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -144,6 +166,8 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                                     child: Row(
                                       children: [
                                         VendorImage(
+                                            height: 70.h,
+                                            width: 75.w,
                                             image: bookingData['vendorName']),
                                         AppSizes.smallWidthSizedBox,
                                         Column(

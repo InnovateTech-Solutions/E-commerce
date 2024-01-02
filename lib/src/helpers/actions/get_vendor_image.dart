@@ -4,8 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:profile_part/src/constant/color.dart';
 
 class VendorImage extends StatelessWidget {
-  const VendorImage({required this.image, super.key});
+  const VendorImage(
+      {required this.image,
+      super.key,
+      required this.height,
+      required this.width});
   final String image;
+  final double width;
+  final double height;
+
   Future<String> getImageUrl(String name) async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
@@ -45,13 +52,13 @@ class VendorImage extends StatelessWidget {
         } else {
           // Use the retrieved image URL as needed
           return Container(
-            height: 70.h,
-            width: 75.w,
+            height: height,
+            width: width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10.r)),
                 color: ColorConstants.secondaryScaffoldBacground,
                 image: DecorationImage(
-                    image: NetworkImage(snapshot.data!), fit: BoxFit.fill)),
+                    image: NetworkImage(snapshot.data!), fit: BoxFit.cover)),
           );
         }
       },

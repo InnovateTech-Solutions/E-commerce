@@ -14,6 +14,7 @@ class ColorConstants {
   static Color buttonColor = const Color(0xffEC6453);
   static Color backProductButton = const Color(0xffE0E1E3);
   static Color greyColor = const Color(0xff808080);
+  static Color formColor = Colors.black.withOpacity(0.5);
 
   static Color generateRandomColor() {
     final random = Random();

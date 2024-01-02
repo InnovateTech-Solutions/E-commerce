@@ -63,6 +63,8 @@ class _MyAppointmentState extends State<MyAppointment> {
                                       child: Row(
                                         children: [
                                           VendorImage(
+                                              height: 70.h,
+                                              width: 75.w,
                                               image: bookingData['vendorName']),
                                           AppSizes.smallWidthSizedBox,
                                           Column(
