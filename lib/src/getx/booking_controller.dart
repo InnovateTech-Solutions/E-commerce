@@ -128,8 +128,8 @@ class BookingController extends GetxController {
 
     while (currentTime.hour < endHour ||
         (currentTime.hour == endHour && currentTime.minute <= endMinute)) {
-      final time =
-          '${currentTime.hour}:${currentTime.minute.toString().padLeft(2, '0')}';
+      final time = 
+        '${currentTime.hour.toString().padLeft(2, '0')}:${currentTime.minute.toString().padLeft(2, '0')}';
 
       if (!bookedTimelist.contains(time) && !timeList.contains(time)) {
         timeList.add(time);
@@ -138,7 +138,7 @@ class BookingController extends GetxController {
       }
 
       currentTime =
-          currentTime.add(Duration(minutes: 30)); // Increment by 30 minutes
+          currentTime.add(Duration(minutes: 30)); 
     }
 
     print("timeList: ${timeList}");

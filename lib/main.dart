@@ -22,8 +22,9 @@ void main() async {
   await WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
+      
 
-  notificationsController.initializeNotification();
+  await notificationsController.initializeNotification();
   notificationsController.requestIOSPermissions();
   // Initialize flutter_local_notifications
  
@@ -39,16 +40,18 @@ void main() async {
     print("Foreground notification: ${message.data.toString()}");
     // Handle foreground notification
   });
-
+  
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-     print("Terminated notification: ${message.data.toString()}");
-    String title = message.notification?.title ?? "";
-    String body = message.notification?.body ?? "";
-     notificationsController.displayNotification(title: title, body: body);
-    // Handle terminated notification
-  });
+  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+  //     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
+  //     .then((value) => Get.put(AuthenticationRepository()));
+  //    print("Terminated notification: ${message.data.toString()}");
+  //   String title = message.notification?.title ?? "";
+  //   String body = message.notification?.body ?? "";
+  //   await notificationsController.displayNotification(title: title, body: body);
+  //   // Handle terminated notification
+  // });
   
   Get.put(Appcontroller());
   Get.put(SearchPageController());
@@ -58,6 +61,7 @@ void main() async {
   Stripe.publishableKey = ApiKeys.publishableKey;
 
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -88,8 +92,7 @@ final _firebaseMessaging =FirebaseMessaging.instance;
     await _firebaseMessaging.requestPermission();
     notificationsController.fcmToken = await _firebaseMessaging.getToken() ?? "";
 
-
-    // final fcmToken = await _firebaseMessaging.getToken();
+  // final fcmToken = await _firebaseMessaging.getToken();
 
     print('token ${notificationsController.fcmToken}');
 
@@ -100,20 +103,29 @@ final _firebaseMessaging =FirebaseMessaging.instance;
     if(message == null) return;
      String title = message.notification?.title ?? "";
      String body = message.notification?.body ?? "";
-     notificationsController.displayNotification(title: title, body: body); // displays local push notification
+     notificationsController.displayNotification(title: title, body: body); 
     print('handleMessage $message');
 
   }
 
   // Handle background notification
+  @pragma('vm:entry-point')
   Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+ try {
+
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     String title = message.notification?.title ?? "";
     String body = message.notification?.body ?? "";
-    notificationsController.displayNotification(title: title, body: body);  // displays local push notification
-     print("Background notification: ${message.data.toString()}");
+    await notificationsController.displayNotification(title: title, body: body);
+    print("Background notification: ${message.data.toString()}");
+
+  } catch (e) {
+    print("Error initializing Firebase in background handler: $e");
+  }
 }
   //handle notification when the app is terminated
   Future initPushNotifications() async  {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
   }

@@ -3,16 +3,19 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-exports.sendNotificationOnNameUpdate = functions.firestore
-    .document('User/{UserName}')
-    .onUpdate(async (change, context) => {          
+exports.scheduleNotifications = functions.pubsub.schedule('45 * * * *').timeZone('Asia/Amman').onRun(async (context) => {        
         const currentDate = new Date();
 
         // Set the timezone to 'Asia/Amman'
         const options = { timeZone: 'Asia/Amman' };
-        const formattedDate = currentDate.getFullYear() + "-" +(currentDate.getMonth()+1) + "-" + (currentDate.getDate()+1) ;
-        // const formattedDate = currentDate.toLocaleString('en-US', { ...options, year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
-        
+        // const formattedDate = currentDate.getFullYear() + "-" +(currentDate.getMonth()+1) + "-" + (currentDate.getDate()+1) ;
+        const dateNotFormatted = currentDate.toLocaleString('en-US', { ...options, year: 'numeric', month: '2-digit', day: '2-digit' }).split(', ')[0];
+
+        // Split the date string by '/'
+        const [month, day, year] = dateNotFormatted.split('/');
+
+        // Ensure two-digit month and day
+        const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
         // Calculate the start and end times for the next hour
         const nextHourStart = new Date(currentDate);
         nextHourStart.setMinutes(0, 0, 0);

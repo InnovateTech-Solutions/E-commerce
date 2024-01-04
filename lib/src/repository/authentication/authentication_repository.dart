@@ -23,16 +23,22 @@ class AuthenticationRepository extends GetxController {
   final userRepository = Get.put(UserRepository());
 
   @override
-  void onReady() {
-    super.onReady();
+  void onInit() {
+    super.onInit();
     firebaseUser = Rx<User?>(_auth.currentUser);
-
     googleSignInAccount = Rx<GoogleSignInAccount?>(googleSign.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
     googleSignInAccount.bindStream(googleSign.onCurrentUserChanged);
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    ever(firebaseUser, _setInitialScreen);
     ever(googleSignInAccount, _setScreenGoogle);
   }
+
+
 
   _setInitialScreen(User? user) {
     user == null ? Get.offAll(const MainPage()) : Get.offAll(const MainPage());
